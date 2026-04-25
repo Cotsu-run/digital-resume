@@ -801,6 +801,23 @@ section {
   white-space: nowrap;
 }
 
+.case-link-icon {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  color: var(--gray);
+  transition: color 0.3s, transform 0.3s;
+}
+
+a.case-study {
+  position: relative;
+}
+
+a.case-study:hover .case-link-icon {
+  color: #60a5fa;
+  transform: translate(2px, -2px);
+}
+
 .case-body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -1341,7 +1358,7 @@ footer {
     </div>
 
     <!-- Case Study 2: Axonstech -->
-    <div class="case-study reveal" style="transition-delay: 0.1s;">
+    <a href="https://axonstech.com/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.1s; text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
         <div>
           <div class="case-number">CASE 02</div>
@@ -1373,10 +1390,13 @@ footer {
           </ul>
         </div>
       </div>
-    </div>
+      <div class="case-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+    </a>
 
     <!-- Case Study 3: LHB YOU -->
-    <div class="case-study reveal" style="transition-delay: 0.2s;">
+    <a href="https://www.lhbank.co.th/th/personal/digitalbanking/lhbyou/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.2s; text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
         <div>
           <div class="case-number">CASE 03</div>
@@ -1411,7 +1431,10 @@ footer {
           </ul>
         </div>
       </div>
-    </div>
+      <div class="case-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+    </a>
 
     <!-- Case Study 4: Operational Solutions -->
     <div class="case-study reveal" style="transition-delay: 0.1s;">
@@ -1449,7 +1472,7 @@ footer {
     </div>
 
     <!-- Case Study 5: Tops Supermarket -->
-    <div class="case-study reveal" style="transition-delay: 0.2s;">
+    <a href="https://apps.apple.com/us/app/tops-online-food-grocery/id541492660" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.2s; text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
         <div>
           <div class="case-number">CASE 05</div>
@@ -1480,7 +1503,10 @@ footer {
           <p>Removed time and location barriers, making grocery shopping scalable while increasing customer reach and revenue.</p>
         </div>
       </div>
-    </div>
+      <div class="case-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+    </a>
 
   </div>
 </section>
