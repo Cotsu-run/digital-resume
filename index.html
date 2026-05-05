@@ -55,41 +55,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Stars background ─── */
-#stars-bg {
+/* ─── Neural vortex background ─── */
+#neuro {
   position: fixed;
   inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  background: radial-gradient(ellipse at bottom, #262626 0%, #000 100%);
-}
-
-.star-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 4000px;
-  will-change: transform;
-}
-
-.star-layer .star-dots,
-.star-layer .star-dots-clone {
-  position: absolute;
-  background: transparent;
-  border-radius: 50%;
-}
-
-.star-layer .star-dots { top: 0; }
-.star-layer .star-dots-clone { top: 2000px; }
-
-.star-layer-1 { animation: starsScroll 50s linear infinite; }
-.star-layer-2 { animation: starsScroll 100s linear infinite; }
-.star-layer-3 { animation: starsScroll 150s linear infinite; }
-
-@keyframes starsScroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(-2000px); }
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.95;
+  background: #000;
 }
 
 ::selection {
@@ -997,6 +972,95 @@ footer {
   z-index: 1;
 }
 
+/* ─── Back to top ─── */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(0, 229, 255, 0.06));
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25), 0 0 60px rgba(0, 229, 255, 0.08);
+  opacity: 0;
+  transform: translateY(16px) scale(0.92);
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    transparent 0%,
+    transparent 60%,
+    #3b82f6 72%,
+    #60a5fa 80%,
+    #00e5ff 88%,
+    transparent 95%,
+    transparent 100%
+  );
+  z-index: -2;
+  animation: shiny-gradient-angle 3s infinite linear;
+}
+
+.back-to-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(10, 14, 26, 0.95), rgba(10, 14, 26, 0.88));
+  z-index: -1;
+}
+
+.back-to-top svg {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 80px rgba(0, 229, 255, 0.2);
+}
+
+.back-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
 /* ─── Scroll reveal ─── */
 .reveal {
   opacity: 0;
@@ -1032,7 +1096,17 @@ footer {
     backdrop-filter: blur(20px);
   }
   .nav-hamburger { display: flex; }
-  .lang-selector { margin-right: 0.5rem; }
+  /* Hide the inline language selector from the top bar on mobile */
+  nav > .lang-selector { display: none; }
+  /* When JS moves it inside the open mobile dropdown, center it on its own row */
+  .nav-links .nav-lang-li {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.75rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
   section { padding: 4rem 1.25rem; }
   .about-details { grid-template-columns: 1fr; }
   .case-body { grid-template-columns: 1fr; }
@@ -1054,21 +1128,8 @@ footer {
 </head>
 <body>
 
-<!-- Stars Background -->
-<div id="stars-bg">
-  <div class="star-layer star-layer-1">
-    <div class="star-dots" id="stars1"></div>
-    <div class="star-dots-clone" id="stars1c"></div>
-  </div>
-  <div class="star-layer star-layer-2">
-    <div class="star-dots" id="stars2"></div>
-    <div class="star-dots-clone" id="stars2c"></div>
-  </div>
-  <div class="star-layer star-layer-3">
-    <div class="star-dots" id="stars3"></div>
-    <div class="star-dots-clone" id="stars3c"></div>
-  </div>
-</div>
+<!-- Interactive Neural Vortex Background -->
+<canvas id="neuro"></canvas>
 
 <!-- Navigation -->
 <nav id="nav">
@@ -1078,7 +1139,6 @@ footer {
     <li><a href="#experience">Experience</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="lang-selector" id="langSelector">
     <button class="lang-btn active" data-lang="en">EN</button>
@@ -1095,20 +1155,19 @@ footer {
   <div class="hero-content">
     <div class="hero-label-pill">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      8+ years crafting digital products
+      9+ years crafting digital products
     </div>
     <div class="hero-text">
       <h1>
         <span class="hero-static">Designing something</span>
         <span class="hero-cycling-wrapper" id="cyclingWrapper">
-          <span class="hero-cycling-word active" style="color: #00e5ff;">initiative</span>
-          <span class="hero-cycling-word" style="color: #ff00ff;">useful</span>
-          <span class="hero-cycling-word" style="color: #ffff00;">friendly</span>
-          <span class="hero-cycling-word" style="color: #22c55e;">impactful</span>
+          <span class="hero-cycling-word active" style="color: #00e5ff;">different</span>
+          <span class="hero-cycling-word" style="color: #ff00ff;">flexible</span>
+          <span class="hero-cycling-word" style="color: #ffff00;">efficient</span>
 
         </span>
       </h1>
-      <p class="hero-tagline">I'm Rasri — a passionate Product & UX/UI Designer who blends functionality with creativity, delivering products that prioritize usability and solve real-world problems.</p>
+      <p class="hero-tagline">I'm Rasri — a passionate Lead Product Designer and UX Engineer dedicated to creating innovative digital products that seamlessly integrate strategy and execution throughout the design lifecycle to achieve ultimate goals.</p>
     </div>
     <div class="hero-cta">
       <a href="#portfolio" class="btn btn-outline">
@@ -1160,10 +1219,10 @@ footer {
       <p class="section-label">01 — About</p>
       <h2 class="section-title">Crafting Digital<br>Experiences</h2>
       <p class="about-bio">
-        I specialize in <strong>blending functionality with creativity</strong> to design user-centric products that not only look beautiful but also solve real-world problems. With over 14 years in design — from graphic design to leading product design teams — I bring deep expertise in <strong>product thinking, interface design, and UX research</strong>.
+        Principal-level designer and engineer with a decade of turning complex user problems into elegant, production-shipped solutions. Deep background in UX research, visual design, and high-fidelity prototyping, paired with the frontend chops (React, CSS-in-JS, component libraries) to take work from concept to code without handoff loss. Architect of design systems used by multi-product organizations and a consistent advocate for inclusive, accessible experiences at every layer of the stack.
       </p>
       <p class="about-bio">
-        I've worked across industries including <strong>fintech, agritech, food & retail, and enterprise operations</strong>, collaborating with product managers, developers, and stakeholders to align design solutions with business goals.
+        Also worked across industries, including fintech, agritech, food & retail, and enterprise operations, collaborating with product managers, developers, and stakeholders to align design solutions with business goals.
       </p>
     </div>
     <div class="reveal" style="transition-delay: 0.15s;">
@@ -1245,8 +1304,10 @@ footer {
       <div class="timeline-company">AMR Asia</div>
       <div class="timeline-role">UX/UI Designer, Creative Designer</div>
       <ul class="timeline-desc">
-        <li>Conduct interviews, surveys, and competitor analysis to understand user needs, goals, and pain points</li>
-        <li>Develop interactive prototypes, wireframes, and guide development</li>
+        <li>Conduct user research, usability testing, and analyze feedback to inform design decisions</li>
+        <li>Create wireframes, prototypes, and high-fidelity mockups using tools such as Figma, Adobe XD, or Sketch</li>
+        <li>Collaborate closely with product managers, developers, and stakeholders throughout the product lifecycle</li>
+        <li>Produce creative assets including illustrations, icons, typography, and branded visuals</li>
       </ul>
     </div>
     <div class="timeline-item">
@@ -1254,8 +1315,10 @@ footer {
       <div class="timeline-company">Central Food Retail Co., Ltd</div>
       <div class="timeline-role">Web Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Define and create layouts, mockups, styles for web and customer communication</li>
-        <li>Sketch layouts with high-quality designs and create mockups for social media</li>
+        <li>Design website layouts, landing pages, banners, and UI elements that are both aesthetic and functional</li>
+        <li>Create and optimize visual assets for web including images, icons, infographics, and animations</li>
+        <li>Collaborate with developers to ensure accurate and pixel-perfect implementation of designs</li>
+        <li>Maintain brand consistency across all web and digital platforms</li>
       </ul>
     </div>
     <div class="timeline-item">
@@ -1263,8 +1326,9 @@ footer {
       <div class="timeline-company">Samart Co., Ltd</div>
       <div class="timeline-role">Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Create visuals for communication, marketing, and advertising</li>
-        <li>Enhance subject appearance with artificial light and photo-enhancing software</li>
+        <li>Develop and maintain a consistent brand identity across all marketing and communication materials</li>
+        <li>Collaborate with marketing, content, and product teams to understand project goals and deliver creative assets</li>
+        <li>Present design concepts and ideas to stakeholders and incorporate feedback through revision cycles</li>
       </ul>
     </div>
     <div class="timeline-item">
@@ -1272,8 +1336,9 @@ footer {
       <div class="timeline-company">S&SONS Trading Co., Ltd (Scotch)</div>
       <div class="timeline-role">Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Create visual concepts for advertisements and corporate communications</li>
-        <li>Design corporate reports, brochures, and magazines</li>
+        <li>Create visual concepts for advertising and corporate communications.</li>
+        <li>Design corporate branding, billboards, and website banners.</li>
+        <li>Design product packaging, photography, and image editing.</li>
       </ul>
     </div>
     <div class="timeline-item">
@@ -1281,8 +1346,9 @@ footer {
       <div class="timeline-company">We to are Stardust.co.th</div>
       <div class="timeline-role">Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Create visual concepts to communicate ideas that inspire, inform, or captivate consumers</li>
-        <li>Develop overall layout and production design for advertisements</li>
+        <li>Design a wide range of materials including brochures, posters, flyers, packaging, logos, and brand collateral</li>
+        <li>Prepare and manage print-ready files ensuring correct specifications, color profiles, and formats</li>
+        <li>Stay up to date with design trends, tools, and industry best practices</li>
       </ul>
     </div>
   </div>
@@ -1299,11 +1365,52 @@ footer {
   </div>
   <div class="portfolio-grid">
 
-    <!-- Case Study 1: RMS -->
-    <div class="case-study reveal">
+    <!-- Case Study 1: Finansia Syrus Securities -->
+    <a href="https://www.finansiahero.com/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
         <div>
           <div class="case-number">CASE 01</div>
+          <div class="case-title">Finansia Syrus Securities</div>
+          <div class="case-subtitle">Securities Trading Experience</div>
+        </div>
+        <span class="case-tag">FinTech</span>
+      </div>
+      <div class="case-body">
+        <div class="case-col">
+          <h4>Core Value</h4>
+          <ul>
+            <li>Deliver real-time market data, lightning-fast order execution, and minimal downtime</li>
+            <li>Build a robust and scalable infrastructure capable of handling high-volume trading activity</li>
+            <li>Guarantee 99.9% uptime with proactive system monitoring and rapid incident response</li>
+          </ul>
+        </div>
+        <div class="case-col">
+          <h4>Approach</h4>
+          <ul>
+            <li>Align design solutions with business goals</li>
+            <li>Simplify complex problems into clear, actionable solutions</li>
+            <li>Improve experiences using user feedback and data-driven insights</li>
+          </ul>
+        </div>
+        <div class="case-col">
+          <h4>Impact</h4>
+          <ul>
+            <li>Clearer, more usable trading workflows</li>
+            <li>Faster cross-functional decision-making</li>
+            <li>Stronger alignment between design and business outcomes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="case-link-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </div>
+    </a>
+
+    <!-- Case Study 2: RMS -->
+    <div class="case-study reveal" style="transition-delay: 0.1s;">
+      <div class="case-header">
+        <div>
+          <div class="case-number">CASE 02</div>
           <div class="case-title">RMS — Restaurant Management System</div>
           <div class="case-subtitle">Digital Menu Ordering MVP</div>
         </div>
@@ -1313,27 +1420,27 @@ footer {
         <div class="case-col">
           <h4>Problem</h4>
           <ul>
-            <li>Manual order taking leads to errors and delays</li>
-            <li>Fragmented systems create inefficiencies</li>
-            <li>Inefficient inventory causes food waste</li>
+            <li>Manual order-taking driving costly errors, delays, and frustrated guests</li>
+            <li>Disconnected systems creating inefficiency at every step of service</li>
+            <li>Poor inventory control quietly bleeding margin through food waste</li>
           </ul>
         </div>
         <div class="case-col">
           <h4>Solution</h4>
           <ul>
-            <li>QR code digital menu ordering</li>
-            <li>POS integrated with order management</li>
-            <li>Real-time inventory tracking</li>
-            <li>Direct-to-kitchen order routing</li>
+            <li>QR-code digital menu ordering guests can trust on the first scan</li>
+            <li>POS fully integrated with order management — one source of truth</li>
+            <li>Real-time inventory tracking that prevents waste before it happens</li>
+            <li>Direct-to-kitchen order routing for faster, error-free fulfillment</li>
           </ul>
         </div>
         <div class="case-col">
-          <h4>Process</h4>
+          <h4>Outcome</h4>
           <ul>
-            <li>User research across 5 roles</li>
-            <li>User flow & journey mapping</li>
-            <li>Hi-fi prototypes & design system</li>
-            <li>Scenario-based usability testing</li>
+            <li>Service flowed faster end-to-end, freeing staff to focus on guests</li>
+            <li>Food waste dropped sharply with always-accurate inventory visibility</li>
+            <li>Revenue climbed as ordering friction disappeared and tables turned faster</li>
+            <li>Customers reported a smoother, more confident dining experience</li>
           </ul>
         </div>
       </div>
@@ -1357,44 +1464,6 @@ footer {
       </div>
     </div>
 
-    <!-- Case Study 2: Axonstech -->
-    <a href="https://axonstech.com/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.1s; text-decoration: none; color: inherit; display: block;">
-      <div class="case-header">
-        <div>
-          <div class="case-number">CASE 02</div>
-          <div class="case-title">Axonstech — Agritech Solutions</div>
-          <div class="case-subtitle">Data-Driven Agricultural Ecosystem</div>
-        </div>
-        <span class="case-tag">Product Design</span>
-      </div>
-      <div class="case-body">
-        <div class="case-col">
-          <h4>Problem</h4>
-          <ul>
-            <li>Users need easy purchasing channels</li>
-            <li>Limited payment options for farmers</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>Solution</h4>
-          <ul>
-            <li>Seamless purchasing channels</li>
-            <li>Expanded & flexible payment options</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>Impact</h4>
-          <ul>
-            <li>Faster, more convenient checkout</li>
-            <li>Higher sales conversion rate</li>
-          </ul>
-        </div>
-      </div>
-      <div class="case-link-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-    </a>
-
     <!-- Case Study 3: LHB YOU -->
     <a href="https://www.lhbank.co.th/th/personal/digitalbanking/lhbyou/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.2s; text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
@@ -1409,25 +1478,25 @@ footer {
         <div class="case-col">
           <h4>Problem</h4>
           <ul>
-            <li>Inconvenient access to banking</li>
-            <li>Fragmented financial management</li>
-            <li>Limited financial visibility</li>
+            <li>Banking trapped behind branch hours and queues, eroding customer trust</li>
+            <li>Money scattered across products with no unified view to act on</li>
+            <li>Customers left guessing about balances, spending, and financial health</li>
           </ul>
         </div>
         <div class="case-col">
           <h4>Solution</h4>
           <ul>
-            <li>Anytime, anywhere access</li>
-            <li>Unified financial dashboard</li>
-            <li>Smart financial tools</li>
+            <li>Banking on demand — anytime, anywhere, with bank-grade security</li>
+            <li>A single dashboard bringing every account, card, and product into one view</li>
+            <li>Smart financial tools that turn raw data into clear, actionable insight</li>
           </ul>
         </div>
         <div class="case-col">
-          <h4>Impact</h4>
+          <h4>Outcome</h4>
           <ul>
-            <li>Increased digital adoption</li>
-            <li>Reduced branch dependency</li>
-            <li>Simplified everyday transactions</li>
+            <li>Sustained digital adoption across everyday banking</li>
+            <li>Reduced branch dependency without sacrificing service quality</li>
+            <li>Faster, simpler, more confident everyday transactions</li>
           </ul>
         </div>
       </div>
@@ -1450,22 +1519,25 @@ footer {
         <div class="case-col">
           <h4>Core Value</h4>
           <ul>
-            <li>Streamline processes to reduce waste and costs</li>
-            <li>Connect tools, teams, and workflows seamlessly</li>
+            <li>Anchor every data initiative to clear business goals and measurable KPIs</li>
+            <li>Surface insights that move the needle on efficiency, revenue, and user satisfaction</li>
+            <li>Drive accountability by making outcomes visible to every stakeholder</li>
           </ul>
         </div>
         <div class="case-col">
           <h4>My Role</h4>
           <ul>
-            <li>Stakeholder interviews with operations teams</li>
-            <li>Structured complex dashboards & data flows</li>
+            <li>Lead the UX vision and design strategy for enterprise data platforms and operational dashboards</li>
+            <li>Translate complex data and workflows into clear, decision-ready interfaces operators trust</li>
+            <li>Partner with data, engineering, and product to ship designs that match system reality and business intent</li>
           </ul>
         </div>
         <div class="case-col">
           <h4>Deliverables</h4>
           <ul>
-            <li>User flows for operational tasks</li>
-            <li>Real-time monitoring interfaces</li>
+            <li>Information architecture built to scale — clear structure, navigation, and data hierarchy</li>
+            <li>End-to-end user flows mapping every interaction across integrated operational systems</li>
+            <li>Production-ready interactive prototypes for executive review, usability testing, and developer handoff</li>
           </ul>
         </div>
       </div>
@@ -1485,22 +1557,26 @@ footer {
         <div class="case-col">
           <h4>Problem</h4>
           <ul>
-            <li>Customers must travel to physical stores</li>
-            <li>Can't check availability before visiting</li>
-            <li>Disconnected store and delivery systems</li>
+            <li>Customers forced to travel to stores for every grocery run</li>
+            <li>No stock visibility before arriving — wasted trips and broken trust</li>
+            <li>Store and delivery systems running in silos, fracturing the experience</li>
           </ul>
         </div>
         <div class="case-col">
           <h4>Solution</h4>
           <ul>
-            <li>Real-time inventory visibility</li>
-            <li>Estimated delivery time</li>
-            <li>Seamless mobile/web ordering</li>
+            <li>Real-time inventory tied directly to in-store stock</li>
+            <li>Reliable delivery windows with live order tracking</li>
+            <li>A unified mobile and web experience customers can count on</li>
           </ul>
         </div>
         <div class="case-col">
           <h4>Outcome</h4>
-          <p>Removed time and location barriers, making grocery shopping scalable while increasing customer reach and revenue.</p>
+          <ul>
+            <li>Eliminated time and location barriers for everyday shoppers</li>
+            <li>Scaled grocery shopping nationwide across mobile and web</li>
+            <li>Unlocked measurable growth in customer reach and revenue</li>
+          </ul>
         </div>
       </div>
       <div class="case-link-icon">
@@ -1565,8 +1641,14 @@ footer {
 </section>
 
 <footer>
-  <p>&copy; 2026 Rasri Issarasiri. Designed with intention.</p>
+  <p>&copy; 2026 Rasri Issarasiri. Designed for everyone.</p>
 </footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
 
 <script>
 // ─── Nav scroll effect ───
@@ -1602,6 +1684,30 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 
+// ─── Move language selector into mobile menu on small screens ───
+(function() {
+  const langSelector = document.getElementById('langSelector');
+  const navEl = document.getElementById('nav');
+  if (!langSelector || !navEl) return;
+  const mq = window.matchMedia('(max-width: 768px)');
+
+  function place(matches) {
+    const inLi = langSelector.parentElement && langSelector.parentElement.tagName === 'LI';
+    if (matches && !inLi) {
+      const li = document.createElement('li');
+      li.className = 'nav-lang-li';
+      navLinks.appendChild(li);
+      li.appendChild(langSelector);
+    } else if (!matches && inLi) {
+      const li = langSelector.parentElement;
+      navEl.insertBefore(langSelector, hamburger);
+      li.remove();
+    }
+  }
+  place(mq.matches);
+  mq.addEventListener('change', e => place(e.matches));
+})();
+
 // ─── Scroll reveal ───
 const revealElements = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
@@ -1628,6 +1734,18 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   });
 });
 
+// ─── Back to top ───
+(function() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+  const toggle = () => btn.classList.toggle('visible', window.scrollY > 400);
+  toggle();
+  window.addEventListener('scroll', toggle, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
 // ─── Cycling Words ───
 (function() {
   const words = document.querySelectorAll('.hero-cycling-word');
@@ -1644,61 +1762,154 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   }, 2000);
 })();
 
-// ─── Stars Background ───
+// ─── Interactive Neural Vortex Background (WebGL) ───
 (function() {
-  function generateStars(count, color) {
-    const shadows = [];
-    for (let i = 0; i < count; i++) {
-      const x = Math.floor(Math.random() * 4000) - 2000;
-      const y = Math.floor(Math.random() * 4000) - 2000;
-      shadows.push(x + 'px ' + y + 'px ' + color);
+  const canvasEl = document.getElementById('neuro');
+  if (!canvasEl) return;
+
+  const gl = canvasEl.getContext('webgl') || canvasEl.getContext('experimental-webgl');
+  if (!gl) {
+    console.error('WebGL not supported');
+    return;
+  }
+
+  const vsSource = `
+    precision mediump float;
+    attribute vec2 a_position;
+    varying vec2 vUv;
+    void main() {
+      vUv = .5 * (a_position + 1.);
+      gl_Position = vec4(a_position, 0.0, 1.0);
     }
-    return shadows.join(', ');
+  `;
+
+  const fsSource = `
+    precision mediump float;
+    varying vec2 vUv;
+    uniform float u_time;
+    uniform float u_ratio;
+    uniform vec2 u_pointer_position;
+    uniform float u_scroll_progress;
+
+    vec2 rotate(vec2 uv, float th) {
+      return mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
+    }
+
+    float neuro_shape(vec2 uv, float t, float p) {
+      vec2 sine_acc = vec2(0.);
+      vec2 res = vec2(0.);
+      float scale = 8.;
+      for (int j = 0; j < 15; j++) {
+        uv = rotate(uv, 1.);
+        sine_acc = rotate(sine_acc, 1.);
+        vec2 layer = uv * scale + float(j) + sine_acc - t;
+        sine_acc += sin(layer) + 2.4 * p;
+        res += (.5 + .5 * cos(layer)) / scale;
+        scale *= (1.2);
+      }
+      return res.x + res.y;
+    }
+
+    void main() {
+      vec2 uv = .5 * vUv;
+      uv.x *= u_ratio;
+      vec2 pointer = vUv - u_pointer_position;
+      pointer.x *= u_ratio;
+      float p = clamp(length(pointer), 0., 1.);
+      p = .5 * pow(1. - p, 2.);
+      float t = .001 * u_time;
+      vec3 color = vec3(0.);
+      float noise = neuro_shape(uv, t, p);
+      noise = 1.2 * pow(noise, 3.);
+      noise += pow(noise, 10.);
+      noise = max(.0, noise - .5);
+      noise *= (1. - length(vUv - .5));
+      color = vec3(0.5, 0.15, 0.65);
+      color = mix(color, vec3(0.02, 0.7, 0.9), 0.32 + 0.16 * sin(2.0 * u_scroll_progress + 1.2));
+      color += vec3(0.15, 0.0, 0.6) * sin(2.0 * u_scroll_progress + 1.5);
+      color = color * noise;
+      gl_FragColor = vec4(color, noise);
+    }
+  `;
+
+  function compileShader(source, type) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      console.error('Shader error:', gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
+    }
+    return shader;
   }
 
-  const color = '#fff';
-  const layer1 = generateStars(1000, color);
-  const layer2 = generateStars(400, color);
-  const layer3 = generateStars(200, color);
+  const vertexShader = compileShader(vsSource, gl.VERTEX_SHADER);
+  const fragmentShader = compileShader(fsSource, gl.FRAGMENT_SHADER);
 
-  ['stars1', 'stars1c'].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.width = '1px'; el.style.height = '1px';
-    el.style.boxShadow = layer1;
-  });
-  ['stars2', 'stars2c'].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.width = '2px'; el.style.height = '2px';
-    el.style.boxShadow = layer2;
-  });
-  ['stars3', 'stars3c'].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.width = '3px'; el.style.height = '3px';
-    el.style.boxShadow = layer3;
-  });
-
-  const bg = document.getElementById('stars-bg');
-  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-  const FACTOR = 0.05;
-  const layers = bg.querySelectorAll('.star-layer');
-
-  document.addEventListener('mousemove', function(e) {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    targetX = -(e.clientX - cx) * FACTOR;
-    targetY = -(e.clientY - cy) * FACTOR;
-  });
-
-  function parallax() {
-    currentX += (targetX - currentX) * 0.05;
-    currentY += (targetY - currentY) * 0.05;
-    layers.forEach(layer => {
-      layer.style.marginLeft = currentX + 'px';
-      layer.style.marginTop = currentY + 'px';
-    });
-    requestAnimationFrame(parallax);
+  const program = gl.createProgram();
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error('Program link error:', gl.getProgramInfoLog(program));
+    return;
   }
-  parallax();
+  gl.useProgram(program);
+
+  const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+  const vertexBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+  const positionLocation = gl.getAttribLocation(program, 'a_position');
+  gl.enableVertexAttribArray(positionLocation);
+  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+  const uTime = gl.getUniformLocation(program, 'u_time');
+  const uRatio = gl.getUniformLocation(program, 'u_ratio');
+  const uPointerPosition = gl.getUniformLocation(program, 'u_pointer_position');
+  const uScrollProgress = gl.getUniformLocation(program, 'u_scroll_progress');
+
+  const pointer = { x: 0, y: 0, tX: 0, tY: 0 };
+
+  function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvasEl.width = window.innerWidth * dpr;
+    canvasEl.height = window.innerHeight * dpr;
+    gl.viewport(0, 0, canvasEl.width, canvasEl.height);
+    gl.uniform1f(uRatio, canvasEl.width / canvasEl.height);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  window.addEventListener('pointermove', function(e) {
+    pointer.tX = e.clientX;
+    pointer.tY = e.clientY;
+  });
+  window.addEventListener('touchmove', function(e) {
+    if (e.touches[0]) {
+      pointer.tX = e.touches[0].clientX;
+      pointer.tY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  function render() {
+    const currentTime = performance.now();
+    pointer.x += (pointer.tX - pointer.x) * 0.2;
+    pointer.y += (pointer.tY - pointer.y) * 0.2;
+
+    gl.uniform1f(uTime, currentTime);
+    gl.uniform2f(uPointerPosition,
+      pointer.x / window.innerWidth,
+      1 - pointer.y / window.innerHeight
+    );
+    gl.uniform1f(uScrollProgress, window.pageYOffset / (2 * window.innerHeight));
+
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render();
 })();
 </script>
 
