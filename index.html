@@ -636,7 +636,7 @@ section {
   border-bottom: 1px solid rgba(124, 92, 252, 0.06);
 }
 
-.timeline-item:last-child {
+.timeline-item:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: none;
@@ -695,6 +695,171 @@ section {
   left: 0;
   color: var(--gray);
   font-weight: 600;
+}
+
+.timeline-desc .timeline-cat {
+  display: block;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.15rem;
+}
+
+/* Collapsed extra items */
+.timeline-item.is-extra {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  overflow: hidden;
+  pointer-events: none;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.45s ease,
+              margin 0.5s ease,
+              padding 0.5s ease,
+              border-color 0.4s ease;
+}
+
+.timeline-item.is-extra::before {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.timeline.is-expanded .timeline-item.is-extra {
+  max-height: 800px;
+  opacity: 1;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(124, 92, 252, 0.06);
+  pointer-events: auto;
+}
+
+.timeline.is-expanded .timeline-item.is-extra:nth-of-type(6) { transition-delay: 0.06s, 0.12s, 0.06s, 0.06s, 0s; }
+.timeline.is-expanded .timeline-item.is-extra:nth-of-type(7) { transition-delay: 0.12s, 0.22s, 0.12s, 0.12s, 0s; }
+
+.timeline.is-expanded .timeline-item.is-extra::before {
+  opacity: 1;
+  transition-delay: 0.25s;
+}
+
+/* Show-more toggle */
+.timeline-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding: 0.7rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.timeline-toggle:hover {
+  color: #00e5ff;
+}
+
+.timeline-toggle:focus-visible {
+  outline: none;
+  color: #00e5ff;
+}
+
+.timeline-toggle:focus-visible::before {
+  border-color: rgba(0, 229, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15), 0 0 24px rgba(0, 229, 255, 0.4);
+}
+
+.timeline-toggle::before {
+  content: '';
+  position: absolute;
+  left: -2.5rem;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(96, 165, 250, 0.45);
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.2), rgba(10, 14, 26, 0.96) 72%);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.22), inset 0 0 12px rgba(59, 130, 246, 0.08);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+
+.timeline-toggle:hover::before {
+  border-color: rgba(0, 229, 255, 0.85);
+  box-shadow: 0 0 26px rgba(0, 229, 255, 0.42), inset 0 0 14px rgba(0, 229, 255, 0.12);
+  background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.22), rgba(10, 14, 26, 0.96) 72%);
+}
+
+.timeline-toggle-chevron {
+  position: absolute;
+  left: -2.5rem;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline.is-expanded .timeline-toggle-chevron {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.timeline-toggle-chevron path {
+  stroke: #60a5fa;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease;
+}
+
+.timeline-toggle:hover .timeline-toggle-chevron path,
+.timeline-toggle:focus-visible .timeline-toggle-chevron path {
+  stroke: #00e5ff;
+}
+
+.timeline-toggle-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.timeline-toggle-label::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(96, 165, 250, 0.55));
+  transition: background 0.3s ease;
+}
+
+.timeline-toggle:hover .timeline-toggle-label::before {
+  background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.7));
+}
+
+.timeline-toggle-count {
+  color: #00e5ff;
+  font-weight: 600;
+  margin-right: 0.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-item.is-extra,
+  .timeline-item.is-extra::before,
+  .timeline-toggle,
+  .timeline-toggle::before,
+  .timeline-toggle-chevron,
+  .timeline-toggle-chevron path {
+    transition: none;
+  }
 }
 
 /* ─── Portfolio / Case Studies ─── */
@@ -862,6 +1027,662 @@ a.case-study:hover .case-link-icon {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: 0.2rem;
+}
+
+/* ─── Case study: tabbed body (Problems / Solutions / Outcomes) ─── */
+.case-body.is-tabbed {
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.case-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(124, 92, 252, 0.1);
+}
+
+.case-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.05rem;
+  background: rgba(26, 32, 56, 0.5);
+  border: 1px solid rgba(124, 92, 252, 0.12);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.case-tab-btn:hover {
+  color: var(--gray-light);
+  border-color: rgba(96, 165, 250, 0.35);
+  transform: translateY(-1px);
+}
+
+.case-tab-btn:focus-visible {
+  outline: none;
+  border-color: rgba(0, 229, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
+}
+
+.case-tab-btn[aria-selected="true"] {
+  color: #00e5ff;
+  border-color: rgba(0, 229, 255, 0.6);
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.14), rgba(59, 130, 246, 0.06));
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+.case-tab-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+  filter: saturate(1.1);
+}
+
+.case-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  padding: 0 0.3rem;
+  height: 1.1rem;
+  border-radius: 100px;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  font-size: 0.62rem;
+  color: #60a5fa;
+  letter-spacing: 0.02em;
+}
+
+.case-tab-btn[aria-selected="true"] .case-tab-count {
+  background: rgba(0, 229, 255, 0.16);
+  border-color: rgba(0, 229, 255, 0.45);
+  color: #00e5ff;
+}
+
+.case-tab-panels {
+  padding-top: 1.5rem;
+}
+
+.case-tab-panel {
+  animation: case-tab-in 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-tab-panel[hidden] { display: none; }
+
+@keyframes case-tab-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.case-tab-panel ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.55rem 2rem;
+  list-style: none;
+}
+
+.case-tab-panel li {
+  position: relative;
+  padding-left: 0.95rem;
+  font-size: 0.88rem;
+  color: var(--gray-light);
+  line-height: 1.55;
+}
+
+.case-tab-panel li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .case-tab-panel ul { grid-template-columns: 1fr; }
+}
+
+.case-tab-panel--prose {
+  max-width: 68ch;
+}
+
+.case-tab-panel--prose p {
+  font-size: 0.9rem;
+  color: var(--gray-light);
+  line-height: 1.7;
+  margin-bottom: 0.9rem;
+}
+
+.case-tab-panel--prose p:last-of-type {
+  margin-bottom: 0.4rem;
+}
+
+.case-tab-panel--prose ul {
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+  margin-top: 0.4rem;
+}
+
+.case-tab-panel--prose li {
+  margin-bottom: 0.6rem;
+  line-height: 1.65;
+}
+
+.case-tab-panel--prose li:last-child {
+  margin-bottom: 0;
+}
+
+.case-tab-panel--prose strong {
+  color: var(--white);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-tab-btn,
+  .case-tab-panel { transition: none; animation: none; }
+}
+
+/* ─── Case study: View Project toggle + process panel ─── */
+.case-cta {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(124, 92, 252, 0.08);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.case-view-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 1.35rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(0, 229, 255, 0.04));
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  cursor: pointer;
+  transition: border-color 0.35s ease, color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.case-view-toggle:hover {
+  color: #00e5ff;
+  border-color: rgba(0, 229, 255, 0.7);
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(59, 130, 246, 0.06));
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.case-view-toggle:focus-visible {
+  outline: none;
+  color: #00e5ff;
+  border-color: rgba(0, 229, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
+}
+
+.case-view-toggle-arrow {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-view-toggle-arrow path {
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.case-view-toggle[aria-expanded="true"] .case-view-toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.case-process {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.45s ease;
+  opacity: 0;
+}
+
+.case-process-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.case-study.is-process-open .case-process {
+  grid-template-rows: 1fr;
+  margin-top: 1.5rem;
+  opacity: 1;
+}
+
+.case-process-frame {
+  position: relative;
+  padding: 2rem;
+  background: rgba(10, 14, 26, 0.55);
+  border: 1px solid rgba(124, 92, 252, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.case-process-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.55), transparent);
+}
+
+.case-process-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  margin-bottom: 0.55rem;
+}
+
+.case-process-eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #60a5fa);
+}
+
+.case-process-title {
+  font-family: var(--heading);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  color: var(--white);
+}
+
+.case-process-steps {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding-left: 3.4rem;
+}
+
+.case-process-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(-2.7rem + 17px - 0.5px);
+  top: calc(0.95rem + 34px + 0.3rem);
+  bottom: calc(-1rem - 0.95rem + 0.3rem);
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(96, 165, 250, 0.5) 0%,
+    rgba(0, 229, 255, 0.4) 50%,
+    rgba(96, 165, 250, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+.case-process-step {
+  position: relative;
+  padding: 1.1rem 1.1rem 1.1rem 1.35rem;
+  background: rgba(26, 32, 56, 0.5);
+  border: 1px solid rgba(124, 92, 252, 0.1);
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.case-process-step::before {
+  content: '';
+  position: absolute;
+  top: 1.1rem;
+  bottom: 1.1rem;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, rgba(59, 130, 246, 0.7), rgba(0, 229, 255, 0.45));
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+
+.case-process-step:hover {
+  border-color: rgba(0, 229, 255, 0.3);
+  background: rgba(26, 32, 56, 0.7);
+  transform: translateY(-2px);
+}
+
+.case-process-step:hover::before { opacity: 1; }
+
+.case-study.is-process-open .case-process-step {
+  animation: case-step-in 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.case-study.is-process-open .case-process-step:nth-child(1) { animation-delay: 0.08s; }
+.case-study.is-process-open .case-process-step:nth-child(2) { animation-delay: 0.14s; }
+.case-study.is-process-open .case-process-step:nth-child(3) { animation-delay: 0.20s; }
+.case-study.is-process-open .case-process-step:nth-child(4) { animation-delay: 0.26s; }
+.case-study.is-process-open .case-process-step:nth-child(5) { animation-delay: 0.32s; }
+.case-study.is-process-open .case-process-step:nth-child(6) { animation-delay: 0.38s; }
+.case-study.is-process-open .case-process-step:nth-child(7) { animation-delay: 0.44s; }
+
+@keyframes case-step-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.case-process-step-num {
+  position: absolute;
+  left: -2.7rem;
+  top: 0.95rem;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.28), rgba(10, 14, 26, 0.97) 72%);
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.25), inset 0 0 8px rgba(59, 130, 246, 0.1);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: #60a5fa;
+  letter-spacing: 0.04em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.case-process-step:hover .case-process-step-num {
+  border-color: rgba(0, 229, 255, 0.8);
+  color: #00e5ff;
+  box-shadow: 0 0 26px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.15);
+  background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.25), rgba(10, 14, 26, 0.97) 72%);
+}
+
+.case-process-step-title {
+  font-family: var(--heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+.case-process-step-body {
+  font-size: 0.8rem;
+  color: var(--gray);
+  line-height: 1.55;
+}
+
+.case-process-step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.case-process-step-list li {
+  position: relative;
+  padding-left: 0.95rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+.case-process-step-list li:last-child {
+  margin-bottom: 0;
+}
+
+.case-process-step-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+.case-process-step-list strong {
+  color: var(--gray-light);
+  font-weight: 600;
+}
+
+.case-process-step-list .case-process-step-list {
+  margin-top: 0.45rem;
+}
+
+.case-process-step-list .case-process-step-list li::before {
+  color: rgba(96, 165, 250, 0.55);
+}
+
+.case-process-step.has-media .case-process-step-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.case-process-step-text {
+  min-width: 0;
+}
+
+.case-process-step-media {
+  margin: 0;
+  width: 100%;
+}
+
+.case-process-step-media-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  border: 1px dashed rgba(96, 165, 250, 0.3);
+  background:
+    linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(0, 229, 255, 0.04)),
+    repeating-linear-gradient(45deg, rgba(96, 165, 250, 0.04) 0 6px, transparent 6px 14px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.case-process-step:hover .case-process-step-media-frame {
+  border-color: rgba(0, 229, 255, 0.45);
+}
+
+.case-process-step-media-frame:has(img) {
+  aspect-ratio: auto;
+  border-style: solid;
+  border-color: rgba(96, 165, 250, 0.18);
+  background: rgba(10, 14, 26, 0.45);
+  cursor: zoom-in;
+}
+
+.case-process-step-media-frame:has(img)::after {
+  content: '';
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(10, 14, 26, 0.78) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300e5ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3Cline x1='11' y1='8' x2='11' y2='14'/%3E%3Cline x1='8' y1='11' x2='14' y2='11'/%3E%3C/svg%3E") center / 14px 14px no-repeat;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.case-process-step-media-frame:has(img):hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-process-step-media-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-process-step-media-frame:has(img):hover img {
+  transform: scale(1.015);
+}
+
+/* Image lightbox overlay */
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  cursor: zoom-out;
+}
+
+.image-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.image-lightbox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0, 229, 255, 0.06), transparent 50%);
+  pointer-events: none;
+}
+
+.image-lightbox img {
+  position: relative;
+  max-width: min(96vw, 1800px);
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(96, 165, 250, 0.18);
+  transform: scale(0.96);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.image-lightbox.is-open img {
+  transform: scale(1);
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.image-lightbox-close:hover {
+  background: rgba(0, 229, 255, 0.16);
+  border-color: rgba(0, 229, 255, 0.7);
+  color: #00e5ff;
+  transform: rotate(90deg);
+}
+
+.image-lightbox-close:focus-visible {
+  outline: none;
+  border-color: rgba(0, 229, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .image-lightbox { padding: 1rem; }
+  .image-lightbox-close { top: 1rem; right: 1rem; width: 40px; height: 40px; }
+  .image-lightbox img {
+    max-width: 96vw;
+    max-height: 88vh;
+    border-radius: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-process-step-media-frame img,
+  .image-lightbox,
+  .image-lightbox img,
+  .image-lightbox-close { transition: none; }
+  .case-process-step-media-frame:has(img):hover img { transform: none; }
+}
+
+.case-process-step-media-empty {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+@media (max-width: 720px) {
+  .case-process-step.has-media .case-process-step-content {
+    grid-template-columns: 1fr;
+  }
+  .case-process-step-media-frame {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-process,
+  .case-view-toggle,
+  .case-view-toggle-arrow,
+  .case-process-step,
+  .case-process-step::before {
+    transition: none;
+  }
+  .case-study.is-process-open .case-process-step {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ─── Certifications ─── */
@@ -1135,10 +1956,10 @@ footer {
 <nav id="nav">
   <a href="#hero" class="nav-logo">Rasri<span>.</span></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#about" data-i18n="nav.about">About</a></li>
+    <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+    <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+    <li><a href="#certifications" data-i18n="nav.certifications">Certifications</a></li>
   </ul>
   <div class="lang-selector" id="langSelector">
     <button class="lang-btn active" data-lang="en">EN</button>
@@ -1155,27 +1976,27 @@ footer {
   <div class="hero-content">
     <div class="hero-label-pill">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      9+ years crafting digital products
+      <span data-i18n="hero.pill">9+ years crafting digital products</span>
     </div>
     <div class="hero-text">
       <h1>
-        <span class="hero-static">Designing something</span>
+        <span class="hero-static" data-i18n="hero.static">Designing something</span>
         <span class="hero-cycling-wrapper" id="cyclingWrapper">
-          <span class="hero-cycling-word active" style="color: #00e5ff;">different</span>
-          <span class="hero-cycling-word" style="color: #ff00ff;">flexible</span>
-          <span class="hero-cycling-word" style="color: #ffff00;">efficient</span>
+          <span class="hero-cycling-word active" style="color: #00e5ff;" data-i18n="hero.word.different">different</span>
+          <span class="hero-cycling-word" style="color: #ff00ff;" data-i18n="hero.word.flexible">flexible</span>
+          <span class="hero-cycling-word" style="color: #ffff00;" data-i18n="hero.word.efficient">efficient</span>
 
         </span>
       </h1>
-      <p class="hero-tagline">I'm Rasri — a passionate Lead Product Designer and UX Engineer dedicated to creating innovative digital products that seamlessly integrate strategy and execution throughout the design lifecycle to achieve ultimate goals.</p>
+      <p class="hero-tagline" data-i18n="hero.tagline">I'm Rasri — a passionate Lead Product Designer and UX Engineer dedicated to creating innovative digital products that seamlessly integrate strategy and execution throughout the design lifecycle to achieve ultimate goals.</p>
     </div>
     <div class="hero-cta">
       <a href="#portfolio" class="btn btn-outline">
-        View Case Studies
+        <span data-i18n="hero.cta.cases">View Case Studies</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
       <a href="#contact" class="btn btn-primary">
-        Get In Touch
+        <span data-i18n="hero.cta.contact">Get In Touch</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
     </div>
@@ -1185,7 +2006,7 @@ footer {
 <!-- Clients -->
 <section class="clients-section">
   <div class="reveal">
-    <div class="clients-label">Trusted by companies</div>
+    <div class="clients-label" data-i18n="clients.label">Trusted by companies</div>
     <div class="clients-marquee">
       <div class="clients-track">
         <span class="client-item"><img src="Clients Logo/BTS-Logo.svg" alt="BTS"></span>
@@ -1216,52 +2037,48 @@ footer {
 <section id="about">
   <div class="about-grid">
     <div class="reveal">
-      <p class="section-label">01 — About</p>
-      <h2 class="section-title">Crafting Digital<br>Experiences</h2>
-      <p class="about-bio">
-        Principal-level designer and engineer with a decade of turning complex user problems into elegant, production-shipped solutions. Deep background in UX research, visual design, and high-fidelity prototyping, paired with the frontend chops (React, CSS-in-JS, component libraries) to take work from concept to code without handoff loss. Architect of design systems used by multi-product organizations and a consistent advocate for inclusive, accessible experiences at every layer of the stack.
-      </p>
-      <p class="about-bio">
-        Also worked across industries, including fintech, agritech, food & retail, and enterprise operations, collaborating with product managers, developers, and stakeholders to align design solutions with business goals.
-      </p>
+      <p class="section-label" data-i18n="about.label">01 — About</p>
+      <h2 class="section-title" data-i18n="about.title">Crafting Digital<br>Experiences</h2>
+      <p class="about-bio" data-i18n="about.bio1">Principal-level designer and engineer with a decade of turning complex user problems into elegant, production-shipped solutions. Deep background in UX research, visual design, and high-fidelity prototyping, paired with the frontend chops (React, CSS-in-JS, component libraries) to take work from concept to code without handoff loss. Architect of design systems used by multi-product organizations and a consistent advocate for inclusive, accessible experiences at every layer of the stack.</p>
+      <p class="about-bio" data-i18n="about.bio2">Also worked across industries, including fintech, agritech, food &amp; retail, and enterprise operations, collaborating with product managers, developers, and stakeholders to align design solutions with business goals.</p>
     </div>
     <div class="reveal" style="transition-delay: 0.15s;">
       <div class="about-details">
         <div class="about-detail-item">
-          <div class="about-detail-label">Location</div>
-          <div class="about-detail-value">Bangkok, Thailand</div>
+          <div class="about-detail-label" data-i18n="about.location.label">Location</div>
+          <div class="about-detail-value" data-i18n="about.location.value">Bangkok, Thailand</div>
         </div>
         <div class="about-detail-item">
-          <div class="about-detail-label">Education</div>
-          <div class="about-detail-value">B.A. Communication Design</div>
+          <div class="about-detail-label" data-i18n="about.education.label">Education</div>
+          <div class="about-detail-value" data-i18n="about.education.value">B.A. Communication Design</div>
         </div>
         <div class="about-detail-item">
-          <div class="about-detail-label">Email</div>
+          <div class="about-detail-label" data-i18n="about.email.label">Email</div>
           <div class="about-detail-value">cott.rasri@yahoo.com</div>
         </div>
         <div class="about-detail-item">
-          <div class="about-detail-label">Phone</div>
+          <div class="about-detail-label" data-i18n="about.phone.label">Phone</div>
           <div class="about-detail-value">(+66) 085-5544-991</div>
         </div>
       </div>
       <div class="skills-section">
-        <h3 class="skills-title">Professional Skills</h3>
+        <h3 class="skills-title" data-i18n="about.skills.pro.title">Professional Skills</h3>
         <div class="skills-grid">
-          <span class="skill-tag">Product & Business Insight</span>
-          <span class="skill-tag">Problem Solving</span>
-          <span class="skill-tag">Strategic Planning</span>
-          <span class="skill-tag">Decision Making</span>
-          <span class="skill-tag">Cross-Team Collaboration</span>
+          <span class="skill-tag" data-i18n="about.skill.pro.1">Product &amp; Business Insight</span>
+          <span class="skill-tag" data-i18n="about.skill.pro.2">Problem Solving</span>
+          <span class="skill-tag" data-i18n="about.skill.pro.3">Strategic Planning</span>
+          <span class="skill-tag" data-i18n="about.skill.pro.4">Decision Making</span>
+          <span class="skill-tag" data-i18n="about.skill.pro.5">Cross-Team Collaboration</span>
         </div>
       </div>
       <div class="skills-section">
-        <h3 class="skills-title">Craft Skills</h3>
+        <h3 class="skills-title" data-i18n="about.skills.craft.title">Craft Skills</h3>
         <div class="skills-grid">
-          <span class="skill-tag">Design & AI Tools</span>
-          <span class="skill-tag">Front-End Knowledge</span>
-          <span class="skill-tag">System Thinking</span>
-          <span class="skill-tag">Data & Testing</span>
-          <span class="skill-tag">Accessibility</span>
+          <span class="skill-tag" data-i18n="about.skill.craft.1">Design &amp; AI Tools</span>
+          <span class="skill-tag" data-i18n="about.skill.craft.2">Front-End Knowledge</span>
+          <span class="skill-tag" data-i18n="about.skill.craft.3">System Thinking</span>
+          <span class="skill-tag" data-i18n="about.skill.craft.4">Data &amp; Testing</span>
+          <span class="skill-tag" data-i18n="about.skill.craft.5">Accessibility</span>
         </div>
       </div>
     </div>
@@ -1273,84 +2090,93 @@ footer {
 <!-- Experience -->
 <section id="experience">
   <div class="reveal">
-    <p class="section-label">02 — Experience</p>
-    <h2 class="section-title">Where I've Made<br>An Impact</h2>
-    <p class="section-desc">Over a decade of design experience across agencies, product companies, and enterprise teams.</p>
+    <p class="section-label" data-i18n="exp.label">02 — Experience</p>
+    <h2 class="section-title" data-i18n="exp.title">Professional experience</h2>
+    <p class="section-desc" data-i18n="exp.desc">Over a decade of design experience across agencies, product companies, and enterprise teams.</p>
   </div>
   <div class="timeline reveal" style="transition-delay: 0.15s;">
     <div class="timeline-item">
-      <div class="timeline-date">2026 — Contract</div>
-      <div class="timeline-company">Finansia Syrus Securities</div>
-      <div class="timeline-role">Senior UX/UI Designer</div>
+      <div class="timeline-date" data-i18n="exp.ocr.date">2026 — Current</div>
+      <div class="timeline-company">Thai President Foods</div>
+      <div class="timeline-role" data-i18n="exp.ocr.role">Lead Product Designer / UX Engineer</div>
       <ul class="timeline-desc">
-        <li>Collaborate with product managers, developers, and stakeholders to align design solutions with business goals</li>
-        <li>Simplify complex problems into clear, actionable solutions to move projects forward efficiently</li>
-        <li>Improve user experiences using user feedback and data-driven insights</li>
+        <li data-i18n="exp.ocr.li.1">Design strategy, Decision-making, Problem-solving, Cross-functional collaboration, Consulting.</li>
+        <li data-i18n="exp.ocr.li.2">User Research, Journey Mapping, Information Architecture, Wireframing, Usability Testing, High-Fidelity Prototyping</li>
+        <li data-i18n="exp.ocr.li.3">Token Architecture, Component Libraries, Design-to-Code Handoff, Storybook, Zeroheight</li>
+        <li data-i18n="exp.ocr.li.4">React, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Styled Components</li>
       </ul>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">2022 — 2024</div>
-      <div class="timeline-company">AXONS (CPF Group)</div>
-      <div class="timeline-role">Lead UX/UI Designer</div>
+      <div class="timeline-company">AXONS</div>
+      <div class="timeline-role" data-i18n="exp.axons.role">Lead UX/UI Designer</div>
       <ul class="timeline-desc">
-        <li>Lead product design teams to create user-centered, business-driven digital products</li>
-        <li>Conduct user research and develop design strategies aligned with business goals</li>
-        <li>Guide complex product designs from concept to execution</li>
-        <li>Support and prioritize design work while balancing scope, timeline, and quality</li>
+        <li data-i18n="exp.axons.li.1">Lead product design teams to create user-centered, business-driven digital products</li>
+        <li data-i18n="exp.axons.li.2">Conduct user research and develop design strategies aligned with business goals</li>
+        <li data-i18n="exp.axons.li.3">Guide complex product designs from concept to execution</li>
+        <li data-i18n="exp.axons.li.4">Support and prioritize design work while balancing scope, timeline, and quality</li>
       </ul>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">2017 — 2021</div>
       <div class="timeline-company">AMR Asia</div>
-      <div class="timeline-role">UX/UI Designer, Creative Designer</div>
+      <div class="timeline-role" data-i18n="exp.amr.role">UX/UI Designer, Creative Designer</div>
       <ul class="timeline-desc">
-        <li>Conduct user research, usability testing, and analyze feedback to inform design decisions</li>
-        <li>Create wireframes, prototypes, and high-fidelity mockups using tools such as Figma, Adobe XD, or Sketch</li>
-        <li>Collaborate closely with product managers, developers, and stakeholders throughout the product lifecycle</li>
-        <li>Produce creative assets including illustrations, icons, typography, and branded visuals</li>
+        <li data-i18n="exp.amr.li.1">Conduct user research, usability testing, and analyze feedback to inform design decisions</li>
+        <li data-i18n="exp.amr.li.2">Create wireframes, prototypes, and high-fidelity mockups using tools such as Figma, Adobe XD, or Sketch</li>
+        <li data-i18n="exp.amr.li.3">Collaborate closely with product managers, developers, and stakeholders throughout the product lifecycle</li>
+        <li data-i18n="exp.amr.li.4">Produce creative assets including illustrations, icons, typography, and branded visuals</li>
       </ul>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">2015 — 2017</div>
       <div class="timeline-company">Central Food Retail Co., Ltd</div>
-      <div class="timeline-role">Web Graphic Designer</div>
+      <div class="timeline-role" data-i18n="exp.central.role">Web Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Design website layouts, landing pages, banners, and UI elements that are both aesthetic and functional</li>
-        <li>Create and optimize visual assets for web including images, icons, infographics, and animations</li>
-        <li>Collaborate with developers to ensure accurate and pixel-perfect implementation of designs</li>
-        <li>Maintain brand consistency across all web and digital platforms</li>
+        <li data-i18n="exp.central.li.1">Design website layouts, landing pages, banners, and UI elements that are both aesthetic and functional</li>
+        <li data-i18n="exp.central.li.2">Create and optimize visual assets for web including images, icons, infographics, and animations</li>
+        <li data-i18n="exp.central.li.3">Collaborate with developers to ensure accurate and pixel-perfect implementation of designs</li>
+        <li data-i18n="exp.central.li.4">Maintain brand consistency across all web and digital platforms</li>
       </ul>
     </div>
-    <div class="timeline-item">
+    <div class="timeline-item is-extra">
       <div class="timeline-date">2012 — 2015</div>
       <div class="timeline-company">Samart Co., Ltd</div>
-      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-role" data-i18n="exp.samart.role">Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Develop and maintain a consistent brand identity across all marketing and communication materials</li>
-        <li>Collaborate with marketing, content, and product teams to understand project goals and deliver creative assets</li>
-        <li>Present design concepts and ideas to stakeholders and incorporate feedback through revision cycles</li>
+        <li data-i18n="exp.samart.li.1">Develop and maintain a consistent brand identity across all marketing and communication materials</li>
+        <li data-i18n="exp.samart.li.2">Collaborate with marketing, content, and product teams to understand project goals and deliver creative assets</li>
+        <li data-i18n="exp.samart.li.3">Present design concepts and ideas to stakeholders and incorporate feedback through revision cycles</li>
       </ul>
     </div>
-    <div class="timeline-item">
+    <div class="timeline-item is-extra">
       <div class="timeline-date">2011 — 2012</div>
       <div class="timeline-company">S&SONS Trading Co., Ltd (Scotch)</div>
-      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-role" data-i18n="exp.scotch.role">Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Create visual concepts for advertising and corporate communications.</li>
-        <li>Design corporate branding, billboards, and website banners.</li>
-        <li>Design product packaging, photography, and image editing.</li>
+        <li data-i18n="exp.scotch.li.1">Create visual concepts for advertising and corporate communications.</li>
+        <li data-i18n="exp.scotch.li.2">Design corporate branding, billboards, and website banners.</li>
+        <li data-i18n="exp.scotch.li.3">Design product packaging, photography, and image editing.</li>
       </ul>
     </div>
-    <div class="timeline-item">
+    <div class="timeline-item is-extra">
       <div class="timeline-date">2009 — 2011</div>
       <div class="timeline-company">We to are Stardust.co.th</div>
-      <div class="timeline-role">Graphic Designer</div>
+      <div class="timeline-role" data-i18n="exp.stardust.role">Graphic Designer</div>
       <ul class="timeline-desc">
-        <li>Design a wide range of materials including brochures, posters, flyers, packaging, logos, and brand collateral</li>
-        <li>Prepare and manage print-ready files ensuring correct specifications, color profiles, and formats</li>
-        <li>Stay up to date with design trends, tools, and industry best practices</li>
+        <li data-i18n="exp.stardust.li.1">Design a wide range of materials including brochures, posters, flyers, packaging, logos, and brand collateral</li>
+        <li data-i18n="exp.stardust.li.2">Prepare and manage print-ready files ensuring correct specifications, color profiles, and formats</li>
+        <li data-i18n="exp.stardust.li.3">Stay up to date with design trends, tools, and industry best practices</li>
       </ul>
     </div>
+    <button class="timeline-toggle" type="button" aria-expanded="false">
+      <svg class="timeline-toggle-chevron" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+        <path d="M3 4.5 L6 7.5 L9 4.5"/>
+      </svg>
+      <span class="timeline-toggle-label">
+        <span class="timeline-toggle-text">Show <span class="timeline-toggle-count">3</span> earlier roles</span>
+      </span>
+    </button>
   </div>
 </section>
 
@@ -1359,107 +2185,235 @@ footer {
 <!-- Portfolio -->
 <section id="portfolio">
   <div class="reveal">
-    <p class="section-label">03 — Portfolio</p>
-    <h2 class="section-title">Selected Case Studies</h2>
-    <p class="section-desc">Deep dives into product design challenges — from research to measurable impact.</p>
+    <p class="section-label" data-i18n="portfolio.label">03 — Portfolio</p>
+    <h2 class="section-title" data-i18n="portfolio.title">Selected case studies</h2>
+    <p class="section-desc" data-i18n="portfolio.desc">Deep dives into product design challenges — from research to measurable impact.</p>
   </div>
   <div class="portfolio-grid">
 
-    <!-- Case Study 1: Finansia Syrus Securities -->
-    <a href="https://www.finansiahero.com/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="text-decoration: none; color: inherit; display: block;">
+    <!-- Case Study 2: RMS -->
+    <div class="case-study reveal is-process-open" style="transition-delay: 0.1s;">
       <div class="case-header">
         <div>
           <div class="case-number">CASE 01</div>
-          <div class="case-title">Finansia Syrus Securities</div>
-          <div class="case-subtitle">Securities Trading Experience</div>
-        </div>
-        <span class="case-tag">FinTech</span>
-      </div>
-      <div class="case-body">
-        <div class="case-col">
-          <h4>Core Value</h4>
-          <ul>
-            <li>Deliver real-time market data, lightning-fast order execution, and minimal downtime</li>
-            <li>Build a robust and scalable infrastructure capable of handling high-volume trading activity</li>
-            <li>Guarantee 99.9% uptime with proactive system monitoring and rapid incident response</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>Approach</h4>
-          <ul>
-            <li>Align design solutions with business goals</li>
-            <li>Simplify complex problems into clear, actionable solutions</li>
-            <li>Improve experiences using user feedback and data-driven insights</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>Impact</h4>
-          <ul>
-            <li>Clearer, more usable trading workflows</li>
-            <li>Faster cross-functional decision-making</li>
-            <li>Stronger alignment between design and business outcomes</li>
-          </ul>
-        </div>
-      </div>
-      <div class="case-link-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-      </div>
-    </a>
-
-    <!-- Case Study 2: RMS -->
-    <div class="case-study reveal" style="transition-delay: 0.1s;">
-      <div class="case-header">
-        <div>
-          <div class="case-number">CASE 02</div>
           <div class="case-title">RMS — Restaurant Management System</div>
-          <div class="case-subtitle">Digital Menu Ordering MVP</div>
+          <div class="case-subtitle" data-i18n="case02.subtitle">Digital Menu Ordering</div>
         </div>
-        <span class="case-tag">Full Case Study</span>
+        <span class="case-tag" data-i18n="case02.tag">Full Case Study</span>
       </div>
-      <div class="case-body">
-        <div class="case-col">
-          <h4>Problem</h4>
-          <ul>
-            <li>Manual order-taking driving costly errors, delays, and frustrated guests</li>
-            <li>Disconnected systems creating inefficiency at every step of service</li>
-            <li>Poor inventory control quietly bleeding margin through food waste</li>
-          </ul>
+      <div class="case-body is-tabbed">
+        <div class="case-tabs" role="tablist" aria-label="Case breakdown">
+          <button class="case-tab-btn" type="button" role="tab" id="case01-tab-overview" aria-controls="case01-panel-overview" aria-selected="true" data-tab="overview">
+            <span class="case-tab-icon" aria-hidden="true">📋</span>
+            <span class="case-tab-label" data-i18n="case02.tab.overview">Overview</span>
+          </button>
+          <button class="case-tab-btn" type="button" role="tab" id="case01-tab-problems" aria-controls="case01-panel-problems" aria-selected="false" data-tab="problems">
+            <span class="case-tab-icon" aria-hidden="true">😤</span>
+            <span class="case-tab-label" data-i18n="case02.tab.problems">Problems</span>
+            <span class="case-tab-count" aria-hidden="true">6</span>
+          </button>
+          <button class="case-tab-btn" type="button" role="tab" id="case01-tab-solutions" aria-controls="case01-panel-solutions" aria-selected="false" data-tab="solutions">
+            <span class="case-tab-icon" aria-hidden="true">💡</span>
+            <span class="case-tab-label" data-i18n="case02.tab.solutions">Solutions</span>
+            <span class="case-tab-count" aria-hidden="true">6</span>
+          </button>
         </div>
-        <div class="case-col">
-          <h4>Solution</h4>
-          <ul>
-            <li>QR-code digital menu ordering guests can trust on the first scan</li>
-            <li>POS fully integrated with order management — one source of truth</li>
-            <li>Real-time inventory tracking that prevents waste before it happens</li>
-            <li>Direct-to-kitchen order routing for faster, error-free fulfillment</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>Outcome</h4>
-          <ul>
-            <li>Service flowed faster end-to-end, freeing staff to focus on guests</li>
-            <li>Food waste dropped sharply with always-accurate inventory visibility</li>
-            <li>Revenue climbed as ordering friction disappeared and tables turned faster</li>
-            <li>Customers reported a smoother, more confident dining experience</li>
-          </ul>
+        <div class="case-tab-panels">
+          <div class="case-tab-panel case-tab-panel--prose" role="tabpanel" id="case01-panel-overview" aria-labelledby="case01-tab-overview" data-tab="overview">
+            <p data-i18n="case02.overview.lead">A digital menu with high functionality and an aesthetically pleasing design can help simplify the ordering process while encouraging customers to spend more on their average bill.</p>
+            <p data-i18n="case02.overview.resp">My Responsibilities:</p>
+            <ul>
+              <li data-i18n="case02.overview.resp.1">Strategy &amp; Information Architecture (IA)</li>
+              <li data-i18n="case02.overview.resp.2">Accessibility &amp; Usability (UX)</li>
+              <li data-i18n="case02.overview.resp.3">Interface Design &amp; Brand Alignment</li>
+              <li data-i18n="case02.overview.resp.4">Conversion &amp; Upselling Logic</li>
+            </ul>
+          </div>
+          <div class="case-tab-panel" role="tabpanel" id="case01-panel-problems" aria-labelledby="case01-tab-problems" data-tab="problems" hidden>
+            <ul>
+              <li data-i18n="case02.problem.1">Slow &amp; error-prone manual ordering</li>
+              <li data-i18n="case02.problem.2">Costly, outdated printed menus</li>
+              <li data-i18n="case02.problem.3">Understaffed floor teams at peak hours</li>
+              <li data-i18n="case02.problem.4">No real-time sales visibility</li>
+              <li data-i18n="case02.problem.5">Low add-on / upsell conversion</li>
+              <li data-i18n="case02.problem.6">Language barriers for international guests</li>
+            </ul>
+          </div>
+          <div class="case-tab-panel" role="tabpanel" id="case01-panel-solutions" aria-labelledby="case01-tab-solutions" data-tab="solutions" hidden>
+            <ul>
+              <li data-i18n="case02.solution.1">Scan-to-order QR menus with rich visuals</li>
+              <li data-i18n="case02.solution.2">Real-time menu management dashboard</li>
+              <li data-i18n="case02.solution.3">Automated order routing to the kitchen</li>
+              <li data-i18n="case02.solution.4">Built-in analytics &amp; reporting</li>
+              <li data-i18n="case02.solution.5">Smart upsell &amp; recommendation engine</li>
+              <li data-i18n="case02.solution.6">Multi-language menu support</li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="case-metrics">
         <div class="metric">
-          <div class="metric-value">36%</div>
-          <div class="metric-label">Faster Orders</div>
+          <div class="metric-value">25%</div>
+          <div class="metric-label" data-i18n="case02.metric.3">Average Order Value</div>
         </div>
         <div class="metric">
-          <div class="metric-value">31%</div>
-          <div class="metric-label">Less Food Waste</div>
-        </div>
-        <div class="metric">
-          <div class="metric-value">19%</div>
-          <div class="metric-label">Revenue Growth</div>
+          <div class="metric-value">84%</div>
+          <div class="metric-label" data-i18n="case02.metric.2">Conversion rate</div>
         </div>
         <div class="metric">
           <div class="metric-value">87%</div>
-          <div class="metric-label">CSAT Score</div>
+          <div class="metric-label" data-i18n="case02.metric.4">CSAT Score</div>
+        </div>
+      </div>
+      <div class="case-cta">
+        <button class="case-view-toggle" type="button" aria-expanded="true" aria-controls="case01-process">
+          <span class="case-view-toggle-label" data-i18n="case02.cta.view">View Project</span>
+          <svg class="case-view-toggle-arrow" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+            <path d="M3 4.5 L6 7.5 L9 4.5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="case-process" id="case01-process" role="region" aria-label="Project process">
+        <div class="case-process-inner">
+          <div class="case-process-frame">
+            <span class="case-process-eyebrow" data-i18n="case02.process.eyebrow">Process</span>
+            <h4 class="case-process-title" data-i18n="case02.process.title">From discovery to delivery</h4>
+            <ol class="case-process-steps">
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">01</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.01.title">Project goals</h5>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.01.item.1"><strong>Deliver a Seamless Digital Ordering Experience:</strong> Enable guests to browse menus, customise orders, and pay — all from their own device — with zero friction and no app download required.</li>
+                      <li data-i18n="case02.step.01.item.2"><strong>Users spend less time:</strong> By ordering food, waiting for their meals, and paying, thanks to convenient payment options.</li>
+                      <li data-i18n="case02.step.01.item.3"><strong>Increase Average Order Value (AOV):</strong> Deploy smart upselling prompts, combo suggestions, and high-margin item highlights at key decision points during the ordering journey.</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <img src="RMS/Images/hyoshin-choi-eIgwkkVW53o-unsplash.jpg" alt="Two diners at a restaurant table reviewing a printed wine menu together." loading="lazy">
+                    </div>
+                  </figure>
+                </div>
+              </li>
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">02</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.02.title">Explorations</h5>
+                    <p class="case-process-step-body" data-i18n="case02.step.02.intro">Many menus use typography instead of images to represent items, and waiting for the server to take your order can take a considerable amount of time.</p>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.02.item.1"><strong>Problems —</strong> Customers often experience issues with faded text, low-quality images that don't accurately reflect the food, and long waiting times for service from the restaurant.</li>
+                      <li data-i18n="case02.step.02.item.2"><strong>User personas —</strong> To address these issues, the design must respond to the behavior, preferences, and needs of user groups. For example, some may want to order food quickly during short breaks, or they may want to see clear details of what they will receive.</li>
+                      <li data-i18n="case02.step.02.item.3"><strong>User journey —</strong> To understand where user problems lie, it's essential to clarify at every step how these issues will be resolved.</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <img src="RMS/Images/Customer Journey - The experience at a restaurant..jpg" alt="Customer journey map of the dine-in restaurant experience, showing user actions, thoughts, emotions, pains, and opportunities across 8 phases from arrival to bill request." loading="lazy">
+                    </div>
+                  </figure>
+                </div>
+              </li>
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">03</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.03.title">Concept design</h5>
+                    <p class="case-process-step-body" data-i18n="case02.step.03.intro">After considering the pros and cons of various options in terms of their potential impact on the product and other key performance indicators, we proceed with the design process as follows:</p>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.03.item.1"><strong>Wireframe —</strong> Once the problem is defined, explore a variety of creative solutions, including implementations, data structures, and layouts.</li>
+                      <li data-i18n="case02.step.03.item.2"><strong>Prototype —</strong> The process of transforming ideas into tangible forms ready for testing. Whether you create simple sketches or high-resolution interactive models, the goal is to create a working "experiment" to validate your logic and ensure every interaction leads to the correct point.</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <img src="RMS/Images/Restaurant Digital Menu — Mobile Wireframes.png" alt="Low-fidelity mobile wireframes for the Restaurant Digital Menu showing four screens (Browsing & Discovery, Selection & Customization, Cart Review, and Order Confirmation) with flow arrows connecting the steps." loading="lazy">
+                    </div>
+                  </figure>
+                </div>
+              </li>
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">04</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.04.title">Sequencing &amp; testing</h5>
+                    <p class="case-process-step-body" data-i18n="case02.step.04.intro">A properly sequenced workflow allows users to think more deeply and reach their goals more quickly. Therefore, it is crucial that this process is tested to ensure that our design actually solves the problem. See the example below:</p>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.04.item.1"><strong>Browsing &amp; Discovery:</strong> High-quality imagery is front and center. Users navigate through clear categories (e.g., Mains, Drinks, Desserts) with a search bar for quick finds.</li>
+                      <li data-i18n="case02.step.04.item.2"><strong>Selection &amp; Customization:</strong> Clicking an item opens a "modifier" tray. This is where they choose things like spice levels or extra toppings. The price should update in real-time.</li>
+                      <li data-i18n="case02.step.04.item.3"><strong>Cart Review:</strong> A quick summary of the order. This is the last chance for "smart suggestions" (e.g., "Add a side of fries?") before they commit.</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <img src="RMS/Images/Sequencing & testing_r1.jpg" alt="FigJam sequencing & testing board for Round 1: test goal, target users with 5 personas, flow sequence from scan to payment with severity ratings, task results table, and flow review and materials checklists." loading="lazy">
+                    </div>
+                  </figure>
+                </div>
+              </li>
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">05</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.05.title">Making the product decision</h5>
+                    <p class="case-process-step-body" data-i18n="case02.step.05.intro">For product decision-making to be effective, a balance must be struck between user needs and business goals. Prioritizing issues helps teams focus on the "must-haves" first.</p>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.05.item.1"><strong>High Priority — Payment Errors:</strong> Users encounter problems during the checkout process (e.g., complex steps, limited options, "pay as a guest"), which is a significant issue leading to unsuccessful payments.</li>
+                      <li data-i18n="case02.step.05.item.2"><strong>Medium Priority — Complex Customization Flow:</strong> If adding a simple modifier (like "no onions") takes too many taps, users get frustrated.</li>
+                      <li data-i18n="case02.step.05.item.3"><strong>Low Priority — Micro-interactions:</strong> Small animations when a button is clicked or a "success" sparkle when an item is added to the cart.<br>(These are "nice-to-have" features that improve the overall feel but aren't necessary for the core function.)</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <img src="RMS/Images/Prioritization.jpg" alt="Prioritization matrix plotting issues by Ubiquity (Low to High) against Impact (Low, Medium, High), grouping items into Low to None, Medium Priority (70%), and High Priority (100%) buckets." loading="lazy">
+                    </div>
+                  </figure>
+                </div>
+              </li>
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">06</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.06.title">Enhance to submitting</h5>
+                    <p class="case-process-step-body" data-i18n="case02.step.06.intro">When prioritizing the "thinking" to the "doing" phase, creating an experience is the step that transforms those priorities into a vibrant interface.</p>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.06.item.1"><strong>Hierarchy:</strong> Place the most popular categories (High Priority) at the top. Use clear, descriptive labels so users don't have to guess where the "Sides" or "Drinks" are.</li>
+                      <li data-i18n="case02.step.06.item.2"><strong>Bright &amp; Airy Interface:</strong> Use a light background to enhance food photography. Avoid dark overlays, as they make food look unappealing and text harder to read.</li>
+                      <li data-i18n="case02.step.06.item.3"><strong>Visual consistency:</strong> Ensure that all food photos have consistent lighting and "ambiance".</li>
+                      <li data-i18n="case02.step.06.item.4"><strong>Accessibility &amp; Polish:</strong> Verify that all text is readable against the bright background.</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <img src="RMS/Images/Final_UI-Vibrant.jpg" alt="High-fidelity UI mockups for the Vibrant Fresh Salad Factory digital ordering flow, showing login-free access screens, digital menu browsing and customization, cart review, order confirmation, and cash payment flow." loading="lazy">
+                    </div>
+                  </figure>
+                </div>
+              </li>
+              <li class="case-process-step has-media">
+                <span class="case-process-step-num">07</span>
+                <div class="case-process-step-content">
+                  <div class="case-process-step-text">
+                    <h5 class="case-process-step-title" data-i18n="case02.step.07.title">Measurement</h5>
+                    <p class="case-process-step-body" data-i18n="case02.step.07.intro">To assess how well the product effectively solves user problems, case-by-case tracking is performed using performance indicators from Google Analytics, in close collaboration with the product owner. Results are summarized every 1-2 months to inform future improvements and development.</p>
+                    <p class="case-process-step-body" data-i18n="case02.step.07.intro2">Here is an example of task tracking:</p>
+                    <ul class="case-process-step-list">
+                      <li data-i18n="case02.step.07.item.1"><strong>Conversion Rate:</strong> % of visitors who complete an order.</li>
+                      <li data-i18n="case02.step.07.item.2"><strong>Average Order Value (AOV):</strong> The average total amount of orders.</li>
+                      <li data-i18n="case02.step.07.item.3"><strong>Time to Order:</strong> The time taken from "scanning" to "checkout".</li>
+                    </ul>
+                  </div>
+                  <figure class="case-process-step-media">
+                    <div class="case-process-step-media-frame">
+                      <span class="case-process-step-media-empty" data-i18n="case02.media.empty">Image</span>
+                    </div>
+                  </figure>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     </div>
@@ -1468,35 +2422,35 @@ footer {
     <a href="https://www.lhbank.co.th/th/personal/digitalbanking/lhbyou/" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.2s; text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
         <div>
-          <div class="case-number">CASE 03</div>
+          <div class="case-number">CASE 02</div>
           <div class="case-title">LHB YOU — Banking App</div>
-          <div class="case-subtitle">Unified Mobile Banking Experience</div>
+          <div class="case-subtitle" data-i18n="case03.subtitle">Unified Mobile Banking Experience</div>
         </div>
         <span class="case-tag">FinTech</span>
       </div>
       <div class="case-body">
         <div class="case-col">
-          <h4>Problem</h4>
+          <h4 data-i18n="case03.h.problem">Problem</h4>
           <ul>
-            <li>Banking trapped behind branch hours and queues, eroding customer trust</li>
-            <li>Money scattered across products with no unified view to act on</li>
-            <li>Customers left guessing about balances, spending, and financial health</li>
+            <li data-i18n="case03.problem.1">Banking trapped behind branch hours and queues, eroding customer trust</li>
+            <li data-i18n="case03.problem.2">Money scattered across products with no unified view to act on</li>
+            <li data-i18n="case03.problem.3">Customers left guessing about balances, spending, and financial health</li>
           </ul>
         </div>
         <div class="case-col">
-          <h4>Solution</h4>
+          <h4 data-i18n="case03.h.solution">Solution</h4>
           <ul>
-            <li>Banking on demand — anytime, anywhere, with bank-grade security</li>
-            <li>A single dashboard bringing every account, card, and product into one view</li>
-            <li>Smart financial tools that turn raw data into clear, actionable insight</li>
+            <li data-i18n="case03.solution.1">Banking on demand — anytime, anywhere, with bank-grade security</li>
+            <li data-i18n="case03.solution.2">A single dashboard bringing every account, card, and product into one view</li>
+            <li data-i18n="case03.solution.3">Smart financial tools that turn raw data into clear, actionable insight</li>
           </ul>
         </div>
         <div class="case-col">
-          <h4>Outcome</h4>
+          <h4 data-i18n="case03.h.outcome">Outcome</h4>
           <ul>
-            <li>Sustained digital adoption across everyday banking</li>
-            <li>Reduced branch dependency without sacrificing service quality</li>
-            <li>Faster, simpler, more confident everyday transactions</li>
+            <li data-i18n="case03.outcome.1">Sustained digital adoption across everyday banking</li>
+            <li data-i18n="case03.outcome.2">Reduced branch dependency without sacrificing service quality</li>
+            <li data-i18n="case03.outcome.3">Faster, simpler, more confident everyday transactions</li>
           </ul>
         </div>
       </div>
@@ -1505,77 +2459,39 @@ footer {
       </div>
     </a>
 
-    <!-- Case Study 4: Operational Solutions -->
-    <div class="case-study reveal" style="transition-delay: 0.1s;">
-      <div class="case-header">
-        <div>
-          <div class="case-number">CASE 04</div>
-          <div class="case-title">Operational Solutions Provider</div>
-          <div class="case-subtitle">Integrated Data-Driven Operations</div>
-        </div>
-        <span class="case-tag">Enterprise</span>
-      </div>
-      <div class="case-body">
-        <div class="case-col">
-          <h4>Core Value</h4>
-          <ul>
-            <li>Anchor every data initiative to clear business goals and measurable KPIs</li>
-            <li>Surface insights that move the needle on efficiency, revenue, and user satisfaction</li>
-            <li>Drive accountability by making outcomes visible to every stakeholder</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>My Role</h4>
-          <ul>
-            <li>Lead the UX vision and design strategy for enterprise data platforms and operational dashboards</li>
-            <li>Translate complex data and workflows into clear, decision-ready interfaces operators trust</li>
-            <li>Partner with data, engineering, and product to ship designs that match system reality and business intent</li>
-          </ul>
-        </div>
-        <div class="case-col">
-          <h4>Deliverables</h4>
-          <ul>
-            <li>Information architecture built to scale — clear structure, navigation, and data hierarchy</li>
-            <li>End-to-end user flows mapping every interaction across integrated operational systems</li>
-            <li>Production-ready interactive prototypes for executive review, usability testing, and developer handoff</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <!-- Case Study 5: Tops Supermarket -->
     <a href="https://apps.apple.com/us/app/tops-online-food-grocery/id541492660" target="_blank" rel="noopener noreferrer" class="case-study reveal" style="transition-delay: 0.2s; text-decoration: none; color: inherit; display: block;">
       <div class="case-header">
         <div>
-          <div class="case-number">CASE 05</div>
+          <div class="case-number">CASE 03</div>
           <div class="case-title">Tops Supermarket</div>
-          <div class="case-subtitle">Grocery Delivery Platform</div>
+          <div class="case-subtitle" data-i18n="case05.subtitle">Grocery Delivery Platform</div>
         </div>
         <span class="case-tag">E-Commerce</span>
       </div>
       <div class="case-body">
         <div class="case-col">
-          <h4>Problem</h4>
+          <h4 data-i18n="case05.h.problem">Problem</h4>
           <ul>
-            <li>Customers forced to travel to stores for every grocery run</li>
-            <li>No stock visibility before arriving — wasted trips and broken trust</li>
-            <li>Store and delivery systems running in silos, fracturing the experience</li>
+            <li data-i18n="case05.problem.1">Customers forced to travel to stores for every grocery run</li>
+            <li data-i18n="case05.problem.2">No stock visibility before arriving — wasted trips and broken trust</li>
+            <li data-i18n="case05.problem.3">Store and delivery systems running in silos, fracturing the experience</li>
           </ul>
         </div>
         <div class="case-col">
-          <h4>Solution</h4>
+          <h4 data-i18n="case05.h.solution">Solution</h4>
           <ul>
-            <li>Real-time inventory tied directly to in-store stock</li>
-            <li>Reliable delivery windows with live order tracking</li>
-            <li>A unified mobile and web experience customers can count on</li>
+            <li data-i18n="case05.solution.1">Real-time inventory tied directly to in-store stock</li>
+            <li data-i18n="case05.solution.2">Reliable delivery windows with live order tracking</li>
+            <li data-i18n="case05.solution.3">A unified mobile and web experience customers can count on</li>
           </ul>
         </div>
         <div class="case-col">
-          <h4>Outcome</h4>
+          <h4 data-i18n="case05.h.outcome">Outcome</h4>
           <ul>
-            <li>Eliminated time and location barriers for everyday shoppers</li>
-            <li>Scaled grocery shopping nationwide across mobile and web</li>
-            <li>Unlocked measurable growth in customer reach and revenue</li>
+            <li data-i18n="case05.outcome.1">Eliminated time and location barriers for everyday shoppers</li>
+            <li data-i18n="case05.outcome.2">Scaled grocery shopping nationwide across mobile and web</li>
+            <li data-i18n="case05.outcome.3">Unlocked measurable growth in customer reach and revenue</li>
           </ul>
         </div>
       </div>
@@ -1592,25 +2508,25 @@ footer {
 <!-- Certifications -->
 <section id="certifications">
   <div class="reveal">
-    <p class="section-label">04 — Certifications</p>
-    <h2 class="section-title">Continuous Learning</h2>
-    <p class="section-desc">Committed to growing through industry-recognized programs and certifications.</p>
+    <p class="section-label" data-i18n="cert.label">04 — Certifications</p>
+    <h2 class="section-title" data-i18n="cert.title">Continuous Learning</h2>
+    <p class="section-desc" data-i18n="cert.desc">Committed to growing through industry-recognized programs and certifications.</p>
   </div>
   <div class="certs-grid reveal" style="transition-delay: 0.15s;">
     <div class="cert-card">
       <div class="cert-year">2025 — 2026</div>
       <div class="cert-name">IBM AI Product Manager</div>
-      <div class="cert-detail">Generative AI for UI UX Design Specialization · Design thinking for business strategy and entrepreneurship</div>
+      <div class="cert-detail" data-i18n="cert.1.detail">Generative AI for UI UX Design Specialization · Design thinking for business strategy and entrepreneurship</div>
     </div>
     <div class="cert-card">
       <div class="cert-year">2020 — 2024</div>
-      <div class="cert-name">UX Management Strategy & Tactics</div>
-      <div class="cert-detail">Conduct UX Research and Test Early Concepts · Design a User Experience for Social Good · Google UX Design</div>
+      <div class="cert-name">UX Management Strategy &amp; Tactics</div>
+      <div class="cert-detail" data-i18n="cert.2.detail">Conduct UX Research and Test Early Concepts · Design a User Experience for Social Good · Google UX Design</div>
     </div>
     <div class="cert-card">
       <div class="cert-year">2015 — 2019</div>
       <div class="cert-name">Intensive UX/UI for Mobile Application</div>
-      <div class="cert-detail">Design Thinking · Data Mining Algorithms</div>
+      <div class="cert-detail" data-i18n="cert.3.detail">Design Thinking · Data Mining Algorithms</div>
     </div>
   </div>
 </section>
@@ -1620,9 +2536,9 @@ footer {
 <!-- Contact -->
 <section class="contact" id="contact">
   <div class="contact-inner reveal">
-    <p class="section-label">05 — Let's Connect</p>
-    <h2 class="section-title">Results You<br>Can Trust</h2>
-    <p class="contact-desc">I'm always open to discussing product design, UX challenges, or potential collaborations. Let's create something impactful together.</p>
+    <p class="section-label" data-i18n="contact.label">05 — Let's Connect</p>
+    <h2 class="section-title" data-i18n="contact.title">Results You<br>Can Trust</h2>
+    <p class="contact-desc" data-i18n="contact.desc">I'm always open to discussing product design, UX challenges, or potential collaborations. Let's create something impactful together.</p>
     <div class="contact-links">
       <a href="mailto:cott.rasri@yahoo.com" class="contact-link">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
@@ -1641,8 +2557,18 @@ footer {
 </section>
 
 <footer>
-  <p>&copy; 2026 Rasri Issarasiri. Designed for everyone.</p>
+  <p data-i18n="footer.copy">&copy; 2026 Rasri Issarasiri. Designed for everyone.</p>
 </footer>
+
+<div class="image-lightbox" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+  <button class="image-lightbox-close" type="button" aria-label="Close image">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="6" y1="6" x2="18" y2="18"/>
+      <line x1="18" y1="6" x2="6" y2="18"/>
+    </svg>
+  </button>
+  <img src="" alt="">
+</div>
 
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -1727,12 +2653,400 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ─── Language Selector ───
+const i18n = {
+  th: {
+    // Nav
+    'nav.about': 'เกี่ยวกับ',
+    'nav.experience': 'ประสบการณ์',
+    'nav.portfolio': 'ผลงาน',
+    'nav.certifications': 'ใบรับรอง',
+
+    // Hero
+    'hero.pill': '9+ ปีในการสร้างสรรค์ผลิตภัณฑ์ดิจิทัล',
+    'hero.static': 'ออกแบบบางสิ่งที่',
+    'hero.word.different': 'แตกต่าง',
+    'hero.word.flexible': 'ยืดหยุ่น',
+    'hero.word.efficient': 'ทรงประสิทธิภาพ',
+    'hero.tagline': 'สวัสดี, ฉันคือ ราศี — Lead Product Designer และ UX Engineer มากด้วยประสบการด้านการออกแบบแนวคิดตลอดจนส่งมอบผลงาน ที่ซึ่งสามารถแก้ปัญหาและสร้างกลยุทธ์ที่แตกต่าง โดยคำนึงถึงเป้าหมายและผลลัพธ์ที่คุ้มค่า',
+    'hero.cta.cases': 'ดูกรณีศึกษา',
+    'hero.cta.contact': 'ติดต่อ',
+
+    // Clients
+    'clients.label': 'ได้รับความไว้วางใจจากบริษัทชั้นนำ',
+
+    // About
+    'about.label': '01 — เกี่ยวกับ',
+    'about.title': 'สร้างสรรค์ประสบการณ์<br>ดิจิทัล',
+    'about.bio1': 'นักออกแบบและวิศวกรระดับ Principal ที่มีประสบการณ์กว่าหนึ่งทศวรรษในการแปลงปัญหาผู้ใช้ที่ซับซ้อนให้เป็นโซลูชันที่สวยงามและพร้อมใช้งานจริง มีพื้นฐานเข้มข้นทั้งด้าน UX Research, Visual Design และ High-Fidelity Prototyping ผสานกับทักษะ Frontend (React, CSS-in-JS, Component Libraries) ที่นำพาทุกชิ้นงานจากแนวคิดไปสู่โค้ดโดยไม่สูญเสียรายละเอียดในการส่งมอบ เป็นสถาปนิกของ Design System ที่องค์กรหลายผลิตภัณฑ์ใช้งานจริง และผู้สนับสนุนแนวคิด Inclusive และ Accessible Experience ในทุกชั้นของระบบ',
+    'about.bio2': 'มีประสบการณ์ครอบคลุมหลายอุตสาหกรรม ทั้ง FinTech, AgriTech, Food &amp; Retail และ Enterprise Operations โดยร่วมมือกับ Product Manager, Developer และผู้มีส่วนได้ส่วนเสียอื่น ๆ เพื่อให้โซลูชันการออกแบบสอดคล้องกับเป้าหมายทางธุรกิจ',
+    'about.location.label': 'ที่ตั้ง',
+    'about.location.value': 'กรุงเทพมหานคร, ประเทศไทย',
+    'about.education.label': 'การศึกษา',
+    'about.education.value': 'ศิลปบัณฑิต สาขานิเทศศิลป์',
+    'about.email.label': 'อีเมล',
+    'about.phone.label': 'โทรศัพท์',
+    'about.skills.pro.title': 'ทักษะเชิงวิชาชีพ',
+    'about.skills.craft.title': 'ทักษะเชิงปฏิบัติ',
+    'about.skill.pro.1': 'ความเข้าใจเชิงผลิตภัณฑ์และธุรกิจ',
+    'about.skill.pro.2': 'การแก้ปัญหา',
+    'about.skill.pro.3': 'การวางแผนเชิงกลยุทธ์',
+    'about.skill.pro.4': 'การตัดสินใจ',
+    'about.skill.pro.5': 'การทำงานร่วมข้ามทีม',
+    'about.skill.craft.1': 'เครื่องมือออกแบบและ AI',
+    'about.skill.craft.2': 'ความรู้ด้าน Front-End',
+    'about.skill.craft.3': 'การคิดเชิงระบบ',
+    'about.skill.craft.4': 'ข้อมูลและการทดสอบ',
+    'about.skill.craft.5': 'การเข้าถึงสำหรับทุกคน',
+
+    // Experience
+    'exp.label': '02 — ประสบการณ์',
+    'exp.title': 'ประสบการณ์การทำงาน',
+    'exp.desc': 'กว่าหนึ่งทศวรรษของประสบการณ์ออกแบบในเอเจนซี บริษัทผลิตภัณฑ์ และทีมระดับองค์กร',
+
+    'exp.ocr.date': '2026 — ปัจจุบัน',
+    'exp.ocr.role': 'Lead Product Designer / UX Engineer',
+    'exp.ocr.li.1': 'กลยุทธ์การออกแบบ, การตัดสินใจ, การแก้ปัญหา, การทำงานร่วมข้ามสายงาน, การให้คำปรึกษา',
+    'exp.ocr.li.2': 'การวิจัยผู้ใช้, Journey Mapping, Information Architecture, Wireframing, การทดสอบการใช้งาน, High-Fidelity Prototyping',
+    'exp.ocr.li.3': 'Token Architecture, Component Libraries, การส่งมอบงาน Design-to-Code, Storybook, Zeroheight',
+    'exp.ocr.li.4': 'React, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Styled Components',
+
+    'exp.axons.role': 'Lead UX/UI Designer',
+    'exp.axons.li.1': 'นำทีมออกแบบผลิตภัณฑ์เพื่อสร้างผลิตภัณฑ์ดิจิทัลที่ยึดผู้ใช้เป็นศูนย์กลางและขับเคลื่อนด้วยธุรกิจ',
+    'exp.axons.li.2': 'ดำเนินการวิจัยผู้ใช้และพัฒนากลยุทธ์การออกแบบให้สอดคล้องกับเป้าหมายทางธุรกิจ',
+    'exp.axons.li.3': 'ชี้นำการออกแบบผลิตภัณฑ์ที่ซับซ้อนตั้งแต่แนวคิดจนถึงการลงมือทำจริง',
+    'exp.axons.li.4': 'สนับสนุนและจัดลำดับความสำคัญของงานออกแบบ พร้อมรักษาสมดุลระหว่างขอบเขต เวลา และคุณภาพ',
+
+    'exp.amr.role': 'UX/UI Designer, Creative Designer',
+    'exp.amr.li.1': 'ทำการวิจัยผู้ใช้, การทดสอบการใช้งาน และวิเคราะห์ Feedback เพื่อนำไปสู่การตัดสินใจด้านการออกแบบ',
+    'exp.amr.li.2': 'สร้าง Wireframe, Prototype และ High-Fidelity Mockup ด้วยเครื่องมือ เช่น Figma, Adobe XD หรือ Sketch',
+    'exp.amr.li.3': 'ทำงานร่วมอย่างใกล้ชิดกับ Product Manager, Developer และผู้มีส่วนได้ส่วนเสียตลอดวงจรชีวิตของผลิตภัณฑ์',
+    'exp.amr.li.4': 'สร้างชิ้นงานสร้างสรรค์ ทั้ง Illustration, Icon, Typography และงานภาพในแบรนด์',
+
+    'exp.central.company': 'Central Food Retail Co., Ltd',
+    'exp.central.role': 'Web Graphic Designer',
+    'exp.central.li.1': 'ออกแบบเลย์เอาต์เว็บไซต์, หน้า Landing Page, แบนเนอร์ และองค์ประกอบ UI ที่มีทั้งความสวยงามและใช้งานได้จริง',
+    'exp.central.li.2': 'สร้างและปรับปรุงชิ้นงานภาพสำหรับเว็บ ทั้งภาพประกอบ, ไอคอน, อินโฟกราฟิก และแอนิเมชัน',
+    'exp.central.li.3': 'ทำงานร่วมกับนักพัฒนาเพื่อให้การลงโค้ดเป็นไปตามแบบอย่างถูกต้องและสมบูรณ์ทุกพิกเซล',
+    'exp.central.li.4': 'รักษาความสอดคล้องของแบรนด์บนทุกแพลตฟอร์มเว็บและดิจิทัล',
+
+    'exp.samart.role': 'Graphic Designer',
+    'exp.samart.li.1': 'พัฒนาและรักษาเอกลักษณ์ของแบรนด์ให้สอดคล้องกันบนสื่อการตลาดและสื่อสารทุกประเภท',
+    'exp.samart.li.2': 'ทำงานร่วมกับทีมการตลาด, คอนเทนต์ และผลิตภัณฑ์ เพื่อทำความเข้าใจเป้าหมายของโครงการและส่งมอบชิ้นงานสร้างสรรค์',
+    'exp.samart.li.3': 'นำเสนอแนวคิดและไอเดียการออกแบบต่อผู้มีส่วนได้ส่วนเสีย และนำ Feedback ไปปรับปรุงในรอบการแก้ไข',
+
+    'exp.scotch.role': 'Graphic Designer',
+    'exp.scotch.li.1': 'สร้างแนวคิดด้านภาพสำหรับงานโฆษณาและการสื่อสารองค์กร',
+    'exp.scotch.li.2': 'ออกแบบงานแบรนด์ดิ้งองค์กร, ป้ายบิลบอร์ด และแบนเนอร์เว็บไซต์',
+    'exp.scotch.li.3': 'ออกแบบบรรจุภัณฑ์ผลิตภัณฑ์, งานถ่ายภาพ และการตัดต่อภาพ',
+
+    'exp.stardust.role': 'Graphic Designer',
+    'exp.stardust.li.1': 'ออกแบบสื่อหลากหลายประเภท ทั้งโบรชัวร์, โปสเตอร์, ใบปลิว, บรรจุภัณฑ์, โลโก้ และสื่อประกอบของแบรนด์',
+    'exp.stardust.li.2': 'จัดเตรียมและจัดการไฟล์พร้อมพิมพ์ ให้ถูกต้องตามสเปก, Color Profile และฟอร์แมตที่กำหนด',
+    'exp.stardust.li.3': 'ติดตามเทรนด์, เครื่องมือ และแนวทางการออกแบบที่ดีที่สุดในอุตสาหกรรมอย่างสม่ำเสมอ',
+
+    'exp.toggle.collapsed': 'ดูตำแหน่งก่อนหน้าเพิ่มอีก <span class="timeline-toggle-count">3</span> รายการ',
+    'exp.toggle.expanded': 'ย่อกลับ',
+
+    // Portfolio
+    'portfolio.label': '03 — ผลงาน',
+    'portfolio.title': 'กรณีศึกษาที่คัดสรร',
+    'portfolio.desc': 'เจาะลึกความท้าทายในการออกแบบผลิตภัณฑ์ — ตั้งแต่การวิจัยจนถึงผลลัพธ์ที่วัดได้',
+
+    'case01.subtitle': 'ระบบจัดการเอกสารด้วย AI',
+    'case01.h.problem': 'ปัญหา',
+    'case01.h.solution': 'โซลูชัน',
+    'case01.h.outcome': 'ผลลัพธ์',
+    'case01.problem.1': 'การประมวลผลเอกสารปริมาณมากติดอยู่กับการคีย์ข้อมูลด้วยมือ — ช้า ต้นทุนสูง และเกิดข้อผิดพลาดได้ง่าย',
+    'case01.problem.2': 'คุณภาพการสกัดข้อมูลไม่สม่ำเสมอตามชนิดเอกสาร ทั้งใบแจ้งหนี้ บัตรประชาชน ใบเสร็จ และสัญญา ต่างมีพฤติกรรมต่างกัน',
+    'case01.problem.3': 'ผู้ใช้งานต้องสลับเครื่องมือที่ไม่เชื่อมโยงกัน เพื่อตรวจสอบ แก้ไข และส่งต่อผลลัพธ์ โดยไม่มีร่องรอยการตรวจสอบที่ชัดเจน',
+    'case01.solution.1': 'Pipeline OCR ขับเคลื่อนด้วย AI พร้อมสัญญาณความมั่นใจ ให้ผู้ใช้งานเห็นในพริบตาว่าจะเชื่อถือหรือต้องตรวจสอบ',
+    'case01.solution.2': 'พื้นที่ทำงานสำหรับตรวจทานในที่เดียว ที่หยิบเอา Field ความมั่นใจต่ำขึ้นมาให้แก้ไขได้ภายในไม่กี่วินาที',
+    'case01.solution.3': 'ระบบ Template Mapping แบบ No-code สำหรับเริ่มใช้งานเอกสารชนิดใหม่ได้โดยไม่ต้องพึ่งทีมวิศวกร',
+    'case01.solution.4': 'ระบบส่งต่องานตามบทบาทและ Audit Trail ในตัว เพื่อรองรับการตรวจสอบและการกำกับดูแล',
+    'case01.outcome.1': 'ผู้ใช้งานเปลี่ยนจากการคีย์ข้อมูลไปสู่การใช้วิจารณญาณ ลดเวลาในการดำเนินการได้อย่างชัดเจน',
+    'case01.outcome.2': 'ความแม่นยำในการสกัดข้อมูลเพิ่มขึ้นต่อเนื่อง เมื่อการแก้ไขจากผู้ใช้ถูกป้อนกลับเข้าโมเดล',
+    'case01.outcome.3': 'เปิดใช้งานเอกสารชนิดใหม่ได้ในเวลาไม่กี่นาทีจากการตั้งค่า แทนที่จะใช้เวลาเป็นสัปดาห์ในการพัฒนา',
+    'case01.outcome.4': 'ทีม Compliance ได้มุมมองที่ต้องการครบถ้วนโดยไม่กระทบความเร็วของงาน',
+
+    'case02.subtitle': 'เมนูสั่งอาหารดิจิทัล',
+    'case02.tag': 'กรณีศึกษาฉบับเต็ม',
+    'case02.h.problem': 'ปัญหา',
+    'case02.h.solution': 'โซลูชัน',
+    'case02.h.outcome': 'ผลลัพธ์',
+    'case02.problem.1': 'การสั่งซื้อด้วยมือที่ช้าและเกิดข้อผิดพลาดได้ง่าย',
+    'case02.problem.2': 'เมนูพิมพ์ที่มีต้นทุนสูงและล้าสมัย',
+    'case02.problem.3': 'ทีมหน้าร้านขาดคนในช่วงเวลาเร่งด่วน',
+    'case02.solution.1': 'เมนู QR Scan-to-order พร้อมภาพประกอบครบครัน',
+    'case02.solution.2': 'แดชบอร์ดจัดการเมนูแบบเรียลไทม์',
+    'case02.solution.3': 'ระบบส่งออเดอร์ตรงถึงครัวอัตโนมัติ',
+    'case02.solution.4': 'ระบบวิเคราะห์และรายงานในตัว',
+    'case02.outcome.1': 'การบริการลื่นไหลตั้งแต่ต้นจนจบ พนักงานมีเวลามุ่งความสนใจที่ลูกค้า',
+    'case02.outcome.2': 'ของเสียจากอาหารลดลงอย่างมีนัยสำคัญด้วยข้อมูลสต็อกที่แม่นยำตลอดเวลา',
+    'case02.outcome.3': 'รายได้เติบโตขึ้นเมื่อขั้นตอนการสั่งราบรื่นและโต๊ะหมุนเวียนเร็วขึ้น',
+    'case02.outcome.4': 'ลูกค้ารายงานประสบการณ์การรับประทานที่ราบรื่นและมั่นใจยิ่งขึ้น',
+    'case02.metric.1': 'สั่งอาหารเร็วขึ้น',
+    'case02.metric.2': 'อัตราการแปลง',
+    'case02.metric.3': 'ยอดสั่งซื้อเฉลี่ย',
+    'case02.metric.4': 'คะแนนความพึงพอใจ',
+    'case02.problem.4': 'ไม่เห็นยอดขายแบบเรียลไทม์',
+    'case02.problem.5': 'การ upsell และเพิ่มออเดอร์ทำได้ต่ำ',
+    'case02.problem.6': 'อุปสรรคทางภาษาสำหรับลูกค้าต่างชาติ',
+    'case02.solution.5': 'ระบบ Upsell และแนะนำเมนูอัจฉริยะ',
+    'case02.solution.6': 'รองรับเมนูหลายภาษา',
+    'case02.tab.overview': 'ภาพรวม',
+    'case02.tab.problems': 'ปัญหา',
+    'case02.tab.solutions': 'โซลูชัน',
+    'case02.overview.lead': 'เมนูดิจิทัลที่ใช้งานง่ายและออกแบบสวยงามจะช่วยให้ขั้นตอนการสั่งซื้อราบรื่นขึ้น พร้อมกระตุ้นให้ลูกค้าใช้จ่ายเฉลี่ยต่อบิลมากขึ้น',
+    'case02.overview.resp': 'หน้าที่รับผิดชอบของฉัน:',
+    'case02.overview.resp.1': 'กลยุทธ์และโครงสร้างข้อมูล (IA)',
+    'case02.overview.resp.2': 'การเข้าถึงและการใช้งานง่าย (UX)',
+    'case02.overview.resp.3': 'การออกแบบส่วนต่อประสานและความสอดคล้องของแบรนด์',
+    'case02.overview.resp.4': 'การเพิ่มยอดและการ Upsell',
+    'case02.cta.view': 'ดูโปรเจกต์',
+    'case02.process.eyebrow': 'กระบวนการ',
+    'case02.process.title': 'จากการค้นพบสู่การส่งมอบ',
+    'case02.media.empty': 'รูปภาพ',
+    'case02.step.01.title': 'เป้าหมายโปรเจกต์',
+    'case02.step.01.item.1': '<strong>มอบประสบการณ์การสั่งซื้อดิจิทัลที่ราบรื่น:</strong> ให้ลูกค้าเรียกดูเมนู ปรับแต่งออเดอร์ และชำระเงิน — ทั้งหมดจากอุปกรณ์ของตนเอง — โดยไม่ต้องดาวน์โหลดแอป',
+    'case02.step.01.item.2': '<strong>ผู้ใช้ใช้เวลาน้อยลง:</strong> ในการสั่งอาหาร รออาหาร และชำระเงิน ด้วยตัวเลือกการชำระเงินที่สะดวก',
+    'case02.step.01.item.3': '<strong>เพิ่มยอดสั่งซื้อเฉลี่ย (AOV):</strong> ใช้ระบบกระตุ้นการ upsell, แนะนำชุดคู่กัน และไฮไลต์เมนูกำไรสูงในจุดตัดสินใจสำคัญตลอดเส้นทางการสั่งซื้อ',
+    'case02.step.02.title': 'การสำรวจแนวทาง',
+    'case02.step.02.intro': 'เมนูจำนวนมากใช้ตัวอักษรแทนภาพในการแสดงรายการ และการรอพนักงานมารับออเดอร์ก็อาจใช้เวลานานพอสมควร',
+    'case02.step.02.item.1': '<strong>ปัญหา —</strong> ลูกค้ามักประสบปัญหาตัวอักษรซีดจาง ภาพคุณภาพต่ำที่ไม่สะท้อนอาหารจริง และต้องรอการบริการจากร้านอาหารเป็นเวลานาน',
+    'case02.step.02.item.2': '<strong>โปรไฟล์ผู้ใช้ —</strong> เพื่อจัดการกับปัญหาเหล่านี้ การออกแบบต้องตอบสนองพฤติกรรม ความชอบ และความต้องการของกลุ่มผู้ใช้ ตัวอย่างเช่น บางคนอาจต้องการสั่งอาหารอย่างรวดเร็วในช่วงพักสั้น ๆ หรืออยากเห็นรายละเอียดที่ชัดเจนของสิ่งที่จะได้รับ',
+    'case02.step.02.item.3': '<strong>เส้นทางผู้ใช้ —</strong> เพื่อทำความเข้าใจว่าปัญหาของผู้ใช้อยู่ที่ใด จำเป็นต้องระบุให้ชัดเจนในทุกขั้นตอนว่าจะแก้ปัญหาเหล่านี้อย่างไร',
+    'case02.step.03.title': 'การออกแบบแนวคิด',
+    'case02.step.03.intro': 'หลังจากพิจารณาข้อดีข้อเสียของตัวเลือกต่าง ๆ ในแง่ผลกระทบต่อผลิตภัณฑ์และตัวชี้วัดหลักอื่น ๆ เราดำเนินกระบวนการออกแบบดังนี้:',
+    'case02.step.03.item.1': '<strong>Wireframe —</strong> เมื่อปัญหาถูกกำหนดชัดเจน เราสำรวจแนวทางแก้ไขที่หลากหลาย ทั้งวิธีนำไปใช้ โครงสร้างข้อมูล และเลย์เอาต์',
+    'case02.step.03.item.2': '<strong>Prototype —</strong> กระบวนการแปลงไอเดียให้เป็นรูปธรรมพร้อมทดสอบ ไม่ว่าจะเป็นสเก็ตช์ง่าย ๆ หรือโมเดลโต้ตอบความละเอียดสูง เป้าหมายคือสร้าง "การทดลอง" ที่ใช้ได้จริงเพื่อตรวจสอบตรรกะและให้ทุกการโต้ตอบนำไปสู่จุดที่ถูกต้อง',
+    'case02.step.04.title': 'การลำดับและการทดสอบ',
+    'case02.step.04.intro': 'การจัดลำดับขั้นตอนการทำงานที่เหมาะสมช่วยให้ผู้ใช้คิดได้ลึกซึ้งขึ้นและบรรลุเป้าหมายได้รวดเร็วขึ้น ดังนั้น การทดสอบกระบวนการนี้จึงสำคัญเพื่อให้แน่ใจว่าการออกแบบของเราแก้ปัญหาได้จริง ดูตัวอย่างด้านล่าง:',
+    'case02.step.04.item.1': '<strong>การเรียกดูและค้นหา:</strong> เน้นภาพคุณภาพสูงเป็นจุดหลัก ผู้ใช้สามารถนำทางผ่านหมวดหมู่ที่ชัดเจน (เช่น เมนูหลัก, เครื่องดื่ม, ของหวาน) พร้อมช่องค้นหาเพื่อหาเมนูได้รวดเร็ว',
+    'case02.step.04.item.2': '<strong>การเลือกและปรับแต่ง:</strong> เมื่อกดเลือกเมนู ระบบจะเปิดถาด "modifier" ขึ้นมา ผู้ใช้เลือกระดับความเผ็ดหรือท็อปปิ้งเพิ่มได้ ราคาควรอัปเดตแบบเรียลไทม์',
+    'case02.step.04.item.3': '<strong>ตรวจสอบตะกร้า:</strong> สรุปออเดอร์อย่างย่อ เป็นโอกาสสุดท้ายในการ "แนะนำเพิ่มเติม" (เช่น "เพิ่มเฟรนช์ฟรายส์ไหม?") ก่อนยืนยัน',
+    'case02.step.05.title': 'การตัดสินใจด้านผลิตภัณฑ์',
+    'case02.step.05.intro': 'เพื่อให้การตัดสินใจด้านผลิตภัณฑ์มีประสิทธิภาพ ต้องสร้างสมดุลระหว่างความต้องการของผู้ใช้และเป้าหมายทางธุรกิจ การจัดลำดับความสำคัญของปัญหาช่วยให้ทีมโฟกัสที่ "สิ่งที่ต้องมี" ก่อน',
+    'case02.step.05.item.1': '<strong>ความสำคัญสูง — ข้อผิดพลาดในการชำระเงิน:</strong> ผู้ใช้พบปัญหาในขั้นตอนการชำระเงิน (เช่น ขั้นตอนซับซ้อน, ตัวเลือกจำกัด, การ "ชำระแบบไม่ลงทะเบียน") ซึ่งเป็นปัญหาสำคัญที่นำไปสู่การชำระเงินที่ล้มเหลว',
+    'case02.step.05.item.2': '<strong>ความสำคัญปานกลาง — ขั้นตอนการปรับแต่งที่ซับซ้อน:</strong> หากการเพิ่ม modifier ง่าย ๆ (เช่น "ไม่ใส่หัวหอม") ต้องแตะหลายครั้งเกินไป ผู้ใช้จะหงุดหงิด',
+    'case02.step.05.item.3': '<strong>ความสำคัญต่ำ — ไมโครอินเทอร์แอกชัน:</strong> แอนิเมชันเล็ก ๆ เมื่อกดปุ่ม หรือเอฟเฟกต์ "สำเร็จ" เมื่อเพิ่มเมนูลงตะกร้า<br>(สิ่งเหล่านี้เป็นฟีเจอร์ "ดีถ้ามี" ที่เพิ่มความรู้สึกโดยรวม แต่ไม่จำเป็นต่อการทำงานหลัก)',
+    'case02.step.06.title': 'พัฒนาสู่การส่งมอบ',
+    'case02.step.06.intro': 'เมื่อจัดลำดับความสำคัญจากเฟส "คิด" ไปสู่ "ทำ" การสร้างประสบการณ์คือขั้นตอนที่เปลี่ยนลำดับเหล่านั้นให้กลายเป็นอินเทอร์เฟซที่มีชีวิตชีวา',
+    'case02.step.06.item.1': '<strong>ลำดับชั้น:</strong> วางหมวดหมู่ยอดนิยม (ความสำคัญสูง) ไว้ด้านบน ใช้ป้ายที่ชัดเจนและสื่อความหมาย เพื่อผู้ใช้ไม่ต้องเดาว่า "ของทานเล่น" หรือ "เครื่องดื่ม" อยู่ที่ไหน',
+    'case02.step.06.item.2': '<strong>อินเทอร์เฟซสว่างและโปร่ง:</strong> ใช้พื้นหลังสว่างเพื่อขับเน้นภาพอาหาร หลีกเลี่ยงเลเยอร์มืดทับเพราะทำให้อาหารดูไม่น่ารับประทานและตัวอักษรอ่านยาก',
+    'case02.step.06.item.3': '<strong>ความสอดคล้องของภาพ:</strong> ตรวจสอบให้ภาพอาหารทุกภาพมีแสงและ "บรรยากาศ" ที่สอดคล้องกัน',
+    'case02.step.06.item.4': '<strong>การเข้าถึงและการขัดเกลา:</strong> ตรวจสอบว่าข้อความทุกชิ้นอ่านได้ชัดเจนบนพื้นหลังสว่าง',
+    'case02.step.07.title': 'การวัดผล',
+    'case02.step.07.intro': 'เพื่อประเมินว่าผลิตภัณฑ์แก้ปัญหาผู้ใช้ได้อย่างมีประสิทธิภาพหรือไม่ เราติดตามผลเป็นรายกรณีโดยใช้ตัวชี้วัดจาก Google Analytics ร่วมกับ Product Owner อย่างใกล้ชิด ผลลัพธ์จะถูกสรุปทุก 1-2 เดือนเพื่อแจ้งการปรับปรุงและพัฒนาต่อไป',
+    'case02.step.07.intro2': 'ตัวอย่างของการติดตามงาน:',
+    'case02.step.07.item.1': '<strong>อัตราการแปลง:</strong> % ของผู้เข้าชมที่สั่งซื้อสำเร็จ',
+    'case02.step.07.item.2': '<strong>ยอดสั่งซื้อเฉลี่ย (AOV):</strong> มูลค่ารวมเฉลี่ยของออเดอร์',
+    'case02.step.07.item.3': '<strong>เวลาในการสั่ง:</strong> เวลาที่ใช้ตั้งแต่ "สแกน" จนถึง "ชำระเงิน"',
+
+    'case03.subtitle': 'ประสบการณ์โมบายแบงกิ้งในที่เดียว',
+    'case03.h.problem': 'ปัญหา',
+    'case03.h.solution': 'โซลูชัน',
+    'case03.h.outcome': 'ผลลัพธ์',
+    'case03.problem.1': 'การธนาคารติดอยู่กับเวลาทำการและคิวของสาขา บั่นทอนความไว้วางใจของลูกค้า',
+    'case03.problem.2': 'เงินกระจายอยู่ในหลายผลิตภัณฑ์ ไม่มีมุมมองรวมไว้ตัดสินใจ',
+    'case03.problem.3': 'ลูกค้าต้องเดาเกี่ยวกับยอดเงิน, การใช้จ่าย และสุขภาพการเงินของตน',
+    'case03.solution.1': 'ธนาคารตามคำสั่ง — ทุกที่ ทุกเวลา ด้วยมาตรฐานความปลอดภัยระดับธนาคาร',
+    'case03.solution.2': 'Dashboard เดียวที่รวมทุกบัญชี, บัตร และผลิตภัณฑ์ไว้ในที่เดียว',
+    'case03.solution.3': 'เครื่องมือการเงินอัจฉริยะที่เปลี่ยนข้อมูลดิบเป็นข้อมูลเชิงลึกที่นำไปใช้ได้ทันที',
+    'case03.outcome.1': 'การใช้ช่องทางดิจิทัลเติบโตอย่างยั่งยืนในธุรกรรมประจำวัน',
+    'case03.outcome.2': 'ลดการพึ่งพาสาขาโดยไม่กระทบคุณภาพการบริการ',
+    'case03.outcome.3': 'ธุรกรรมประจำวันที่เร็วขึ้น ง่ายขึ้น และมั่นใจยิ่งขึ้น',
+
+    'case04.subtitle': 'การปฏิบัติงานเชิงข้อมูลแบบบูรณาการ',
+    'case04.h.value': 'คุณค่าหลัก',
+    'case04.h.role': 'บทบาทของผม',
+    'case04.h.deliverables': 'สิ่งส่งมอบ',
+    'case04.value.1': 'ยึดทุกโครงการด้านข้อมูลกับเป้าหมายธุรกิจและ KPI ที่วัดได้',
+    'case04.value.2': 'หยิบ Insight ที่ขยับตัวเลขด้านประสิทธิภาพ, รายได้ และความพึงพอใจของผู้ใช้',
+    'case04.value.3': 'ขับเคลื่อนความรับผิดชอบด้วยการทำให้ผลลัพธ์มองเห็นได้สำหรับผู้มีส่วนได้ส่วนเสียทุกคน',
+    'case04.role.1': 'นำวิสัยทัศน์ด้าน UX และกลยุทธ์การออกแบบสำหรับแพลตฟอร์มข้อมูลและ Operational Dashboard ระดับองค์กร',
+    'case04.role.2': 'แปลงข้อมูลและเวิร์กโฟลว์ที่ซับซ้อนเป็นอินเทอร์เฟซที่ชัดเจน พร้อมตัดสินใจ และเชื่อถือได้',
+    'case04.role.3': 'ร่วมมือกับทีมข้อมูล, วิศวกรรม และผลิตภัณฑ์ เพื่อส่งมอบงานออกแบบที่สอดคล้องกับระบบจริงและเจตนาทางธุรกิจ',
+    'case04.deliverables.1': 'Information Architecture ที่ออกแบบมาให้ขยายตัวได้ — โครงสร้าง, การนำทาง และลำดับชั้นข้อมูลที่ชัดเจน',
+    'case04.deliverables.2': 'User Flow แบบ End-to-End ที่ระบุทุก Interaction บนระบบปฏิบัติการแบบบูรณาการ',
+    'case04.deliverables.3': 'Interactive Prototype พร้อมใช้งานระดับโปรดักชัน สำหรับการนำเสนอผู้บริหาร, การทดสอบการใช้งาน และการส่งต่อนักพัฒนา',
+
+    'case05.subtitle': 'แพลตฟอร์มจัดส่งสินค้าอุปโภคบริโภค',
+    'case05.h.problem': 'ปัญหา',
+    'case05.h.solution': 'โซลูชัน',
+    'case05.h.outcome': 'ผลลัพธ์',
+    'case05.problem.1': 'ลูกค้าต้องเดินทางไปที่ร้านทุกครั้งที่ซื้อของอุปโภคบริโภค',
+    'case05.problem.2': 'ไม่สามารถดูสต็อกก่อนเดินทางได้ — เสียเที่ยวและเสียความไว้วางใจ',
+    'case05.problem.3': 'ระบบหน้าร้านและระบบจัดส่งทำงานแยกกัน ทำให้ประสบการณ์ขาดความต่อเนื่อง',
+    'case05.solution.1': 'ระบบสต็อกแบบเรียลไทม์ที่ผูกตรงกับสต็อกหน้าร้าน',
+    'case05.solution.2': 'ช่วงเวลาจัดส่งที่เชื่อถือได้พร้อมติดตามออเดอร์แบบเรียลไทม์',
+    'case05.solution.3': 'ประสบการณ์บนโมบายและเว็บที่เป็นหนึ่งเดียวและเชื่อถือได้',
+    'case05.outcome.1': 'ขจัดข้อจำกัดด้านเวลาและสถานที่สำหรับนักช้อปประจำ',
+    'case05.outcome.2': 'ขยายการซื้อของอุปโภคบริโภคทั่วประเทศบนทั้งโมบายและเว็บ',
+    'case05.outcome.3': 'ปลดล็อกการเติบโตที่วัดผลได้ทั้งในจำนวนลูกค้าและรายได้',
+
+    // Certifications
+    'cert.label': '04 — ใบรับรอง',
+    'cert.title': 'การเรียนรู้อย่างต่อเนื่อง',
+    'cert.desc': 'มุ่งมั่นพัฒนาตนเองผ่านโปรแกรมและใบรับรองที่อุตสาหกรรมยอมรับ',
+    'cert.1.detail': 'หลักสูตรเฉพาะทาง Generative AI for UI UX Design · Design Thinking สำหรับกลยุทธ์ธุรกิจและการเป็นผู้ประกอบการ',
+    'cert.2.detail': 'การทำ UX Research และทดสอบแนวคิดเริ่มต้น · ออกแบบประสบการณ์ผู้ใช้เพื่อสังคม · Google UX Design',
+    'cert.3.detail': 'Design Thinking · อัลกอริทึม Data Mining',
+
+    // Contact
+    'contact.label': '05 — ติดต่อกัน',
+    'contact.title': 'ผลลัพธ์ที่<br>คุณวางใจได้',
+    'contact.desc': "ผมพร้อมพูดคุยเรื่องการออกแบบผลิตภัณฑ์, ความท้าทายด้าน UX หรือโอกาสในการร่วมมือเสมอ มาสร้างสรรค์สิ่งที่มีผลกระทบไปด้วยกัน",
+
+    // Footer
+    'footer.copy': '© 2026 Rasri Issarasiri. ออกแบบเพื่อทุกคน'
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (el.dataset.i18nDefault === undefined) {
+      el.dataset.i18nDefault = el.innerHTML;
+    }
+    if (lang !== 'en' && i18n[lang] && i18n[lang][key] !== undefined) {
+      el.innerHTML = i18n[lang][key];
+    } else {
+      el.innerHTML = el.dataset.i18nDefault;
+    }
+  });
+  // Sync the experience toggle label with current state
+  const tl = document.querySelector('#experience .timeline');
+  const tBtn = tl?.querySelector('.timeline-toggle');
+  const tText = tBtn?.querySelector('.timeline-toggle-text');
+  if (tl && tBtn && tText) {
+    const expanded = tl.classList.contains('is-expanded');
+    const collapsedKey = 'exp.toggle.collapsed';
+    const expandedKey = 'exp.toggle.expanded';
+    if (lang === 'th' && i18n.th[collapsedKey]) {
+      tText.innerHTML = expanded ? i18n.th[expandedKey] : i18n.th[collapsedKey];
+    } else {
+      const hiddenCount = tl.querySelectorAll('.timeline-item.is-extra').length;
+      tText.innerHTML = expanded ? 'Show less' : `Show <span class="timeline-toggle-count">${hiddenCount}</span> earlier roles`;
+    }
+  }
+}
+
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
+    applyLang(this.dataset.lang);
   });
 });
+
+// ─── Experience timeline expand/collapse ───
+(() => {
+  const timeline = document.querySelector('#experience .timeline');
+  if (!timeline) return;
+  const toggle = timeline.querySelector('.timeline-toggle');
+  const textEl = toggle?.querySelector('.timeline-toggle-text');
+  if (!toggle || !textEl) return;
+  const hiddenCount = timeline.querySelectorAll('.timeline-item.is-extra').length;
+  toggle.addEventListener('click', () => {
+    const expanded = timeline.classList.toggle('is-expanded');
+    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    const lang = document.documentElement.lang;
+    const enCollapsed = `Show <span class="timeline-toggle-count">${hiddenCount}</span> earlier roles`;
+    const enExpanded = 'Show less';
+    if (lang === 'th' && typeof i18n !== 'undefined' && i18n.th) {
+      textEl.innerHTML = expanded ? i18n.th['exp.toggle.expanded'] : i18n.th['exp.toggle.collapsed'];
+    } else {
+      textEl.innerHTML = expanded ? enExpanded : enCollapsed;
+    }
+  });
+})();
+
+// ─── Case study: tabbed body (Problems / Solutions / Outcomes) ───
+(() => {
+  document.querySelectorAll('.case-body.is-tabbed').forEach(body => {
+    const buttons = Array.from(body.querySelectorAll('.case-tab-btn'));
+    const panels  = Array.from(body.querySelectorAll('.case-tab-panel'));
+    if (!buttons.length || !panels.length) return;
+
+    const activate = (target) => {
+      buttons.forEach(b => b.setAttribute('aria-selected', b.dataset.tab === target ? 'true' : 'false'));
+      panels.forEach(p => {
+        const match = p.dataset.tab === target;
+        p.hidden = !match;
+      });
+    };
+
+    buttons.forEach((btn, i) => {
+      btn.addEventListener('click', () => activate(btn.dataset.tab));
+      btn.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'Home' && e.key !== 'End') return;
+        e.preventDefault();
+        let next = i;
+        if (e.key === 'ArrowRight') next = (i + 1) % buttons.length;
+        if (e.key === 'ArrowLeft')  next = (i - 1 + buttons.length) % buttons.length;
+        if (e.key === 'Home') next = 0;
+        if (e.key === 'End')  next = buttons.length - 1;
+        buttons[next].focus();
+        activate(buttons[next].dataset.tab);
+      });
+    });
+  });
+})();
+
+// ─── Case study: View Project expand/collapse ───
+(() => {
+  document.querySelectorAll('.case-view-toggle').forEach(toggle => {
+    const card = toggle.closest('.case-study');
+    if (!card) return;
+    toggle.addEventListener('click', () => {
+      const open = card.classList.toggle('is-process-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+})();
+
+// ─── Case study: image lightbox ───
+(() => {
+  const lightbox = document.getElementById('imageLightbox');
+  if (!lightbox) return;
+  const lbImg = lightbox.querySelector('img');
+  const closeBtn = lightbox.querySelector('.image-lightbox-close');
+  let lastFocused = null;
+
+  const open = (src, alt) => {
+    lastFocused = document.activeElement;
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+    requestAnimationFrame(() => closeBtn.focus());
+  };
+
+  const close = () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    setTimeout(() => { lbImg.src = ''; lbImg.alt = ''; }, 400);
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  };
+
+  document.querySelectorAll('.case-process-step-media-frame img').forEach(img => {
+    img.addEventListener('click', () => open(img.src, img.alt));
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  closeBtn.addEventListener('click', close);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+})();
 
 // ─── Back to top ───
 (function() {
