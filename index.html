@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><path d='M9 30V6H17.8332C19.6428 6 21.161 6.32031 22.3879 6.96094C23.6224 7.60156 24.554 8.5 25.1827 9.65625C25.8192 10.8047 26.1374 12.1445 26.1374 13.6758C26.1374 15.2148 25.8153 16.5508 25.1712 17.6836C24.5348 18.8086 23.5955 19.6797 22.3534 20.2969C21.1112 20.9062 19.5853 21.2109 17.7757 21.2109H11.4843V17.6016H17.2006C18.2588 17.6016 19.1252 17.4531 19.8 17.1563C20.4748 16.8516 20.9732 16.4102 21.2952 15.832C21.6249 15.2461 21.7898 14.5273 21.7898 13.6758C21.7898 12.8242 21.6249 12.0977 21.2952 11.4961C20.9655 10.8867 20.4633 10.4258 19.7885 10.1133C19.1137 9.79297 18.2435 9.63281 17.1776 9.63281H13.2671V30H9ZM21.1687 19.125L27 30H22.2383L16.5105 19.125H21.1687Z' fill='%232B7FFF'/></svg>">
 <title>Rasri Issarasiri — Product & UX/UI Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -270,28 +271,20 @@ nav.scrolled {
   position: relative;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  align-items: baseline;
   height: 1.15em;
   margin-top: 0.1em;
 }
 
-.hero-cycling-word {
-  position: absolute;
+.hero-cycling-word { display: none; }
+
+.hero-scramble-display {
   font-weight: 700;
-  color: var(--white);
-  opacity: 0;
-  transform: translateY(100%);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-}
-
-.hero-cycling-word.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-cycling-word.exit-up {
-  opacity: 0;
-  transform: translateY(-100%);
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+  will-change: contents;
 }
 
 .hero-text .hero-tagline {
@@ -1186,6 +1179,57 @@ a.case-study:hover .case-link-icon {
   letter-spacing: 0.005em;
 }
 
+.case-overview-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+  gap: 1.25rem 2rem;
+  align-items: start;
+}
+
+.case-overview-resp { min-width: 0; }
+
+.case-overview-resp > p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.005em;
+  line-height: 1.65;
+}
+
+.case-overview-meta {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0;
+  border: none;
+}
+
+.case-overview-meta-item { display: block; }
+
+.case-overview-meta dt {
+  display: inline;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.005em;
+  line-height: 1.65;
+}
+
+.case-overview-meta dt::after { content: ": "; }
+
+.case-overview-meta dd {
+  display: inline;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--gray-light);
+}
+
+@media (max-width: 720px) {
+  .case-overview-row { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .case-tab-btn,
   .case-tab-panel { transition: none; animation: none; }
@@ -1945,6 +1989,7 @@ footer {
   .btn { justify-content: center; }
   .contact-links { flex-direction: column; align-items: center; }
 }
+
 </style>
 </head>
 <body>
@@ -1982,10 +2027,10 @@ footer {
       <h1>
         <span class="hero-static" data-i18n="hero.static">Designing something</span>
         <span class="hero-cycling-wrapper" id="cyclingWrapper">
-          <span class="hero-cycling-word active" style="color: #00e5ff;" data-i18n="hero.word.different">different</span>
+          <span class="hero-scramble-display" aria-live="polite"></span>
+          <span class="hero-cycling-word" style="color: #00e5ff;" data-i18n="hero.word.different">different</span>
           <span class="hero-cycling-word" style="color: #ff00ff;" data-i18n="hero.word.flexible">flexible</span>
           <span class="hero-cycling-word" style="color: #ffff00;" data-i18n="hero.word.efficient">efficient</span>
-
         </span>
       </h1>
       <p class="hero-tagline" data-i18n="hero.tagline">I'm Rasri — a passionate Lead Product Designer and UX Engineer dedicated to creating innovative digital products that seamlessly integrate strategy and execution throughout the design lifecycle to achieve ultimate goals.</p>
@@ -2196,7 +2241,7 @@ footer {
       <div class="case-header">
         <div>
           <div class="case-number">CASE 01</div>
-          <div class="case-title">RMS — Restaurant Management System</div>
+          <div class="case-title">Restaurant Operation Platform</div>
           <div class="case-subtitle" data-i18n="case02.subtitle">Digital Menu Ordering</div>
         </div>
         <span class="case-tag" data-i18n="case02.tag">Full Case Study</span>
@@ -2221,13 +2266,30 @@ footer {
         <div class="case-tab-panels">
           <div class="case-tab-panel case-tab-panel--prose" role="tabpanel" id="case01-panel-overview" aria-labelledby="case01-tab-overview" data-tab="overview">
             <p data-i18n="case02.overview.lead">A digital menu with high functionality and an aesthetically pleasing design can help simplify the ordering process while encouraging customers to spend more on their average bill.</p>
-            <p data-i18n="case02.overview.resp">My Responsibilities:</p>
-            <ul>
-              <li data-i18n="case02.overview.resp.1">Strategy &amp; Information Architecture (IA)</li>
-              <li data-i18n="case02.overview.resp.2">Accessibility &amp; Usability (UX)</li>
-              <li data-i18n="case02.overview.resp.3">Interface Design &amp; Brand Alignment</li>
-              <li data-i18n="case02.overview.resp.4">Conversion &amp; Upselling Logic</li>
-            </ul>
+            <div class="case-overview-row">
+              <div class="case-overview-resp">
+                <p data-i18n="case02.overview.resp">My Responsibilities:</p>
+                <ul>
+                  <li data-i18n="case02.overview.resp.1">Strategy &amp; Information Architecture (IA)</li>
+                  <li data-i18n="case02.overview.resp.2">Accessibility &amp; Usability (UX)</li>
+                  <li data-i18n="case02.overview.resp.3">Interface Design &amp; Brand Alignment</li>
+                  <li data-i18n="case02.overview.resp.4">Conversion &amp; Upselling Logic</li>
+                </ul>
+              </div>
+              <dl class="case-overview-meta">
+                <div class="case-overview-meta-item">
+                  <dt data-i18n="case02.overview.meta.duration.label">Duration</dt>
+                </div>
+                <div class="case-overview-meta-item">
+                  <dt data-i18n="case02.overview.meta.platform.label">Platform</dt>
+                  <dd data-i18n="case02.overview.meta.platform.value">Mobile / Web-application</dd>
+                </div>
+                <div class="case-overview-meta-item">
+                  <dt data-i18n="case02.overview.meta.tools.label">Tools</dt>
+                  <dd data-i18n="case02.overview.meta.tools.value">Figma, Miro, Microsoft Office, etc.</dd>
+                </div>
+              </dl>
+            </div>
           </div>
           <div class="case-tab-panel" role="tabpanel" id="case01-panel-problems" aria-labelledby="case01-tab-problems" data-tab="problems" hidden>
             <ul>
@@ -2253,15 +2315,15 @@ footer {
       </div>
       <div class="case-metrics">
         <div class="metric">
-          <div class="metric-value">25%</div>
+          <div class="metric-value">24%</div>
           <div class="metric-label" data-i18n="case02.metric.3">Average Order Value</div>
         </div>
         <div class="metric">
-          <div class="metric-value">84%</div>
+          <div class="metric-value">87%</div>
           <div class="metric-label" data-i18n="case02.metric.2">Conversion rate</div>
         </div>
         <div class="metric">
-          <div class="metric-value">87%</div>
+          <div class="metric-value">91%</div>
           <div class="metric-label" data-i18n="case02.metric.4">CSAT Score</div>
         </div>
       </div>
@@ -2329,7 +2391,7 @@ footer {
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Restaurant Digital Menu — Mobile Wireframes.png" alt="Low-fidelity mobile wireframes for the Restaurant Digital Menu showing four screens (Browsing & Discovery, Selection & Customization, Cart Review, and Order Confirmation) with flow arrows connecting the steps." loading="lazy">
+                      <img src="RMS/Images/Digital menu ordering - Cash Lo-fi_SC01.png" alt="Low-fidelity wireframes for the Digital Menu ordering and cash checkout flow: name entry, browsing & discovery, item selection & customization, cart review, order confirmation, payment method selection, pay-at-counter, and payment success — with flow arrows connecting the steps." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -2387,7 +2449,7 @@ footer {
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Final_UI-Vibrant.jpg" alt="High-fidelity UI mockups for the Vibrant Fresh Salad Factory digital ordering flow, showing login-free access screens, digital menu browsing and customization, cart review, order confirmation, and cash payment flow." loading="lazy">
+                      <img src="RMS/Images/Digital Menu — Easy Ordering without login.jpg" alt="High-fidelity main flow for the Salad Factory digital menu — four screens shown side by side: Hi-Fi 01 Browsing & Discovery, Hi-Fi 02 Selection & Customization, Hi-Fi 03 Cart Review, and Hi-Fi 04 Order Confirmation." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -2407,7 +2469,7 @@ footer {
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <span class="case-process-step-media-empty" data-i18n="case02.media.empty">Image</span>
+                      <img src="RMS/Images/GA_Food ordering to be replaced_03.jpg" alt="Task tracking example for the food ordering flow — three KPI cards: Conversion Rate 87% (visitors who complete an order), Average Order Value 24% (post-add-to-cart performance), and Time to Order 2:45 min (scanning to placed order), with 'why it matters' notes for each." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -2802,6 +2864,11 @@ const i18n = {
     'case02.overview.resp.2': 'การเข้าถึงและการใช้งานง่าย (UX)',
     'case02.overview.resp.3': 'การออกแบบส่วนต่อประสานและความสอดคล้องของแบรนด์',
     'case02.overview.resp.4': 'การเพิ่มยอดและการ Upsell',
+    'case02.overview.meta.duration.label': 'ระยะเวลาที่ทำ',
+    'case02.overview.meta.platform.label': 'แพลตฟอร์ม',
+    'case02.overview.meta.platform.value': 'โมบาย / เว็บแอปพลิเคชัน',
+    'case02.overview.meta.tools.label': 'เครื่องมือที่ใช้',
+    'case02.overview.meta.tools.value': 'Figma, Miro, Microsoft Office และอื่น ๆ',
     'case02.cta.view': 'ดูโปรเจกต์',
     'case02.process.eyebrow': 'กระบวนการ',
     'case02.process.title': 'จากการค้นพบสู่การส่งมอบ',
@@ -3060,20 +3127,71 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   });
 })();
 
-// ─── Cycling Words ───
+// ─── Cycling Words (Text Scramble) ───
 (function() {
-  const words = document.querySelectorAll('.hero-cycling-word');
-  let current = 0;
+  const wrapper = document.getElementById('cyclingWrapper');
+  if (!wrapper) return;
+  const display = wrapper.querySelector('.hero-scramble-display');
+  const words = Array.from(wrapper.querySelectorAll('.hero-cycling-word'));
+  if (!display || words.length === 0) return;
 
-  setInterval(function() {
-    words[current].classList.remove('active');
-    words[current].classList.add('exit-up');
-    setTimeout(function() {
-      words[current].classList.remove('exit-up');
-      current = (current + 1) % words.length;
-      words[current].classList.add('active');
-    }, 400);
-  }, 2000);
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const DURATION_MS = 800;
+  const SPEED_MS = 40;
+  const HOLD_MS = 2200;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let index = 0;
+  let scrambleTimer = null;
+  let cycleTimer = null;
+
+  function applyImmediate(word) {
+    display.textContent = word.textContent;
+    display.style.color = word.style.color || '';
+  }
+
+  function scrambleTo(word) {
+    if (scrambleTimer) { clearInterval(scrambleTimer); scrambleTimer = null; }
+    const target = word.textContent;
+    display.style.color = word.style.color || '';
+
+    if (prefersReducedMotion) {
+      display.textContent = target;
+      return;
+    }
+
+    const steps = Math.max(1, Math.round(DURATION_MS / SPEED_MS));
+    let step = 0;
+
+    scrambleTimer = setInterval(() => {
+      const progress = step / steps;
+      let scrambled = '';
+      for (let i = 0; i < target.length; i++) {
+        if (target[i] === ' ') { scrambled += ' '; continue; }
+        if (progress * target.length > i) {
+          scrambled += target[i];
+        } else {
+          scrambled += CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+      }
+      display.textContent = scrambled;
+      step++;
+      if (step > steps) {
+        clearInterval(scrambleTimer);
+        scrambleTimer = null;
+        display.textContent = target;
+      }
+    }, SPEED_MS);
+  }
+
+  // Initial: show first word, then scramble in
+  applyImmediate(words[0]);
+  scrambleTo(words[0]);
+
+  cycleTimer = setInterval(() => {
+    index = (index + 1) % words.length;
+    scrambleTo(words[index]);
+  }, HOLD_MS);
 })();
 
 // ─── Interactive Neural Vortex Background (WebGL) ───
@@ -3224,6 +3342,28 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
     requestAnimationFrame(render);
   }
   render();
+})();
+
+// ─── Block common devtools / view-source shortcuts ───
+(function() {
+  document.addEventListener('keydown', function(e) {
+    const key = (e.key || '').toLowerCase();
+    const mod = e.ctrlKey || e.metaKey;
+
+    // F12 — open devtools
+    if (key === 'f12') { e.preventDefault(); return false; }
+
+    // Ctrl/Cmd + Shift + I / J / C — devtools, console, inspector
+    if (mod && e.shiftKey && ['i', 'j', 'c'].includes(key)) {
+      e.preventDefault(); return false;
+    }
+
+    // Ctrl/Cmd + U — view source
+    if (mod && key === 'u') { e.preventDefault(); return false; }
+
+    // Ctrl/Cmd + S — save page
+    if (mod && key === 's') { e.preventDefault(); return false; }
+  });
 })();
 </script>
 
