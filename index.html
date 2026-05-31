@@ -3599,8 +3599,10 @@ footer {
   color: var(--ink);
   text-align: center;
   margin: 0;
-  opacity: 0;
-  animation: heroFadeUp 0.7s 1.2s forwards;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.05em;
 }
 
 @media (min-width: 820px) { .hero-bigtype { text-align: left; } }
@@ -3612,6 +3614,26 @@ footer {
 }
 
 .hero-bigtype-lead { font-size: 0.7em; }
+
+.hero-headline-slide {
+  grid-area: 1 / 1;
+  display: block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: heroHeadlineSlide 9s 1.2s infinite cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform, opacity;
+}
+
+.hero-headline-slide:nth-child(2) { animation-delay: 4.2s; }
+.hero-headline-slide:nth-child(3) { animation-delay: 7.2s; }
+
+@keyframes heroHeadlineSlide {
+  0%      { transform: translateY(100%); opacity: 0; }
+  5%      { transform: translateY(0);    opacity: 1; }
+  33.33%  { transform: translateY(0);    opacity: 1; }
+  38.33%  { transform: translateY(-100%); opacity: 0; }
+  100%    { transform: translateY(-100%); opacity: 0; }
+}
 
 .hero-footer {
   width: 100%;
@@ -3709,14 +3731,15 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-left p, .hero-contact, .hero-bigtype,
+  .hero-left p, .hero-contact, .hero-bigtype, .hero-headline-slide,
   .hero-circle, .hero-portrait, .hero-social, .hero-location {
     animation: none;
     opacity: 1;
   }
   .hero-portrait { transform: scale(1.5); }
   .hero-circle { transform: translate(-50%, -50%); }
-  .hero-left p, .hero-contact, .hero-bigtype { transform: none; }
+  .hero-left p, .hero-contact, .hero-bigtype, .hero-headline-slide { transform: none; }
+  .hero-headline-slide:nth-child(n+2) { display: none; }
 }
 
 /* ─── Light-mode adapters: Projects gallery + Case-study drawer ─── */
@@ -3926,7 +3949,11 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
       </div>
 
       <div class="hero-right">
-        <h1 class="hero-bigtype" data-i18n="hero.bigtype"><span class="hero-bigtype-lead">Results</span><br><em>You Can Trust.</em></h1>
+        <h1 class="hero-bigtype">
+          <span class="hero-headline-slide" data-i18n="hero.bigtype.3" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Reform&lt;/span&gt;&lt;br&gt;&lt;em&gt;Business Model.&lt;/em&gt;"><span class="hero-bigtype-lead">Reform</span><br><em>Business Model.</em></span>
+          <span class="hero-headline-slide" data-i18n="hero.bigtype.2" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Reduce&lt;/span&gt;&lt;br&gt;&lt;em&gt;Time by 10x&lt;/em&gt;"><span class="hero-bigtype-lead">Reduce</span><br><em>Time by 10x</em></span>
+          <span class="hero-headline-slide" data-i18n="hero.bigtype"><span class="hero-bigtype-lead">Results</span><br><em>You Can Trust.</em></span>
+        </h1>
       </div>
     </div>
 
@@ -4606,6 +4633,8 @@ const i18n = {
     'hero.tagline': 'สวัสดี ฉันราศี — Lead Product Designer และ UX Engineer ที่ดูแลงานออกแบบตั้งแต่แนวคิดจนถึงส่งมอบ โฟกัสที่ปัญหาผู้ใช้ เป้าหมายธุรกิจ และผลลัพธ์ที่วัดได้',
     'hero.intro': 'สวัสดี ฉันราศี — Lead Product Designer และ UX Engineer ที่ดูแลงานออกแบบตั้งแต่แนวคิดจนถึงส่งมอบ โฟกัสที่ปัญหาผู้ใช้ เป้าหมายธุรกิจ และผลลัพธ์ที่วัดได้',
     'hero.bigtype': '<span class="hero-bigtype-lead">ผลลัพธ์</span><br><em>ที่คุณวางใจ</em>',
+    'hero.bigtype.2': '<span class="hero-bigtype-lead">ลดเวลา</span><br><em>10 เท่า</em>',
+    'hero.bigtype.3': '<span class="hero-bigtype-lead">ปฏิรูป</span><br><em>โมเดลธุรกิจ</em>',
     'hero.location': 'กรุงเทพ, ประเทศไทย',
     'hero.cta.cases': 'ดูผลงาน',
     'hero.cta.contact': 'พูดคุยกัน',
