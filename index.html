@@ -3510,7 +3510,7 @@ footer {
 
 @media (min-width: 820px) {
   .hero-main {
-    grid-template-columns: 1fr 1.2fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
   }
 }
@@ -3935,8 +3935,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         <p data-i18n="hero.intro" data-i18n-default="Hi, I'm Rasri — a Lead Product Designer and UX Engineer who owns design from concept to delivery, focused on user problems, business goals, and measurable outcomes.">สวัสดี ฉันราศี — Lead Product Designer และ UX Engineer ที่ดูแลงานออกแบบตั้งแต่แนวคิดจนถึงส่งมอบ โฟกัสที่ปัญหาผู้ใช้ เป้าหมายธุรกิจ และผลลัพธ์ที่วัดได้</p>
         <div class="hero-actions">
           <a href="#contact" class="contact-link hero-contact">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M8 14.5s1.5 2.5 4 2.5 4-2.5 4-2.5"/><line x1="9" y1="9.5" x2="9.01" y2="9.5"/><line x1="15" y1="9.5" x2="15.01" y2="9.5"/></svg>
-            <span data-i18n="hero.cta.contact" data-i18n-default="Get in Touch">พูดคุยกัน</span>
+            <span data-i18n="hero.cta.contact" data-i18n-default="Get in Touch">Get in Touch</span>
           </a>
         </div>
       </div>
@@ -3950,9 +3949,9 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
 
       <div class="hero-right">
         <h1 class="hero-bigtype">
-          <span class="hero-headline-slide" data-i18n="hero.bigtype.3" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Reform&lt;/span&gt;&lt;br&gt;&lt;em&gt;Business Model.&lt;/em&gt;"><span class="hero-bigtype-lead">Reform</span><br><em>Business Model.</em></span>
+          <span class="hero-headline-slide" data-i18n="hero.bigtype.3" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Refine&lt;/span&gt;&lt;br&gt;&lt;em&gt;your idea&lt;/em&gt;"><span class="hero-bigtype-lead">Refine</span><br><em>your idea</em></span>
           <span class="hero-headline-slide" data-i18n="hero.bigtype.2" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Reduce&lt;/span&gt;&lt;br&gt;&lt;em&gt;Time by 10x&lt;/em&gt;"><span class="hero-bigtype-lead">Reduce</span><br><em>Time by 10x</em></span>
-          <span class="hero-headline-slide" data-i18n="hero.bigtype"><span class="hero-bigtype-lead">Results</span><br><em>You Can Trust.</em></span>
+          <span class="hero-headline-slide" data-i18n="hero.bigtype" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Result&lt;/span&gt;&lt;br&gt;&lt;em&gt;You Can Trust.&lt;/em&gt;"><span class="hero-bigtype-lead">Result</span><br><em>You Can Trust.</em></span>
         </h1>
       </div>
     </div>
