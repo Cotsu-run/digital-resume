@@ -1114,6 +1114,7 @@ section {
 .portfolio-grid {
   display: grid;
   gap: 2rem;
+  background: transparent;
 }
 
 .case-study {
@@ -3255,16 +3256,19 @@ nav.scrolled { background: rgba(255, 255, 255, 0.9); }
 
 /* Portfolio / Case Studies */
 .case-study {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid var(--line);
+  background: transparent;
+  border: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 .case-study::before { background: linear-gradient(90deg, var(--terracotta), var(--gold)); }
+/* No hover behavior on the case-study card */
 .case-study:hover {
-  border-color: var(--line-strong);
-  box-shadow: 0 20px 50px -15px rgba(60, 64, 67,0.15);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
 }
+.case-study:hover::before { opacity: 0; }
 .case-number { color: var(--terracotta); }
 .case-title { color: var(--ink); }
 .case-subtitle { color: var(--terracotta); }
@@ -3285,7 +3289,7 @@ a.case-study:hover .case-link-icon { color: var(--terracotta); }
 /* Case tabs */
 .case-tabs { border-bottom-color: var(--line); }
 .case-tab-btn {
-  background: rgba(255, 255, 255, 0.7);
+  background: transparent;
   border: 1px solid var(--line);
   color: var(--ink-soft);
 }
@@ -3541,14 +3545,46 @@ footer {
 
 .hero-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.85rem;
   margin-top: 1.25rem;
 }
 
+/* Desktop: keep buttons horizontal but left-aligned with the hero text. */
 @media (min-width: 820px) {
-  .hero-actions { align-items: flex-start; }
+  .hero-actions { justify-content: flex-start; }
+}
+
+/* Portfolio CTA: shown on all screens, alongside Get in Touch — primary pill. */
+.hero-portfolio {
+  display: inline-flex;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+  box-shadow: 0 4px 14px rgba(60, 64, 67, 0.15);
+}
+.hero-portfolio:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--paper);
+  box-shadow: 0 8px 24px rgba(26, 115, 232, 0.28);
+}
+
+/* Get in Touch CTA: secondary — outline pill paired with the primary Portfolio. */
+.hero-secondary {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--ink);
+  box-shadow: none;
+}
+.hero-secondary:hover {
+  background: transparent;
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+  box-shadow: none;
 }
 
 .hero-contact {
@@ -3855,6 +3891,12 @@ html.dark .contact-link {
   background: rgba(45, 46, 48, 0.7);
 }
 
+/* Case-study cards: no background fill (outline only) */
+html.dark .case-study { background: transparent; }
+
+/* Case tabs: no background fill on inactive tabs (keep border + active state) */
+html.dark .case-tab-btn:not([aria-selected="true"]) { background: transparent; }
+
 html.dark .case-tab-count { background: rgba(232, 234, 237, 0.06); }
 html.dark .case-process-step-num { background: var(--paper-warm); }
 html.dark .case-process-step:hover { background: rgba(53, 54, 58, 0.9); }
@@ -3868,6 +3910,31 @@ html.dark .back-to-top {
   background: var(--terracotta);
   border-color: var(--terracotta);
   color: var(--paper);
+}
+
+/* Keep the Portfolio CTA as the primary (terracotta) pill in dark mode too. */
+html.dark .hero-portfolio {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--paper);
+}
+html.dark .hero-portfolio:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--paper);
+  filter: brightness(1.1);
+}
+
+/* Keep Get in Touch as an outline (secondary) pill in dark mode too. */
+html.dark .hero-secondary {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+html.dark .hero-secondary:hover {
+  background: transparent;
+  border-color: var(--terracotta);
+  color: var(--terracotta);
 }
 html.dark .btn-primary { background: var(--terracotta); color: var(--paper); }
 html.dark .btn-primary:hover {
@@ -3934,7 +4001,12 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
       <div class="hero-left">
         <p data-i18n="hero.intro" data-i18n-default="Hi, I'm Rasri — a Lead Product Designer and UX Engineer who owns design from concept to delivery, focused on user problems, business goals, and measurable outcomes.">สวัสดี ฉันราศี — Lead Product Designer และ UX Engineer ที่ดูแลงานออกแบบตั้งแต่แนวคิดจนถึงส่งมอบ โฟกัสที่ปัญหาผู้ใช้ เป้าหมายธุรกิจ และผลลัพธ์ที่วัดได้</p>
         <div class="hero-actions">
-          <a href="#contact" class="contact-link hero-contact">
+          <a href="#projects" class="contact-link hero-contact hero-portfolio">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 14.25l4.179-2.25m11.142 0l-5.571 3-5.571-3" /></svg>
+            <span data-i18n="hero.cta.portfolio" data-i18n-default="Portfolio">Portfolio</span>
+          </a>
+          <a href="#contact" class="contact-link hero-contact hero-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
             <span data-i18n="hero.cta.contact" data-i18n-default="Get in Touch">Get in Touch</span>
           </a>
         </div>
@@ -3949,7 +4021,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
 
       <div class="hero-right">
         <h1 class="hero-bigtype">
-          <span class="hero-headline-slide" data-i18n="hero.bigtype.3" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Refine&lt;/span&gt;&lt;br&gt;&lt;em&gt;your idea&lt;/em&gt;"><span class="hero-bigtype-lead">Refine</span><br><em>your idea</em></span>
+          <span class="hero-headline-slide" data-i18n="hero.bigtype.3" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Refine&lt;/span&gt;&lt;br&gt;&lt;em&gt;Your Ideas&lt;/em&gt;"><span class="hero-bigtype-lead">Refine</span><br><em>Your Ideas</em></span>
           <span class="hero-headline-slide" data-i18n="hero.bigtype.2" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Reduce&lt;/span&gt;&lt;br&gt;&lt;em&gt;Time by 10x&lt;/em&gt;"><span class="hero-bigtype-lead">Reduce</span><br><em>Time by 10x</em></span>
           <span class="hero-headline-slide" data-i18n="hero.bigtype" data-i18n-default="&lt;span class=&quot;hero-bigtype-lead&quot;&gt;Result&lt;/span&gt;&lt;br&gt;&lt;em&gt;You Can Trust.&lt;/em&gt;"><span class="hero-bigtype-lead">Result</span><br><em>You Can Trust.</em></span>
         </h1>
@@ -4188,7 +4260,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
   <div class="case-drawer-scroll" id="caseDrawerScroll">
 <section id="portfolio">
   <div class="reveal">
-    <p class="section-label" data-i18n="portfolio.label" data-i18n-default="01 — A case study">01 — A case study</p>
+    <p class="section-label" data-i18n="portfolio.label" data-i18n-default="A case study">A case study</p>
     <h2 class="section-title" id="caseDrawerTitle" data-i18n="portfolio.title">The Principles of design</h2>
     <p class="section-desc" data-i18n="portfolio.desc">Deep dives into product design challenges — from research to measurable impact.</p>
   </div>
@@ -4198,37 +4270,14 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
     <div class="case-study reveal is-process-open" style="transition-delay: 0.1s;">
       <div class="case-header">
         <div>
-          <div class="case-number">CASE 01</div>
           <div class="case-title">Restaurant Operation Platform</div>
           <div class="case-subtitle" data-i18n="case02.subtitle">Digital Menu Ordering</div>
         </div>
         <span class="case-tag" data-i18n="case02.tag">Full Case Study</span>
       </div>
       <div class="case-body is-tabbed">
-        <div class="case-tabs" role="tablist" aria-label="Case breakdown">
-          <button class="case-tab-btn" type="button" role="tab" id="case01-tab-overview" aria-controls="case01-panel-overview" aria-selected="true" data-tab="overview">
-            <span class="case-tab-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg>
-            </span>
-            <span class="case-tab-label" data-i18n="case02.tab.overview">Overview</span>
-          </button>
-          <button class="case-tab-btn" type="button" role="tab" id="case01-tab-problems" aria-controls="case01-panel-problems" aria-selected="false" data-tab="problems">
-            <span class="case-tab-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
-            </span>
-            <span class="case-tab-label" data-i18n="case02.tab.problems">Problems</span>
-            <span class="case-tab-count" aria-hidden="true">6</span>
-          </button>
-          <button class="case-tab-btn" type="button" role="tab" id="case01-tab-solutions" aria-controls="case01-panel-solutions" aria-selected="false" data-tab="solutions">
-            <span class="case-tab-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>
-            </span>
-            <span class="case-tab-label" data-i18n="case02.tab.solutions">Solutions</span>
-            <span class="case-tab-count" aria-hidden="true">6</span>
-          </button>
-        </div>
         <div class="case-tab-panels">
-          <div class="case-tab-panel case-tab-panel--prose" role="tabpanel" id="case01-panel-overview" aria-labelledby="case01-tab-overview" data-tab="overview">
+          <div class="case-tab-panel case-tab-panel--prose">
             <p data-i18n="case02.overview.lead">A digital menu with high functionality and an aesthetically pleasing design can help simplify the ordering process while encouraging customers to spend more on their average bill.</p>
             <div class="case-overview-row">
               <div class="case-overview-resp">
@@ -4255,40 +4304,6 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
               </dl>
             </div>
           </div>
-          <div class="case-tab-panel" role="tabpanel" id="case01-panel-problems" aria-labelledby="case01-tab-problems" data-tab="problems" hidden>
-            <ul>
-              <li data-i18n="case02.problem.1">Slow &amp; error-prone manual ordering</li>
-              <li data-i18n="case02.problem.2">Costly, outdated printed menus</li>
-              <li data-i18n="case02.problem.3">Understaffed floor teams at peak hours</li>
-              <li data-i18n="case02.problem.4">No real-time sales visibility</li>
-              <li data-i18n="case02.problem.5">Low add-on / upsell conversion</li>
-              <li data-i18n="case02.problem.6">Language barriers for international guests</li>
-            </ul>
-          </div>
-          <div class="case-tab-panel" role="tabpanel" id="case01-panel-solutions" aria-labelledby="case01-tab-solutions" data-tab="solutions" hidden>
-            <ul>
-              <li data-i18n="case02.solution.1">Scan-to-order QR menus with rich visuals</li>
-              <li data-i18n="case02.solution.2">Real-time menu management dashboard</li>
-              <li data-i18n="case02.solution.3">Automated order routing to the kitchen</li>
-              <li data-i18n="case02.solution.4">Built-in analytics &amp; reporting</li>
-              <li data-i18n="case02.solution.5">Smart upsell &amp; recommendation engine</li>
-              <li data-i18n="case02.solution.6">Multi-language menu support</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="case-metrics">
-        <div class="metric">
-          <div class="metric-value">24%</div>
-          <div class="metric-label" data-i18n="case02.metric.3">Average Order Value</div>
-        </div>
-        <div class="metric">
-          <div class="metric-value">87%</div>
-          <div class="metric-label" data-i18n="case02.metric.2">Conversion rate</div>
-        </div>
-        <div class="metric">
-          <div class="metric-value">91%</div>
-          <div class="metric-label" data-i18n="case02.metric.4">CSAT Score</div>
         </div>
       </div>
       <div class="case-process" id="case01-process" role="region" aria-label="Project process">
@@ -4637,6 +4652,7 @@ const i18n = {
     'hero.location': 'กรุงเทพ, ประเทศไทย',
     'hero.cta.cases': 'ดูผลงาน',
     'hero.cta.contact': 'พูดคุยกัน',
+    'hero.cta.portfolio': 'ผลงาน',
 
     // Clients
     'clients.label': 'บริษัทที่เคยร่วมงาน',
@@ -4742,7 +4758,7 @@ const i18n = {
     'projects.5.desc': 'แอปเดลิเวอรีออกแบบมาเพื่อการสั่งซื้อที่รวดเร็วและสะดวก พร้อมระบุเวลาจัดส่งที่ชัดเจน และมั่นใจได้ในสินค้าที่สดใหม่คุณภาพดีทุกวัน',
 
     // Portfolio (case study)
-    'portfolio.label': '01 — กรณีศึกษา',
+    'portfolio.label': 'กรณีศึกษา',
     'portfolio.title': 'กรณีศึกษา',
     'portfolio.desc': 'เจาะลึกโจทย์ออกแบบผลิตภัณฑ์ ตั้งแต่การวิจัยจนถึงผลลัพธ์ที่วัดได้จริง',
 
