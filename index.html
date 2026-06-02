@@ -76,6 +76,36 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─── Source-copy deterrents (cosmetic only; HTML is still downloadable) ─── */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+/* keep form fields usable, and let visitors copy contact details (email/phone) */
+input, textarea, [contenteditable="true"],
+.contact-links, .contact-links * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+/* re-enable interaction on images that need it (lightbox, clickable cards) */
+.image-lightbox img, .project-card img, .case-process-step-media-frame img {
+  pointer-events: auto;
+}
+
 /* ─── Neural vortex background ─── */
 #neuro {
   position: fixed;
@@ -4800,38 +4830,6 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
   });
 })();
 
-// ─── Case study: tabbed body (Problems / Solutions / Outcomes) ───
-(() => {
-  document.querySelectorAll('.case-body.is-tabbed').forEach(body => {
-    const buttons = Array.from(body.querySelectorAll('.case-tab-btn'));
-    const panels  = Array.from(body.querySelectorAll('.case-tab-panel'));
-    if (!buttons.length || !panels.length) return;
-
-    const activate = (target) => {
-      buttons.forEach(b => b.setAttribute('aria-selected', b.dataset.tab === target ? 'true' : 'false'));
-      panels.forEach(p => {
-        const match = p.dataset.tab === target;
-        p.hidden = !match;
-      });
-    };
-
-    buttons.forEach((btn, i) => {
-      btn.addEventListener('click', () => activate(btn.dataset.tab));
-      btn.addEventListener('keydown', (e) => {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'Home' && e.key !== 'End') return;
-        e.preventDefault();
-        let next = i;
-        if (e.key === 'ArrowRight') next = (i + 1) % buttons.length;
-        if (e.key === 'ArrowLeft')  next = (i - 1 + buttons.length) % buttons.length;
-        if (e.key === 'Home') next = 0;
-        if (e.key === 'End')  next = buttons.length - 1;
-        buttons[next].focus();
-        activate(buttons[next].dataset.tab);
-      });
-    });
-  });
-})();
-
 // ─── Case study: View Project expand/collapse ───
 (() => {
   document.querySelectorAll('.case-view-toggle').forEach(toggle => {
@@ -5347,7 +5345,7 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
   setActive(0);
 })();
 
-// ─── Block common devtools / view-source shortcuts ───
+// ─── Source-copy deterrents (cosmetic only; HTML is still downloadable) ───
 (function() {
   document.addEventListener('keydown', function(e) {
     const key = (e.key || '').toLowerCase();
@@ -5356,16 +5354,39 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
     // F12 — open devtools
     if (key === 'f12') { e.preventDefault(); return false; }
 
-    // Ctrl/Cmd + Shift + I / J / C — devtools, console, inspector
-    if (mod && e.shiftKey && ['i', 'j', 'c'].includes(key)) {
+    // Ctrl/Cmd + Shift + I / J / C / K — devtools, console, inspector
+    if (mod && e.shiftKey && ['i', 'j', 'c', 'k'].includes(key)) {
       e.preventDefault(); return false;
     }
 
-    // Ctrl/Cmd + U — view source
-    if (mod && key === 'u') { e.preventDefault(); return false; }
+    // Ctrl/Cmd + U (view source), S (save), P (print), A (select all).
+    // Copy/cut are handled by the target-aware events below so contact
+    // details stay copyable via the keyboard.
+    if (mod && ['u', 's', 'p', 'a'].includes(key)) {
+      e.preventDefault(); return false;
+    }
+  });
 
-    // Ctrl/Cmd + S — save page
-    if (mod && key === 's') { e.preventDefault(); return false; }
+  // Allow selecting/copying inside contact details or form fields
+  const isExempt = function(t) {
+    return !!(t && (t.isContentEditable
+      || /^(INPUT|TEXTAREA)$/.test(t.tagName)
+      || (t.closest && t.closest('.contact-links'))));
+  };
+
+  // Disable right-click context menu (except over contact details)
+  document.addEventListener('contextmenu', function(e) {
+    if (isExempt(e.target)) return;
+    e.preventDefault();
+  });
+
+  // Disable image dragging and text selection / copy / cut
+  document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+  ['selectstart', 'copy', 'cut'].forEach(function(evt) {
+    document.addEventListener(evt, function(e) {
+      if (isExempt(e.target)) return;
+      e.preventDefault();
+    });
   });
 })();
 </script>
