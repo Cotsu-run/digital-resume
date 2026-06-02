@@ -76,36 +76,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Source-copy deterrents (cosmetic only; HTML is still downloadable) ─── */
-body {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-}
-/* keep form fields usable, and let visitors copy contact details (email/phone) */
-input, textarea, [contenteditable="true"],
-.contact-links, .contact-links * {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-  -webkit-touch-callout: default;
-}
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-  pointer-events: none;
-}
-/* re-enable interaction on images that need it (lightbox, clickable cards) */
-.image-lightbox img, .project-card img, .case-process-step-media-frame img {
-  pointer-events: auto;
-}
-
 /* ─── Neural vortex background ─── */
 #neuro {
   position: fixed;
@@ -2629,6 +2599,16 @@ body.lightbox-open {
   background: linear-gradient(180deg, rgba(17, 22, 40, 0.9), rgba(5, 8, 16, 0.7));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.case-drawer-handle:focus-visible {
+  outline: 2px solid rgba(127, 195, 255, 0.6);
+  outline-offset: -4px;
+  border-radius: 8px;
 }
 
 .case-drawer-grabber {
@@ -2636,6 +2616,17 @@ body.lightbox-open {
   height: 4px;
   border-radius: 100px;
   background: rgba(255, 255, 255, 0.18);
+  transition: background 200ms ease, transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-drawer-handle:hover .case-drawer-grabber,
+.case-drawer-handle:focus-visible .case-drawer-grabber {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.case-drawer-handle:active .case-drawer-grabber {
+  background: rgba(255, 255, 255, 0.55);
+  transform: scaleX(0.82);
 }
 
 .case-drawer-close {
@@ -2694,7 +2685,7 @@ body.case-drawer-open {
 
 @media (max-width: 720px) {
   .case-drawer { height: 96vh; max-height: 96vh; border-radius: 20px 20px 0 0; }
-  .case-drawer-close { top: 0.85rem; right: 0.85rem; padding: 0.45rem; }
+  .case-drawer-close { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4519,7 +4510,7 @@ const i18n = {
     'hero.intro': 'สวัสดี ฉันราศี — Lead Product Designer และ UX Engineer ที่ดูแลงานออกแบบตั้งแต่แนวคิดจนถึงส่งมอบ โฟกัสที่ปัญหาผู้ใช้ เป้าหมายธุรกิจ และผลลัพธ์ที่วัดได้',
     'hero.bigtype': '<span class="hero-bigtype-lead">ผลลัพธ์</span><br><em>ที่คุณวางใจ</em>',
     'hero.bigtype.2': '<span class="hero-bigtype-lead">ลดเวลา</span><br><em>10 เท่า</em>',
-    'hero.bigtype.3': '<span class="hero-bigtype-lead">ปฏิรูป</span><br><em>โมเดลธุรกิจ</em>',
+    'hero.bigtype.3': '<span class="hero-bigtype-lead">ขัดเกลา</span><br><em>ไอเดียของคุณ</em>',
     'hero.location': 'กรุงเทพ, ประเทศไทย',
     'hero.cta.cases': 'ดูผลงาน',
     'hero.cta.contact': 'พูดคุยกัน',
@@ -4889,9 +4880,12 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
   const drawer = document.getElementById('caseDrawer');
   const backdrop = document.getElementById('caseDrawerBackdrop');
   const closeBtn = document.getElementById('caseDrawerClose');
+  const handle = drawer && drawer.querySelector('.case-drawer-handle');
   const scrollEl = document.getElementById('caseDrawerScroll');
   const trigger = document.querySelector('.projects-cta');
   if (!drawer || !backdrop || !closeBtn || !trigger) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
 
   let lastFocus = null;
 
@@ -4905,7 +4899,10 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
     });
     document.body.classList.add('case-drawer-open');
     if (scrollEl) scrollEl.scrollTop = 0;
-    setTimeout(() => closeBtn.focus(), 320);
+    setTimeout(() => {
+      const target = isMobile() ? (handle || scrollEl || drawer) : closeBtn;
+      if (target && typeof target.focus === 'function') target.focus();
+    }, 320);
   };
 
   const close = () => {
@@ -4929,6 +4926,13 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
 
   backdrop.addEventListener('click', close);
   closeBtn.addEventListener('click', close);
+
+  if (handle) {
+    handle.addEventListener('click', (e) => {
+      if (closeBtn.contains(e.target)) return;
+      close();
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
@@ -5343,51 +5347,6 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
   });
 
   setActive(0);
-})();
-
-// ─── Source-copy deterrents (cosmetic only; HTML is still downloadable) ───
-(function() {
-  document.addEventListener('keydown', function(e) {
-    const key = (e.key || '').toLowerCase();
-    const mod = e.ctrlKey || e.metaKey;
-
-    // F12 — open devtools
-    if (key === 'f12') { e.preventDefault(); return false; }
-
-    // Ctrl/Cmd + Shift + I / J / C / K — devtools, console, inspector
-    if (mod && e.shiftKey && ['i', 'j', 'c', 'k'].includes(key)) {
-      e.preventDefault(); return false;
-    }
-
-    // Ctrl/Cmd + U (view source), S (save), P (print), A (select all).
-    // Copy/cut are handled by the target-aware events below so contact
-    // details stay copyable via the keyboard.
-    if (mod && ['u', 's', 'p', 'a'].includes(key)) {
-      e.preventDefault(); return false;
-    }
-  });
-
-  // Allow selecting/copying inside contact details or form fields
-  const isExempt = function(t) {
-    return !!(t && (t.isContentEditable
-      || /^(INPUT|TEXTAREA)$/.test(t.tagName)
-      || (t.closest && t.closest('.contact-links'))));
-  };
-
-  // Disable right-click context menu (except over contact details)
-  document.addEventListener('contextmenu', function(e) {
-    if (isExempt(e.target)) return;
-    e.preventDefault();
-  });
-
-  // Disable image dragging and text selection / copy / cut
-  document.addEventListener('dragstart', function(e) { e.preventDefault(); });
-  ['selectstart', 'copy', 'cut'].forEach(function(evt) {
-    document.addEventListener(evt, function(e) {
-      if (isExempt(e.target)) return;
-      e.preventDefault();
-    });
-  });
 })();
 </script>
 
