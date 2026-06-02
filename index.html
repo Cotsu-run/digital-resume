@@ -1157,13 +1157,6 @@ section {
   gap: 1rem;
 }
 
-.case-number {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: #60a5fa;
-  letter-spacing: 0.1em;
-}
-
 .case-title {
   font-family: var(--heading);
   font-size: 1.6rem;
@@ -1246,36 +1239,6 @@ a.case-study:hover .case-link-icon {
   left: 0;
   color: var(--gray);
   font-weight: 700;
-}
-
-.case-metrics {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 1.75rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(124, 92, 252, 0.08);
-  flex-wrap: wrap;
-}
-
-.metric {
-  text-align: center;
-  min-width: 80px;
-}
-
-.metric-value {
-  font-family: var(--mono);
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #60a5fa;
-  line-height: 1.2;
-}
-
-.metric-label {
-  font-size: 0.68rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 0.2rem;
 }
 
 /* ─── Projects gallery (Portfolio) ─── */
@@ -1989,90 +1952,6 @@ a.case-study:hover .case-link-icon {
   margin-top: 1.5rem;
 }
 
-.case-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(124, 92, 252, 0.1);
-}
-
-.case-tab-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.55rem 1.05rem;
-  background: rgba(26, 32, 56, 0.5);
-  border: 1px solid rgba(124, 92, 252, 0.12);
-  border-radius: 100px;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gray);
-  cursor: pointer;
-  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.case-tab-btn:hover {
-  color: var(--gray-light);
-  border-color: rgba(96, 165, 250, 0.35);
-  transform: translateY(-1px);
-}
-
-.case-tab-btn:focus-visible {
-  outline: none;
-  border-color: rgba(0, 229, 255, 0.85);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
-}
-
-.case-tab-btn[aria-selected="true"] {
-  color: #00e5ff;
-  border-color: rgba(0, 229, 255, 0.6);
-  background: linear-gradient(135deg, rgba(0, 229, 255, 0.14), rgba(59, 130, 246, 0.06));
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
-}
-
-.case-tab-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.case-tab-icon svg {
-  width: 16px;
-  height: 16px;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.case-tab-btn:hover .case-tab-icon svg,
-.case-tab-btn[aria-selected="true"] .case-tab-icon svg {
-  opacity: 1;
-}
-
-.case-tab-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.4rem;
-  padding: 0 0.3rem;
-  height: 1.1rem;
-  border-radius: 100px;
-  background: rgba(0, 229, 255, 0.08);
-  border: 1px solid rgba(96, 165, 250, 0.2);
-  font-size: 0.62rem;
-  color: #60a5fa;
-  letter-spacing: 0.02em;
-}
-
-.case-tab-btn[aria-selected="true"] .case-tab-count {
-  background: rgba(0, 229, 255, 0.16);
-  border-color: rgba(0, 229, 255, 0.45);
-  color: #00e5ff;
-}
-
 .case-tab-panels {
   padding-top: 1.5rem;
 }
@@ -2205,7 +2084,6 @@ a.case-study:hover .case-link-icon {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .case-tab-btn,
   .case-tab-panel { transition: none; animation: none; }
 }
 
@@ -3074,7 +2952,6 @@ footer {
   .about-details { grid-template-columns: 1fr; }
   .case-body { grid-template-columns: 1fr; }
   .case-header { flex-direction: column; }
-  .case-metrics { justify-content: flex-start; }
   .certs-grid { grid-template-columns: 1fr; }
   .contact { padding: 5rem 1.25rem; }
   .hero { padding: 5rem 1.25rem 3rem; }
@@ -3269,7 +3146,6 @@ nav.scrolled { background: rgba(255, 255, 255, 0.9); }
   transform: none;
 }
 .case-study:hover::before { opacity: 0; }
-.case-number { color: var(--terracotta); }
 .case-title { color: var(--ink); }
 .case-subtitle { color: var(--terracotta); }
 .case-tag {
@@ -3282,38 +3158,8 @@ a.case-study:hover .case-link-icon { color: var(--terracotta); }
 .case-col h4 { color: var(--ink-soft); }
 .case-col p, .case-col li { color: var(--ink-mid); }
 .case-col li::before { color: var(--ink-soft); }
-.case-metrics { border-top-color: var(--line); }
-.metric-value { color: var(--terracotta); }
-.metric-label { color: var(--ink-soft); }
 
 /* Case tabs */
-.case-tabs { border-bottom-color: var(--line); }
-.case-tab-btn {
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-}
-.case-tab-btn:hover { color: var(--ink); border-color: var(--line-strong); }
-.case-tab-btn:focus-visible {
-  border-color: var(--terracotta);
-  box-shadow: 0 0 0 3px rgba(26, 115, 232,0.18);
-}
-.case-tab-btn[aria-selected="true"] {
-  color: var(--terracotta);
-  border-color: var(--terracotta);
-  background: var(--terracotta-soft);
-  box-shadow: none;
-}
-.case-tab-count {
-  background: rgba(60, 64, 67,0.05);
-  border-color: var(--line);
-  color: var(--ink-soft);
-}
-.case-tab-btn[aria-selected="true"] .case-tab-count {
-  background: rgba(26, 115, 232,0.18);
-  border-color: rgba(26, 115, 232,0.35);
-  color: var(--terracotta);
-}
 .case-tab-panel li { color: var(--ink-mid); }
 .case-tab-panel li::before { color: var(--terracotta); }
 .case-tab-panel--prose p { color: var(--ink-mid); }
@@ -3857,15 +3703,15 @@ html.dark { scrollbar-color: var(--ink-soft) var(--paper); }
 html.dark ::selection { background: var(--terracotta); color: var(--paper); }
 
 /* Smooth color transition when toggling */
-html, body, nav, .case-study, .skill-tag, .case-tab-btn,
+html, body, nav, .case-study, .skill-tag,
 .case-view-toggle, .case-process-step, .cert-card, .contact-link,
 .about-detail-item, .service-layer, .hero-contact, .nav-links a,
 .lang-btn, .section-label, .section-title, .section-desc, .about-bio,
 .hero-bigtype, .hero-bigtype em, .hero-left p, .hero-location,
 .hero-social a, .timeline-date, .timeline-company, .timeline-role,
-.timeline-desc, .case-number, .case-title, .case-subtitle, .case-tag,
-.case-link-icon, .case-col h4, .case-col p, .case-col li, .metric-value,
-.metric-label, .case-tab-panel li, .case-tab-panel--prose p,
+.timeline-desc, .case-title, .case-subtitle, .case-tag,
+.case-link-icon, .case-col h4, .case-col p, .case-col li,
+.case-tab-panel li, .case-tab-panel--prose p,
 .case-tab-panel--prose strong, .case-process-eyebrow, .case-process-title,
 .case-process-step-title, .case-process-step-body, .case-process-step-list li,
 .case-process-step-list strong, .cert-year, .cert-name, .cert-detail,
@@ -3883,7 +3729,6 @@ html.dark nav.scrolled { background: rgba(32, 33, 36, 0.9); }
 html.dark .about-detail-item,
 html.dark .skill-tag,
 html.dark .case-study,
-html.dark .case-tab-btn,
 html.dark .case-view-toggle,
 html.dark .case-process-step,
 html.dark .cert-card,
@@ -3894,10 +3739,6 @@ html.dark .contact-link {
 /* Case-study cards: no background fill (outline only) */
 html.dark .case-study { background: transparent; }
 
-/* Case tabs: no background fill on inactive tabs (keep border + active state) */
-html.dark .case-tab-btn:not([aria-selected="true"]) { background: transparent; }
-
-html.dark .case-tab-count { background: rgba(232, 234, 237, 0.06); }
 html.dark .case-process-step-num { background: var(--paper-warm); }
 html.dark .case-process-step:hover { background: rgba(53, 54, 58, 0.9); }
 html.dark .case-process-step-media-frame:has(img) { background: var(--paper-warm); }
@@ -4780,32 +4621,6 @@ const i18n = {
 
     'case02.subtitle': 'Digital Menu สั่งอาหารผ่าน QR',
     'case02.tag': 'Case Study เต็มรูปแบบ',
-    'case02.h.problem': 'ปัญหา',
-    'case02.h.solution': 'วิธีแก้',
-    'case02.h.outcome': 'ผลลัพธ์',
-    'case02.problem.1': 'การสั่งด้วยมือช้าและพลาดง่าย',
-    'case02.problem.2': 'เมนูพิมพ์มีต้นทุนสูงและล้าสมัย',
-    'case02.problem.3': 'พนักงานหน้าร้านไม่พอในช่วงพีค',
-    'case02.solution.1': 'QR Scan-to-order พร้อมรูปอาหารคุณภาพสูง',
-    'case02.solution.2': 'Dashboard จัดการเมนูแบบ Real-time',
-    'case02.solution.3': 'ส่งออเดอร์ตรงเข้าครัวอัตโนมัติ',
-    'case02.solution.4': 'ระบบวิเคราะห์และรายงานในตัว',
-    'case02.outcome.1': 'บริการลื่นไหลตั้งแต่ต้นจนจบ พนักงานมีเวลาดูแลลูกค้ามากขึ้น',
-    'case02.outcome.2': 'ลด Food Waste อย่างมีนัยสำคัญด้วยข้อมูลสต็อกที่แม่นยำ',
-    'case02.outcome.3': 'รายได้โต — ขั้นตอนสั่งราบรื่นและโต๊ะหมุนเวียนเร็วขึ้น',
-    'case02.outcome.4': 'ลูกค้าพึงพอใจกับประสบการณ์ในร้านมากขึ้น',
-    'case02.metric.1': 'สั่งเร็วขึ้น',
-    'case02.metric.2': 'Conversion Rate',
-    'case02.metric.3': 'ยอดสั่งเฉลี่ย (AOV)',
-    'case02.metric.4': 'คะแนนความพึงพอใจ',
-    'case02.problem.4': 'ไม่เห็นยอดขาย Real-time',
-    'case02.problem.5': 'Upsell และเพิ่มออเดอร์ทำได้ยาก',
-    'case02.problem.6': 'ลูกค้าต่างชาติติดปัญหาเรื่องภาษา',
-    'case02.solution.5': 'แนะนำเมนูและ Upsell อัจฉริยะ',
-    'case02.solution.6': 'รองรับเมนูหลายภาษา',
-    'case02.tab.overview': 'ภาพรวม',
-    'case02.tab.problems': 'ปัญหา',
-    'case02.tab.solutions': 'วิธีแก้',
     'case02.overview.lead': 'เมนูดิจิทัลที่ใช้งานง่ายและออกแบบสวยช่วยให้สั่งอาหารราบรื่น พร้อมกระตุ้นยอดเฉลี่ยต่อบิลให้สูงขึ้น',
     'case02.overview.resp': 'หน้าที่ของฉัน:',
     'case02.overview.resp.1': 'Strategy และ Information Architecture (IA)',
