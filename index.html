@@ -1617,7 +1617,7 @@ a.case-study:hover .case-link-icon {
   height: 100%;
   border-radius: 27px;
   overflow: hidden;
-  background: #ffffff;
+  background: #f6000d; /* status-bar red fills the strip behind the notch */
 }
 
 .iphonex__shot {
@@ -1628,6 +1628,13 @@ a.case-study:hover .case-link-icon {
   object-fit: cover;
   object-position: top center;
   display: block;
+}
+
+/* nudge the screenshot down so its status bar clears the notch (≈ notch height) */
+.project-card img.iphonex__shot {
+  top: 15px;
+  height: calc(100% - 15px);
+  object-position: top center;
 }
 
 /* iPhone X's signature notch */
