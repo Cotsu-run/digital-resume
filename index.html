@@ -1566,6 +1566,153 @@ a.case-study:hover .case-link-icon {
   pointer-events: none;
 }
 
+/* ─── iPhone X glassmorphism mockup (decorative overlay) ─── */
+.iphonex {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: 161px;
+  height: 275px;
+  z-index: 1;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%) scale(1.25);
+  filter:
+    drop-shadow(0 24px 36px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+}
+
+@media (min-width: 768px) {
+  .iphonex {
+    width: 186px;
+    height: 320px;
+  }
+}
+
+.iphonex__frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 34px;
+  padding: 7px;
+  background:
+    linear-gradient(135deg,
+      rgba(255, 255, 255, 0.32) 0%,
+      rgba(255, 255, 255, 0.08) 38%,
+      rgba(255, 255, 255, 0.02) 62%,
+      rgba(255, 255, 255, 0.18) 100%);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1.5px 0 rgba(255, 255, 255, 0.08),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.18),
+    inset -1.5px 0 0 rgba(255, 255, 255, 0.18);
+}
+
+.iphonex__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 27px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.iphonex__shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* iPhone X's signature notch */
+.iphonex__notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44%;
+  height: 15px;
+  background: #000;
+  border-radius: 0 0 11px 11px;
+  z-index: 2;
+}
+
+/* Home indicator bar */
+.iphonex__home {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.72);
+  z-index: 2;
+}
+
+.iphonex__screen::after {
+  /* glass reflection */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, transparent 35%, transparent 70%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.iphonex__btn {
+  position: absolute;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.18) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    -1.5px 0 1.5px rgba(0, 0, 0, 0.22);
+}
+
+/* mute switch + volume up/down on the left */
+.iphonex__btn--mute {
+  left: -3px;
+  top: 50px;
+  width: 4px;
+  height: 18px;
+  border-radius: 2px 0 0 2px;
+}
+
+.iphonex__btn--vol-up {
+  left: -3px;
+  top: 80px;
+  width: 4px;
+  height: 32px;
+  border-radius: 2px 0 0 2px;
+}
+
+.iphonex__btn--vol-down {
+  left: -3px;
+  top: 120px;
+  width: 4px;
+  height: 32px;
+  border-radius: 2px 0 0 2px;
+}
+
+/* single side/power button on the right */
+.iphonex__btn--power {
+  right: -3px;
+  top: 96px;
+  width: 4px;
+  height: 46px;
+  border-radius: 0 2px 2px 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    1.5px 0 1.5px rgba(0, 0, 0, 0.22);
+}
+
 /* ─── Laptop glassmorphism mockup (decorative overlay) ─── */
 /* ─── Tablet glassmorphism mockup (decorative overlay) ─── */
 .tablet {
@@ -4068,17 +4215,20 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
           <p class="project-card-desc" data-i18n="projects.3.desc">A mobile banking app — secure authentication, real-time transfers, and account management. Designed for everyday transactions with a clear, low-friction flow.</p>
         </div>
       </a>
-      <a class="project-card project-card--has-laptop">
+      <a class="project-card project-card--has-phone">
         <img src="Images/franki-chamaki-ivfp_yxZuYQ-unsplash.jpg" alt="" loading="lazy" decoding="async">
-        <div class="laptop" aria-hidden="true">
-          <div class="laptop__lid">
-            <span class="laptop__camera"></span>
-            <div class="laptop__screen">
-              <img class="laptop__shot" src="Images/Tops-Homepage-2 1.png" alt="" loading="lazy" decoding="async">
+        <div class="iphonex" aria-hidden="true">
+          <div class="iphonex__frame">
+            <span class="iphonex__btn iphonex__btn--mute"></span>
+            <span class="iphonex__btn iphonex__btn--vol-up"></span>
+            <span class="iphonex__btn iphonex__btn--vol-down"></span>
+            <span class="iphonex__btn iphonex__btn--power"></span>
+            <div class="iphonex__screen">
+              <img class="iphonex__shot" src="Images/Redhot.png" alt="" loading="lazy" decoding="async">
+              <span class="iphonex__notch"></span>
+              <span class="iphonex__home"></span>
             </div>
-            <span class="laptop__sheen"></span>
           </div>
-          <div class="laptop__base"></div>
         </div>
         <div class="project-card-body">
           <h3 class="project-card-title" data-i18n="projects.5.title">Delivery Application</h3>
