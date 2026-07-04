@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="R%20Logo.svg">
-<title>Rasri Issarasiri - Product Designer/ UX Engineer</title>
+<title>Rasri Issarasiri - Product Designer</title>
 <meta name="description" content="Rasri Issarasiri — Lead Product Designer and UX Engineer who owns design from concept to delivery, focused on user problems, business goals, and measurable outcomes.">
 
 <!-- Open Graph (Facebook / LinkedIn) -->
@@ -33,7 +33,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans+Thai:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 @property --gradient-angle {
   syntax: '<angle>';
@@ -64,7 +64,7 @@
   --card-bg: rgba(26, 32, 56, 0.6);
   --heading: 'Noto Sans', 'Noto Sans Thai', sans-serif;
   --sans: 'Noto Sans', 'Noto Sans Thai', sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  --mono: 'JetBrains Mono', 'Noto Sans Thai', monospace;
 }
 
 html {
@@ -590,7 +590,7 @@ section {
 
 .section-title {
   /* Copied from .hd-text / .hero-decrypt — monospace decrypt look */
-  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-family: 'JetBrains Mono', 'Noto Sans Thai', ui-monospace, 'SF Mono', 'Menlo', monospace;
   font-weight: 500;
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 1.2;
@@ -970,7 +970,7 @@ section {
   margin: 0;
   cursor: pointer;
   /* Copied from .hd-text / .hero-decrypt — monospace decrypt look */
-  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-family: 'JetBrains Mono', 'Noto Sans Thai', ui-monospace, 'SF Mono', 'Menlo', monospace;
   font-size: clamp(1.8rem, 4vw, 3.4rem);
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -3632,7 +3632,7 @@ footer {
 
 .hero-contact:hover { transform: translateY(-2px); }
 
-/* ── WebGL glass shapes behind the portrait (Three.js, driven by shapes.json) ── */
+/* ── Hero video (chroma-keyed shapes) behind the portrait ── */
 .hero-gl {
   position: absolute;
   left: 50%;
@@ -3705,7 +3705,7 @@ footer {
 /* ── Hover-to-decrypt tagline (vanilla port of the HyperText component) ── */
 .hero-decrypt {
   margin: 0;
-  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-family: 'JetBrains Mono', 'Noto Sans Thai', ui-monospace, 'SF Mono', 'Menlo', monospace;
   font-weight: 500;
   font-size: clamp(1.5rem, 3.4vw, 2.6rem);
   line-height: 1.6;
@@ -3765,6 +3765,9 @@ footer {
 html.dark .hero-decrypt, html.dark .hd-word { color: #e5e7eb; }
 html.dark .hd-word.hl { color: #60a5fa; }
 html.dark .hd-word.is-hover { color: #ffffff; }
+/* "reliable" highlighted in yellow instead of the default blue */
+.hero-decrypt .hd-word.hl[data-word="reliable"] { color: #eab308; }
+html.dark .hero-decrypt .hd-word.hl[data-word="reliable"] { color: #facc15; }
 
 @media (prefers-reduced-motion: reduce) {
   .hd-word { transition: color 0.2s ease; }
@@ -3881,8 +3884,8 @@ html.dark .hd-word.is-hover { color: #ffffff; }
 @keyframes heroPortraitIn {
   to { opacity: 1; transform: scale(1.5) translateY(0); }
 }
-/* The 3D glass shapes (rectangle ↔ ellipse ↔ polygon) are rendered by Three.js
-   into .hero-gl and configured via shapes.json; heroShapeIn just fades the mount in. */
+/* The hero-shapes.mp4 video is chroma-keyed into .hero-gl by the WebGL script
+   at the end of the body; heroShapeIn just fades the mount in. */
 
 @media (max-width: 820px) {
   #hero.hero { padding: 6rem 1.25rem 2rem; }
@@ -4132,7 +4135,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
       </div>
 
       <div class="hero-center">
-        <div class="hero-gl" aria-hidden="true">
+        <div class="hero-gl" data-mode="video" aria-hidden="true">
           <div class="hero-gl-fallback"></div>
         </div>
         <img class="hero-portrait" src="Images/hero-portrait-v2.png" alt="Rasri Issarasiri portrait" loading="eager" decoding="async">
@@ -4585,7 +4588,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
   <div class="about-grid">
     <div class="reveal">
       <p class="section-label" data-i18n="about.label" data-i18n-default="About">เกี่ยวกับฉัน</p>
-      <h2 class="section-title" data-i18n="about.title" data-i18n-default="I thrive on solving and crafting opportunities.">ฉันสนุกกับการแก้ปัญหาและสร้างโอกาสใหม่ๆ</h2>
+      <h2 class="section-title" data-i18n="about.title" data-i18n-default="Edge in solving problems and creating opportunities.">ความเฉียบคมในการแก้ปัญหาและสร้างโอกาส</h2>
       <p class="about-bio" data-i18n="about.bio1" data-i18n-default="With over 9 years of experience as a digital product designer and developer, I understand how diverse businesses operate. I apply and build upon key development concepts to suit various industries, including team management, problem-solving, and decision-making based on clear statistics. My focus is on developing products that meet needs and offer a worthwhile return on investment.">ด้วยประสบการณ์ของฉันในฐานะนักออกแบบและพัฒนาดิจิทัลโปรดัคส์ที่มีมากกว่า 9 ปี ทำให้เข้าใจการทำงานในหลากหลายธุรกิจ โดยการนำเอาวิธีคิดที่สำคัญต่อการพัฒนามาประยุกต์ใช้และต่อยอดเพื่อปรับใช้ให้เหมาะสมกับธุรกิจต่างๆ รวมถึงการจัดการภายในทีม การแก้ปัญหาเฉพาะหน้า การตัดสินใจด้วยสถิติที่ชัดเจน เพื่อมุ่งเน้นไปยังเป้าหมายการพัฒนาผลิตภัณฑ์ให้ตรงกับความต้องการและคุ้มค่าต่อการลงทุน</p>
     </div>
     <div class="reveal" style="transition-delay: 0.15s;">
@@ -4791,7 +4794,7 @@ const i18n = {
 
     // About
     'about.label': 'เกี่ยวกับฉัน',
-    'about.title': 'ฉันสนุกกับการแก้ปัญหาและสร้างโอกาสใหม่ๆ',
+    'about.title': 'ความเฉียบคมในการแก้ปัญหาและสร้างโอกาส',
     'about.bio1': 'ด้วยประสบการณ์ของฉันในฐานะนักออกแบบและพัฒนาดิจิทัลโปรดัคส์ที่มีมากกว่า 9 ปี ทำให้เข้าใจการทำงานในหลากหลายธุรกิจ โดยการนำเอาวิธีคิดที่สำคัญต่อการพัฒนามาประยุกต์ใช้และต่อยอดเพื่อปรับใช้ให้เหมาะสมกับธุรกิจต่างๆ รวมถึงการจัดการภายในทีม การแก้ปัญหาเฉพาะหน้า การตัดสินใจด้วยสถิติที่ชัดเจน เพื่อมุ่งเน้นไปยังเป้าหมายการพัฒนาผลิตภัณฑ์ให้ตรงกับความต้องการและคุ้มค่าต่อการลงทุน',
     'about.bio2': 'เคยร่วมงานในหลายอุตสาหกรรม ทั้ง FinTech, AgriTech, Food &amp; Retail และ Enterprise Operations โดยทำงานใกล้ชิดกับ Product Manager, Developer และผู้มีส่วนได้ส่วนเสีย เพื่อให้งานออกแบบส่งผลต่อเป้าหมายทางธุรกิจจริง',
     'about.location.label': 'ที่ตั้ง',
@@ -5684,211 +5687,128 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
 })();
 </script>
 
-<!-- ── Hero glass shapes: Three.js scene driven by shapes.json ── -->
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
-  }
-}
-</script>
-<script type="module">
-import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-(async function initHeroGlass() {
+<script>
+/* Hero video with runtime chroma-key: plays hero-shapes.mp4 and knocks out its
+   two-tone (mauve wall + mint floor) background so the shapes float on the page.
+   Best-effort key — the source isn't a green screen, so KEY tolerance is tunable. */
+(function heroVideoKey(){
   const mount = document.querySelector('.hero-gl');
-  if (!mount) return;
+  if (!mount || mount.dataset.mode !== 'video') return;
 
-  // Respect reduced motion + verify WebGL — otherwise the CSS fallback stays.
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let webglOK = false;
-  try {
-    const test = document.createElement('canvas');
-    webglOK = !!(window.WebGLRenderingContext && (test.getContext('webgl2') || test.getContext('webgl')));
-  } catch (e) { webglOK = false; }
-  if (prefersReduced || !webglOK) return;
+  const video = document.createElement('video');
+  video.src = 'hero-shapes.mp4';
+  video.muted = true; video.defaultMuted = true; video.loop = true;
+  video.autoplay = true; video.playsInline = true;
+  video.setAttribute('muted', ''); video.setAttribute('playsinline', '');
+  video.style.display = 'none';
+  mount.appendChild(video);
 
-  let cfg;
-  try {
-    const res = await fetch('shapes.json', { cache: 'no-cache' });
-    if (!res.ok) throw new Error('shapes.json ' + res.status);
-    cfg = await res.json();
-  } catch (e) {
-    console.warn('[hero-glass] config failed to load, keeping fallback:', e);
+  const canvas = document.createElement('canvas');
+  mount.appendChild(canvas);
+  const gl = canvas.getContext('webgl', { premultipliedAlpha: false, alpha: true, antialias: true });
+
+  // If WebGL is unavailable, just show the raw video (background included).
+  if (!gl) {
+    canvas.remove();
+    video.style.cssText = 'display:block;width:100%;height:100%;object-fit:cover;';
+    mount.classList.add('is-live');
+    video.play().catch(() => {});
     return;
   }
 
-  const S = cfg.scene || {};
-  const M = cfg.material || {};
-  const SHAPES = Array.isArray(cfg.shapes) ? cfg.shapes : [];
-  if (!SHAPES.length) return;
+  function sh(type, src) {
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.warn('[hero-video] shader:', gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER,
+    'attribute vec2 p; varying vec2 uv;' +
+    'void main(){ uv = vec2((p.x+1.0)*0.5, (p.y+1.0)*0.5); gl_Position = vec4(p,0.0,1.0); }'));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER,
+    'precision mediump float; varying vec2 uv; uniform sampler2D tex;' +
+    'uniform vec2 cover; uniform vec3 key1, key2;' +
+    'vec3 hue(vec3 c){ return c / max((c.r+c.g+c.b)/3.0, 0.004); }' + // brightness-invariant chromaticity
+    'void main(){' +
+    '  vec2 t = vec2(0.5) + (uv - 0.5) / cover; t.y = 1.0 - t.y;' +
+    '  if (t.x < 0.0 || t.x > 1.0 || t.y < 0.0 || t.y > 1.0) discard;' +
+    '  vec4 c = texture2D(tex, t);' +
+    '  float mx = max(c.r, max(c.g, c.b));' +
+    '  float mn = min(c.r, min(c.g, c.b));' +
+    '  float sat = (mx - mn) / max(mx, 0.004);' +
+    '  float dHue = min(distance(hue(c.rgb), hue(key1)), distance(hue(c.rgb), hue(key2)));' +
+    '  float bgHue = 1.0 - smoothstep(0.05, 0.14, dHue);' +   // hue matches wall/floor (any brightness)
+    '  float bgDesat = 1.0 - smoothstep(0.20, 0.30, sat);' +  // low-saturation background (incl. the dark patch)
+    '  float bg = max(bgHue, bgDesat);' +
+    '  bg *= 1.0 - smoothstep(0.86, 0.94, mx);' +             // but keep bright speculars on the shapes
+    '  float a = 1.0 - bg;' +
+    '  if (a <= 0.02) discard;' +
+    '  gl_FragColor = vec4(c.rgb, a);' +
+    '}'));
+  gl.linkProgram(prog); gl.useProgram(prog);
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setClearAlpha(0);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, S.pixelRatioCap || 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
-  mount.appendChild(renderer.domElement);
+  const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p');
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const uCover = gl.getUniformLocation(prog, 'cover'), uK1 = gl.getUniformLocation(prog, 'key1'),
+        uK2 = gl.getUniformLocation(prog, 'key2');
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(S.cameraFov || 30, 1, 0.1, 100);
-  camera.position.set(0, 0, S.cameraDistance || 6.2);
+  const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  gl.clearColor(0, 0, 0, 0);
 
-  // Studio environment → reflections + refraction for the glass.
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-
-  const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(4, 5, 6); scene.add(key);
-  const rim = new THREE.DirectionalLight(0x9ec5ff, 1.1); rim.position.set(-5, -2, -4); scene.add(rim);
-
-  const material = new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color(M.color || '#cfe6ff'),
-    flatShading: M.flatShading ?? false,
-    metalness: M.metalness ?? 0,
-    roughness: M.roughness ?? 0.05,
-    transmission: M.transmission ?? 1,
-    thickness: M.thickness ?? 1.6,
-    ior: M.ior ?? 1.45,
-    reflectivity: M.reflectivity ?? 0.5,
-    iridescence: M.iridescence ?? 0,
-    iridescenceIOR: M.iridescenceIOR ?? 1.3,
-    iridescenceThicknessRange: M.iridescenceThicknessRange ?? [100, 400],
-    clearcoat: M.clearcoat ?? 1,
-    clearcoatRoughness: M.clearcoatRoughness ?? 0.06,
-    attenuationColor: new THREE.Color(M.attenuationColor || '#ffffff'),
-    attenuationDistance: M.attenuationDistance ?? 4,
-    envMapIntensity: M.envMapIntensity ?? 1.2,
-    transparent: false
-  });
-
-  // ── Build ONE geometry that morphs between the three silhouettes ──
-  // Every shape is derived from the same sphere so vertices correspond 1:1,
-  // which lets morph targets blend the whole surface smoothly.
-  const byGeo = {};
-  SHAPES.forEach(s => { byGeo[s.geometry] = s; });
-  const ell = byGeo.ellipsoid || { radii: [1.3, 1.12, 1.3] };
-  const box = byGeo.box || { size: [2.1, 2.1, 2.1] };
-  const eR = ell.radii || [1.3, 1.12, 1.3];
-  const bH = (box.size || [2.1, 2.1, 2.1]).map(v => v / 2);
-  const bP = box.roundness || 5;   // superquadric exponent: lower = rounder edges, higher = sharper
-
-  // Keep the sphere NON-indexed so each face can carry its own (flat) normal —
-  // this is what lets the cube be sharp while the ellipse stays smooth.
-  const geo = new THREE.IcosahedronGeometry(1, S.morphDetail ?? 5);
-  geo.deleteAttribute('uv');
-  const src = geo.attributes.position;
-  const count = src.count;
-  const ellP = new Float32Array(count * 3);
-  const ellN = new Float32Array(count * 3);   // smooth ellipsoid normals → round ellipse
-  const boxP = new Float32Array(count * 3);
-  const v = new THREE.Vector3(), nrm = new THREE.Vector3();
-  for (let i = 0; i < count; i++) {
-    v.set(src.getX(i), src.getY(i), src.getZ(i)).normalize();       // direction on unit sphere
-    const ax = Math.abs(v.x) || 1e-6, ay = Math.abs(v.y) || 1e-6, az = Math.abs(v.z) || 1e-6;
-    // ellipse — smooth surface + its true (smooth) ellipsoid normal
-    ellP[i * 3] = v.x * eR[0]; ellP[i * 3 + 1] = v.y * eR[1]; ellP[i * 3 + 2] = v.z * eR[2];
-    nrm.set(v.x / eR[0], v.y / eR[1], v.z / eR[2]).normalize();
-    ellN[i * 3] = nrm.x; ellN[i * 3 + 1] = nrm.y; ellN[i * 3 + 2] = nrm.z;
-    // rounded box — superquadric projection so edges/corners are soft, not sharp
-    const tb = Math.pow(
-      Math.pow(ax / bH[0], bP) + Math.pow(ay / bH[1], bP) + Math.pow(az / bH[2], bP),
-      -1 / bP
-    );
-    boxP[i * 3] = v.x * tb; boxP[i * 3 + 1] = v.y * tb; boxP[i * 3 + 2] = v.z * tb;
+  // Background key colours: sampled live from the frame corners, with fallbacks.
+  let key1 = [0.72, 0.64, 0.63];  // mauve wall
+  let key2 = [0.74, 0.90, 0.78];  // mint floor
+  let sampled = false;
+  const probe = document.createElement('canvas'); probe.width = 64; probe.height = 36;
+  const pctx = probe.getContext('2d', { willReadFrequently: true });
+  function sampleKeys() {
+    try {
+      pctx.drawImage(video, 0, 0, 64, 36);
+      const wall = pctx.getImageData(3, 5, 1, 1).data;
+      const floor = pctx.getImageData(6, 32, 1, 1).data;
+      key1 = [wall[0] / 255, wall[1] / 255, wall[2] / 255];
+      key2 = [floor[0] / 255, floor[1] / 255, floor[2] / 255];
+      sampled = true;
+    } catch (e) { /* keep fallbacks */ }
   }
 
-  // Smooth, position-welded normals → no visible facets / polygon texture.
-  // (Coplanar face triangles average to one flat normal; edges soften.)
-  function smoothNormals(arr) {
-    const vcount = arr.length / 3;
-    const acc = new Map();
-    const key = (x, y, z) => (Math.round(x * 1000)) + ',' + (Math.round(y * 1000)) + ',' + (Math.round(z * 1000));
-    const pa = new THREE.Vector3(), pb = new THREE.Vector3(), pc = new THREE.Vector3(), fn = new THREE.Vector3(), ab = new THREE.Vector3();
-    for (let t = 0; t < vcount; t += 3) {
-      pa.fromArray(arr, t * 3); pb.fromArray(arr, (t + 1) * 3); pc.fromArray(arr, (t + 2) * 3);
-      fn.subVectors(pc, pb); ab.subVectors(pa, pb); fn.cross(ab); // area-weighted face normal
-      for (const vi of [t, t + 1, t + 2]) {
-        const k = key(arr[vi * 3], arr[vi * 3 + 1], arr[vi * 3 + 2]);
-        let a = acc.get(k); if (!a) { a = [0, 0, 0]; acc.set(k, a); }
-        a[0] += fn.x; a[1] += fn.y; a[2] += fn.z;
-      }
-    }
-    const out = new Float32Array(vcount * 3);
-    const n = new THREE.Vector3();
-    for (let i = 0; i < vcount; i++) {
-      const a = acc.get(key(arr[i * 3], arr[i * 3 + 1], arr[i * 3 + 2]));
-      n.set(a[0], a[1], a[2]).normalize();
-      out[i * 3] = n.x; out[i * 3 + 1] = n.y; out[i * 3 + 2] = n.z;
-    }
-    return new THREE.BufferAttribute(out, 3);
+  function fit() {
+    const w = mount.clientWidth || 1, h = mount.clientHeight || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    const va = (video.videoWidth || 16) / (video.videoHeight || 9), ca = w / h;
+    gl.uniform2f(uCover, Math.max(1, va / ca), Math.max(1, ca / va)); // cover-fit
   }
+  new ResizeObserver(fit).observe(mount);
 
-  geo.setAttribute('position', new THREE.BufferAttribute(ellP, 3));
-  geo.setAttribute('normal', new THREE.BufferAttribute(ellN, 3));
-  geo.morphAttributes.position = [new THREE.BufferAttribute(boxP, 3)];
-  // Smooth normals both ends → surface stays smooth (no polygon facets) through the morph.
-  geo.morphAttributes.normal   = [smoothNormals(boxP)];
-
-  const group = new THREE.Group();
-  scene.add(group);
-  const mesh = new THREE.Mesh(geo, material);
-  mesh.morphTargetInfluences = [0];
-  group.add(mesh);
-  const spinAxis = new THREE.Vector3(...(S.spinAxis || [0.3, 1, 0.15])).normalize();
-
-  // Single box morph target: ellipse = 0, rectangle = 1.
-  const STATES = [[0], [1]];
-  const nS = STATES.length;
-  const holdMs = S.holdMs ?? 700;
-  const morphMs = S.morphMs ?? 2200;
-  const cycle = holdMs + morphMs;
-  const spinSpeed = S.spinSpeed ?? 0.5;
-  const easeInOut = t => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-
-  function resize() {
-    const w = mount.clientWidth, h = mount.clientHeight;
-    if (!w || !h) return;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
-  new ResizeObserver(resize).observe(mount);
-  resize();
-
-  mount.classList.add('is-live'); // hides the CSS fallback
-
-  let current = 0;
-  let cycleStart = performance.now();
-  let last = cycleStart;
   let running = true;
+  new IntersectionObserver(es => { running = es[0].isIntersecting; if (running) requestAnimationFrame(draw); }, { threshold: 0.01 }).observe(mount);
 
-  // Pause the render loop while the hero is off-screen (saves battery/CPU).
-  new IntersectionObserver(entries => {
-    const vis = entries[0].isIntersecting;
-    if (vis && !running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
-    else if (!vis) { running = false; }
-  }, { threshold: 0.01 }).observe(mount);
-
-  function frame(now) {
+  function draw() {
     if (!running) return;
-    const dt = Math.min(0.05, (now - last) / 1000);
-    last = now;
-
-    let phase = now - cycleStart;
-    while (phase >= cycle) { current = (current + 1) % nS; cycleStart += cycle; phase -= cycle; }
-    const next = (current + 1) % nS;
-    const a = STATES[current], b = STATES[next];
-    const k = phase > holdMs ? easeInOut((phase - holdMs) / morphMs) : 0;
-    mesh.morphTargetInfluences[0] = a[0] + (b[0] - a[0]) * k;
-
-    mesh.rotateOnAxis(spinAxis, spinSpeed * dt);
-    renderer.render(scene, camera);
-    requestAnimationFrame(frame);
+    if (video.readyState >= 2) {
+      if (!sampled && video.currentTime > 0.15) sampleKeys();
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+      gl.uniform3fv(uK1, key1); gl.uniform3fv(uK2, key2);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    requestAnimationFrame(draw);
   }
-  requestAnimationFrame(frame);
+
+  function start() { fit(); mount.classList.add('is-live'); video.play().catch(() => {}); requestAnimationFrame(draw); }
+  if (video.readyState >= 1) start();
+  else video.addEventListener('loadedmetadata', start, { once: true });
 })();
 </script>
 
