@@ -2069,6 +2069,7 @@ a.case-study:hover .case-link-icon {
 }
 
 .projects-dot {
+  position: relative;
   width: 8px;
   height: 8px;
   padding: 0;
@@ -2077,6 +2078,17 @@ a.case-study:hover .case-link-icon {
   background: rgba(96, 165, 250, 0.25);
   cursor: pointer;
   transition: background 0.3s ease, width 0.3s ease;
+}
+
+/* Enlarge the clickable/tap target to 24x24 without changing the visible dot (WCAG 2.5.8) */
+.projects-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
 }
 
 .projects-dot.is-active {
@@ -3512,6 +3524,9 @@ footer {
   padding: 0;
 }
 #case01-process .case-process-frame::before { display: none; }
+#case01-process .case-process-step-text h5.case-process-step-title:not(:first-child) { margin-top: 1rem; }
+#case01-process .case-process-step-media-frame:has(img) { height: 280px; }
+#case01-process .case-process-step-media-frame img { height: 100%; object-fit: cover; }
 
 /* ─── Hero — MinimalistHero layout ─── */
 #hero.hero {
@@ -3819,6 +3834,10 @@ html.dark .hero-decrypt .hd-word.hl[data-word="reliable"] { color: #facc15; }
   color: var(--ink-soft);
   transition: color 0.3s ease, transform 0.3s ease;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
 }
 
 .hero-social a:hover { color: var(--terracotta); transform: translateY(-2px); }
@@ -4101,9 +4120,10 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
 <body>
 
 <!-- Interactive Neural Vortex Background -->
-<canvas id="neuro"></canvas>
+<canvas id="neuro" aria-hidden="true"></canvas>
 
 <!-- Navigation -->
+<header>
 <nav id="nav">
   <a href="#hero" class="nav-logo" aria-label="Rasri — home"><img src="R%20Logo.svg" alt="Rasri" class="nav-logo-img"></a>
   <ul class="nav-links" id="navLinks">
@@ -4120,8 +4140,10 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
     <span></span><span></span><span></span>
   </button>
 </nav>
+</header>
 
 <!-- Hero — MinimalistHero layout -->
+<main id="main-content">
 <section class="hero" id="hero">
   <div class="hero-content">
     <div class="hero-main">
@@ -4150,7 +4172,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
             <span class="gfloat" style="--sz:18px;--dx:4.4s;--dy:4.2s;--d1:-4.2s;--d2:-0.9s;--rx:88%;--ry:38%"><span class="gy"><span class="gshape square ccw" style="--c:#ffcb2e;--spin:10.4s"></span></span></span>
           </div>
         </div>
-        <img class="hero-portrait" src="Images/hero-portrait-v2.png" alt="Rasri Issarasiri portrait" loading="eager" decoding="async">
+        <img width="1254" height="1254" class="hero-portrait" src="Images/hero-portrait-v2.png" alt="Rasri Issarasiri portrait" loading="eager" decoding="async">
       </div>
 
       <div class="hero-right">
@@ -4191,7 +4213,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         <span class="client-item"><img src="Clients Logo/Logo-Lh_Bank.svg" alt="LH Bank"></span>
         <span class="client-item"><img src="Clients Logo/Tops_Logo.svg" alt="Tops"></span>
         <span class="client-item"><img src="Clients Logo/chester-logo.svg" alt="Chester's"></span>
-        <span class="client-item"><img src="Clients Logo/idZgM0wf-v_logos.png" alt="Client"></span>
+        <span class="client-item"><img width="390" height="360" src="Clients Logo/idZgM0wf-v_logos.png" alt="Client"></span>
         <span class="client-item"><img src="Clients Logo/logo.svg" alt="Client"></span>
         <span class="client-item"><img src="Clients Logo/mama.svg" alt="Mama"></span>
         <span class="client-item"><img src="Clients Logo/PEA Logo.svg" alt="PEA"></span>
@@ -4202,7 +4224,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         <span class="client-item"><img src="Clients Logo/Logo-Lh_Bank.svg" alt="LH Bank"></span>
         <span class="client-item"><img src="Clients Logo/Tops_Logo.svg" alt="Tops"></span>
         <span class="client-item"><img src="Clients Logo/chester-logo.svg" alt="Chester's"></span>
-        <span class="client-item"><img src="Clients Logo/idZgM0wf-v_logos.png" alt="Client"></span>
+        <span class="client-item"><img width="390" height="360" src="Clients Logo/idZgM0wf-v_logos.png" alt="Client"></span>
         <span class="client-item"><img src="Clients Logo/logo.svg" alt="Client"></span>
         <span class="client-item"><img src="Clients Logo/mama.svg" alt="Mama"></span>
         <span class="client-item"><img src="Clients Logo/PEA Logo.svg" alt="PEA"></span>
@@ -4239,11 +4261,11 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
       </button>
     </div>
     <div class="services-image-wrap">
-      <img class="service-image" data-service-image="0" src="Images/AXONS SCENE 1.png" alt="Product Design" loading="lazy" decoding="async">
-      <img class="service-image" data-service-image="1" src="Images/ux-research.png" alt="UX Research" loading="lazy" decoding="async">
-      <img class="service-image" data-service-image="2" src="Images/ui-design.jpg" alt="UI Design" loading="lazy" decoding="async">
+      <img width="1080" height="678" class="service-image" data-service-image="0" src="Images/AXONS SCENE 1.png" alt="Product Design" loading="lazy" decoding="async">
+      <img width="1184" height="888" class="service-image" data-service-image="1" src="Images/ux-research.png" alt="UX Research" loading="lazy" decoding="async">
+      <img width="5941" height="3342" class="service-image" data-service-image="2" src="Images/ui-design.jpg" alt="UI Design" loading="lazy" decoding="async">
       <img class="service-image" data-service-image="3" src="https://images.unsplash.com/photo-1624996752380-8ec242e0f85d?q=80&amp;w=2487&amp;auto=format&amp;fit=crop" alt="UX Engineering" loading="lazy" decoding="async">
-      <img class="service-image" data-service-image="4" src="Images/project-management.jpg" alt="Project Management" loading="lazy" decoding="async">
+      <img width="4860" height="3291" class="service-image" data-service-image="4" src="Images/project-management.jpg" alt="Project Management" loading="lazy" decoding="async">
       <div class="services-descriptions" aria-live="polite">
         <p class="service-description is-active" data-service-desc="0" data-i18n="services.item.0.desc" data-i18n-default="End-to-end product design — strategy, IA, user flows, and prototyping that turn research into shipped product across mobile, web, and enterprise.">End-to-end product design — strategy, IA, user flows, and prototyping that turn research into shipped product across mobile, web, and enterprise.</p>
         <p class="service-description" data-service-desc="1" data-i18n="services.item.1.desc" data-i18n-default="Mixed-methods research — interviews, usability tests, journey mapping, and competitive analysis grounded in measurable evidence.">Mixed-methods research — interviews, usability tests, journey mapping, and competitive analysis grounded in measurable evidence.</p>
@@ -4292,7 +4314,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
             <span class="iphone16__btn iphone16__btn--vol-down"></span>
             <span class="iphone16__btn iphone16__btn--camera"></span>
             <div class="iphone16__screen">
-              <img class="iphone16__shot" src="Images/Hi-Fi 01 — Browsing & Discovery.png" alt="" loading="lazy" decoding="async">
+              <img width="393" height="852" class="iphone16__shot" src="Images/Hi-Fi 01 — Browsing & Discovery.png" alt="" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
@@ -4302,12 +4324,12 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         </div>
       </a>
       <a class="project-card project-card--has-laptop">
-        <img src="RMS/Images/maxim-hopman-fiXLQXAhCfk-unsplash.jpg" alt="" loading="lazy" decoding="async">
+        <img width="1600" height="1066" src="RMS/Images/maxim-hopman-fiXLQXAhCfk-unsplash.jpg" alt="" loading="lazy" decoding="async">
         <div class="laptop" aria-hidden="true">
           <div class="laptop__lid">
             <span class="laptop__camera"></span>
             <div class="laptop__screen">
-              <img class="laptop__shot" src="Images/FSS.png" alt="" loading="lazy" decoding="async">
+              <img width="1340" height="724" class="laptop__shot" src="Images/FSS.png" alt="" loading="lazy" decoding="async">
             </div>
             <span class="laptop__sheen"></span>
           </div>
@@ -4319,7 +4341,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         </div>
       </a>
       <a class="project-card project-card--has-phone">
-        <img src="Images/codioful-formerly-gradienta-LeG68PrXA6Y-unsplash.jpg" alt="" loading="lazy" decoding="async">
+        <img width="7200" height="4800" src="Images/codioful-formerly-gradienta-LeG68PrXA6Y-unsplash.jpg" alt="" loading="lazy" decoding="async">
         <div class="iphone16" aria-hidden="true">
           <div class="iphone16__frame">
             <span class="iphone16__btn iphone16__btn--action"></span>
@@ -4327,7 +4349,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
             <span class="iphone16__btn iphone16__btn--vol-down"></span>
             <span class="iphone16__btn iphone16__btn--camera"></span>
             <div class="iphone16__screen">
-              <img class="iphone16__shot" src="Images/1-หน้า-Home-Screen.png" alt="" loading="lazy" decoding="async">
+              <img width="879" height="1902" class="iphone16__shot" src="Images/1-หน้า-Home-Screen.png" alt="" loading="lazy" decoding="async">
             </div>
           </div>
         </div>
@@ -4337,7 +4359,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         </div>
       </a>
       <a class="project-card project-card--has-phone">
-        <img src="Images/franki-chamaki-ivfp_yxZuYQ-unsplash.jpg" alt="" loading="lazy" decoding="async">
+        <img width="4032" height="3024" src="Images/franki-chamaki-ivfp_yxZuYQ-unsplash.jpg" alt="" loading="lazy" decoding="async">
         <div class="iphonex" aria-hidden="true">
           <div class="iphonex__frame">
             <span class="iphonex__btn iphonex__btn--mute"></span>
@@ -4345,7 +4367,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
             <span class="iphonex__btn iphonex__btn--vol-down"></span>
             <span class="iphonex__btn iphonex__btn--power"></span>
             <div class="iphonex__screen">
-              <img class="iphonex__shot" src="Images/Redhot.png" alt="" loading="lazy" decoding="async">
+              <img width="750" height="1334" class="iphonex__shot" src="Images/Redhot.png" alt="" loading="lazy" decoding="async">
               <span class="iphonex__notch"></span>
               <span class="iphonex__home"></span>
             </div>
@@ -4357,12 +4379,12 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
         </div>
       </a>
       <a class="project-card project-card--has-tablet">
-        <img src="Images/romain-dancre-doplSDELX7E-unsplash.jpg" alt="" loading="lazy" decoding="async">
+        <img width="5973" height="4480" src="Images/romain-dancre-doplSDELX7E-unsplash.jpg" alt="" loading="lazy" decoding="async">
         <div class="tablet" aria-hidden="true">
           <div class="tablet__frame">
             <span class="tablet__camera"></span>
             <div class="tablet__screen">
-              <img class="tablet__shot" src="Images/Group 4.png" alt="" loading="lazy" decoding="async">
+              <img width="751" height="540" class="tablet__shot" src="Images/Group 4.png" alt="" loading="lazy" decoding="async">
             </div>
             <span class="tablet__sheen"></span>
           </div>
@@ -4458,7 +4480,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/hyoshin-choi-eIgwkkVW53o-unsplash.jpg" alt="Two diners at a restaurant table reviewing a printed wine menu together." loading="lazy">
+                      <img width="1600" height="1200" src="RMS/Images/hyoshin-choi-eIgwkkVW53o-unsplash.jpg" alt="Two diners at a restaurant table reviewing a printed wine menu together." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -4477,7 +4499,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Customer Journey - The experience at a restaurant..jpg" alt="Customer journey map of the dine-in restaurant experience, showing user actions, thoughts, emotions, pains, and opportunities across 8 phases from arrival to bill request." loading="lazy">
+                      <img width="1600" height="1020" src="RMS/Images/Customer Journey - The experience at a restaurant..jpg" alt="Customer journey map of the dine-in restaurant experience, showing user actions, thoughts, emotions, pains, and opportunities across 8 phases from arrival to bill request." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -4495,7 +4517,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Digital menu ordering - Cash Lo-fi_SC01.png" alt="Low-fidelity wireframes for the Digital Menu ordering and cash checkout flow: name entry, browsing & discovery, item selection & customization, cart review, order confirmation, payment method selection, pay-at-counter, and payment success — with flow arrows connecting the steps." loading="lazy">
+                      <img width="1600" height="946" src="RMS/Images/Digital menu ordering - Cash Lo-fi_SC01.png" alt="Low-fidelity wireframes for the Digital Menu ordering and cash checkout flow: name entry, browsing & discovery, item selection & customization, cart review, order confirmation, payment method selection, pay-at-counter, and payment success — with flow arrows connecting the steps." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -4506,37 +4528,18 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
                   <div class="case-process-step-text">
                     <h5 class="case-process-step-title" data-i18n="case02.step.04.title">Sequencing &amp; testing</h5>
                     <p class="case-process-step-body" data-i18n="case02.step.04.intro">A properly sequenced workflow allows users to think more deeply and reach their goals more quickly. Therefore, it is crucial that this process is tested to ensure that our design actually solves the problem. See the example below:</p>
-                    <ul class="case-process-step-list">
-                      <li data-i18n="case02.step.04.item.1"><strong>Browsing &amp; Discovery:</strong> High-quality imagery is front and center. Users navigate through clear categories (e.g., Mains, Drinks, Desserts) with a search bar for quick finds.</li>
-                      <li data-i18n="case02.step.04.item.2"><strong>Selection &amp; Customization:</strong> Clicking an item opens a "modifier" tray. This is where they choose things like spice levels or extra toppings. The price should update in real-time.</li>
-                      <li data-i18n="case02.step.04.item.3"><strong>Cart Review:</strong> A quick summary of the order. This is the last chance for "smart suggestions" (e.g., "Add a side of fries?") before they commit.</li>
-                    </ul>
+                    <h5 class="case-process-step-title">Making the product decision</h5>
+                    <p class="case-process-step-body">For product decision-making to be effective, a balance must be struck between user needs and business goals. Prioritizing issues helps teams focus on the "must-haves" first.</p>
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Sequencing & testing_r1.jpg" alt="FigJam sequencing & testing board for Round 1: test goal, target users with 5 personas, flow sequence from scan to payment with severity ratings, task results table, and flow review and materials checklists." loading="lazy">
+                      <img width="1600" height="1481" src="RMS/Images/Sequencing & testing_r1.jpg" alt="FigJam sequencing & testing board for Round 1: test goal, target users with 5 personas, flow sequence from scan to payment with severity ratings, task results table, and flow review and materials checklists." loading="lazy">
                     </div>
                   </figure>
                 </div>
               </li>
               <li class="case-process-step has-media">
                 <span class="case-process-step-num">05</span>
-                <div class="case-process-step-content">
-                  <div class="case-process-step-text">
-                    <h5 class="case-process-step-title" data-i18n="case02.step.05.title">Making the product decision</h5>
-                    <p class="case-process-step-body" data-i18n="case02.step.05.intro">For product decision-making to be effective, a balance must be struck between user needs and business goals. Prioritizing issues helps teams focus on the "must-haves" first.</p>
-                    <ul class="case-process-step-list">
-                      <li data-i18n="case02.step.05.item.1"><strong>High Priority — Payment Errors:</strong> Users encounter problems during the checkout process (e.g., complex steps, limited options, "pay as a guest"), which is a significant issue leading to unsuccessful payments.</li>
-                      <li data-i18n="case02.step.05.item.2"><strong>Medium Priority — Complex Customization Flow:</strong> If adding a simple modifier (like "no onions") takes too many taps, users get frustrated.</li>
-                      <li data-i18n="case02.step.05.item.3"><strong>Low Priority — Micro-interactions:</strong> Small animations when a button is clicked or a "success" sparkle when an item is added to the cart.<br>(These are "nice-to-have" features that improve the overall feel but aren't necessary for the core function.)</li>
-                    </ul>
-                  </div>
-                  <figure class="case-process-step-media">
-                    <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Prioritization.jpg" alt="Prioritization matrix plotting issues by Ubiquity (Low to High) against Impact (Low, Medium, High), grouping items into Low to None, Medium Priority (70%), and High Priority (100%) buckets." loading="lazy">
-                    </div>
-                  </figure>
-                </div>
               </li>
               <li class="case-process-step has-media">
                 <span class="case-process-step-num">06</span>
@@ -4553,7 +4556,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/Digital Menu — Easy Ordering without login02.png" alt="High-fidelity main flow for the Salad Restaurant digital menu — four screens shown side by side: Hi-Fi 01 Browsing & Discovery, Hi-Fi 02 Selection & Customization, Hi-Fi 03 Cart Review, and Hi-Fi 04 Order Confirmation." loading="lazy">
+                      <img width="1600" height="919" src="RMS/Images/Digital Menu — Easy Ordering without login02.png" alt="High-fidelity main flow for the Salad Restaurant digital menu — four screens shown side by side: Hi-Fi 01 Browsing & Discovery, Hi-Fi 02 Selection & Customization, Hi-Fi 03 Cart Review, and Hi-Fi 04 Order Confirmation." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -4573,7 +4576,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
                   </div>
                   <figure class="case-process-step-media">
                     <div class="case-process-step-media-frame">
-                      <img src="RMS/Images/GA_Food ordering to be replaced_03.jpg" alt="Task tracking example for the food ordering flow — three KPI cards: Conversion Rate 87% (visitors who complete an order), Average Order Value 24% (post-add-to-cart performance), and Time to Order 2:45 min (scanning to placed order), with 'why it matters' notes for each." loading="lazy">
+                      <img width="1600" height="896" src="RMS/Images/GA_Food ordering to be replaced_03.jpg" alt="Task tracking example for the food ordering flow — three KPI cards: Conversion Rate 87% (visitors who complete an order), Average Order Value 24% (post-add-to-cart performance), and Time to Order 2:45 min (scanning to placed order), with 'why it matters' notes for each." loading="lazy">
                     </div>
                   </figure>
                 </div>
@@ -4644,6 +4647,7 @@ html.dark .hero-bigtype em { color: var(--terracotta); }
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <p data-i18n="footer.copy" data-i18n-default="© 2026 Rasri Issarasiri. Designed for everyone.">© 2026 Rasri Issarasiri. ดีไซน์เพื่ออนาคต</p>
@@ -5123,8 +5127,19 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
 
   closeBtn.addEventListener('click', close);
 
+  const focusablesIn = (c) => [...c.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])')].filter(el => el.getClientRects().length > 0);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') {
+      const f = focusablesIn(lightbox);
+      if (!f.length) { e.preventDefault(); return; }
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!lightbox.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
   });
 })();
 
@@ -5187,8 +5202,19 @@ document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active',
     });
   }
 
+  const focusablesIn = (c) => [...c.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])')].filter(el => el.getClientRects().length > 0);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+    if (!drawer.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') {
+      const f = focusablesIn(drawer);
+      if (!f.length) { e.preventDefault(); return; }
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!drawer.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    }
   });
 
   document.querySelectorAll('a[href="#portfolio"]').forEach(link => {
