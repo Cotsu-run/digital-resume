@@ -2574,122 +2574,35 @@ html.dark .hero-bigtype em { color: var(--accent); }
 .door-title { font-family: var(--heading); font-size: 1.06rem; font-weight: 600; letter-spacing: -0.01em; }
 .door-desc { font-size: 0.9rem; line-height: 1.5; color: var(--ink-soft); }
 
-@media (max-width: 900px) { /* Words left, portrait right; the boxes run full width underneath. */
-.doors-top {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  margin-bottom: clamp(28px, 4vw, 44px);
-}
-.doors-figure { display: flex; justify-content: center; }
-/* Under 768px the portrait leads: it comes before the headline, while the
-   label stays on top. `display: contents` lets the words block's children take
-   their own places in this column instead of moving as one lump. */
-@media (max-width: 767px) {
-  .doors-top { display: flex; flex-direction: column; }
-  .doors-words { display: contents; }
-  .doors-figure { order: 1; }
-  .doors-title { order: 2; }
-  .doors-top .doors-words .hero-left { order: 3; }
-}
-@media (min-width: 900px) {
-  .doors-top { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); }
-  .doors-figure { justify-content: flex-end; }
-}
-/* The portrait column keeps its own stacking context for the shapes behind it. */
-/* The portrait fills its column. It keeps the fade-and-rise entrance, but at
-   scale 1 — the 1.1 it used when it was a fixed 14rem would now overflow. */
-.doors-figure .hero-center { width: 100%; }
-/* The tile tracks the portrait rather than sitting at a fixed size: same box,
-   with only a hair of inset so the figure reads as standing on it. */
-.doors-figure .hero-gl { width: 100%; height: 100%; }
-.doors-figure .hero-gl-fallback { inset: 3%; }
-.doors-figure .hero-portrait {
-  width: 100%;
-  max-width: none;
-  transform: translateY(40px) scale(1);
-  animation-name: doorsPortraitIn;
-}
-@keyframes doorsPortraitIn {
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .doors-figure .hero-portrait { transform: none; }
-}
-
-.doors-figure .hero-center { position: relative; display: flex; justify-content: center; align-items: center; min-height: 360px; width: 100%; }
-
-/* The intro copy and its buttons sit under the headline now. The rules that
-   centred them beside a portrait do not apply here. */
-.doors .hero-left {
-  order: 0;
-  text-align: left;
-  margin: 0 0 clamp(28px, 4vw, 44px);
-}
-.doors .hero-left p { margin: 0 0 22px; max-width: 34rem; }
-.doors .hero-actions { justify-content: flex-start; }
-
-.doors-grid { grid-template-columns: repeat(2, 1fr); } }
+/* Below 900px the cards drop to two columns, and to one on a phone. The rest
+   of the doors CSS above already covers both widths. */
+@media (max-width: 900px) { .doors-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) {
   .doors { padding-top: clamp(64px, 18vw, 96px); }
-  /* Words left, portrait right; the boxes run full width underneath. */
-.doors-top {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  margin-bottom: clamp(28px, 4vw, 44px);
+  .doors-grid { grid-template-columns: 1fr; }
 }
-.doors-figure { display: flex; justify-content: center; }
-/* Under 768px the portrait leads: it comes before the headline, while the
-   label stays on top. `display: contents` lets the words block's children take
-   their own places in this column instead of moving as one lump. */
+
+/* On a phone the portrait breaks out of its tile instead of sitting inside it:
+   wider than the glass and lifted clear of the top edge, so the figure stands
+   in front of the background rather than in a frame. Sized with width and
+   margins, not transform — the entrance animation owns the transform. */
 @media (max-width: 767px) {
-  .doors-top { display: flex; flex-direction: column; }
-  .doors-words { display: contents; }
-  .doors-figure { order: 1; }
-  .doors-title { order: 2; }
-  .doors-top .doors-words .hero-left { order: 3; }
-}
-@media (min-width: 900px) {
-  .doors-top { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); }
-  .doors-figure { justify-content: flex-end; }
-}
-/* The portrait column keeps its own stacking context for the shapes behind it. */
-/* The portrait fills its column. It keeps the fade-and-rise entrance, but at
-   scale 1 — the 1.1 it used when it was a fixed 14rem would now overflow. */
-.doors-figure .hero-center { width: 100%; }
-/* The tile tracks the portrait rather than sitting at a fixed size: same box,
-   with only a hair of inset so the figure reads as standing on it. */
-.doors-figure .hero-gl { width: 100%; height: 100%; }
-.doors-figure .hero-gl-fallback { inset: 3%; }
-.doors-figure .hero-portrait {
-  width: 100%;
-  max-width: none;
-  transform: translateY(40px) scale(1);
-  animation-name: doorsPortraitIn;
-}
-@keyframes doorsPortraitIn {
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .doors-figure .hero-portrait { transform: none; }
-}
-
-.doors-figure .hero-center { position: relative; display: flex; justify-content: center; align-items: center; min-height: 360px; width: 100%; }
-
-/* The intro copy and its buttons sit under the headline now. The rules that
-   centred them beside a portrait do not apply here. */
-.doors .hero-left {
-  order: 0;
-  text-align: left;
-  margin: 0 0 clamp(28px, 4vw, 44px);
-}
-.doors .hero-left p { margin: 0 0 22px; max-width: 34rem; }
-.doors .hero-actions { justify-content: flex-start; }
-
-.doors-grid { grid-template-columns: 1fr; }
+  /* The tile takes its height from the portrait here, so the overhang is the
+     same on every phone rather than depending on a fixed 360px box. */
+  .doors-figure .hero-center { overflow: visible; min-height: 0; }
+  .doors-figure .hero-portrait {
+    /* A flex item shrinks back to the line by default — hold the width. */
+    flex: 0 0 auto;
+    /* 12% wider than the tile, but never wider than the page gutters allow —
+       past that the overhang would push the page sideways. */
+    width: min(112%, calc(100% + 48px));
+    max-width: none;
+    margin-top: -9%;
+    margin-bottom: -3%;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 18px 30px rgba(20, 40, 80, 0.28));
+  }
 }
 
 /* The hero sits between the doors grid and Experience; the dividers around it
