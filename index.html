@@ -1737,11 +1737,11 @@ body::before { opacity: 0.025; }
 
 /* Nav */
 nav {
-  background: rgba(255, 255, 255, 0.7);
+  /* Transparent bar: the page runs under it, at rest and once scrolled. */
+  background: transparent;
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(16px) saturate(140%);
 }
-nav.scrolled { background: rgba(255, 255, 255, 0.9); }
+nav.scrolled { background: transparent; }
 .nav-logo { color: var(--ink); }
 .nav-logo span { color: var(--accent); }
 .nav-links a { color: var(--ink-soft); }
@@ -2241,7 +2241,7 @@ html, body, nav, .cert-card, .contact-link, .about-detail-item, .hero-contact, .
 
 /* Surface overrides — flip white-alpha to dark-alpha */
 html.dark nav { background: rgba(32, 33, 36, 0.7); }
-html.dark nav.scrolled { background: rgba(32, 33, 36, 0.9); }
+html.dark nav.scrolled { background: transparent; }
 @media (max-width: 768px) {
   html.dark .nav-links.open { background: rgba(32, 33, 36, 0.98); }
 }
