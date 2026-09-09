@@ -1949,7 +1949,7 @@ footer {
 }
 
 .hero-left p {
-  font-size: 0.92rem;
+  font-size: var(--fs-body);
   line-height: 1.75;
   color: var(--ink-mid);
   max-width: 22rem;
@@ -2431,6 +2431,9 @@ html.dark .hero-bigtype em { color: var(--accent); }
 .cube-scene:hover .cube-face a svg { transform: translate(3px, -3px); }
 
 /* Under reduced motion the second face appears with no travel in between. */
+/* On a 320px phone the longest summary needs another 40px of card. */
+@media (max-width: 350px) { .cube-scene { --cube-h: 360px; } }
+
 @media (prefers-reduced-motion: reduce) { .cube { transition: none; } }
 
 /* ── Case study: a card opens out into the full write-up ────────────────── */
@@ -2533,7 +2536,20 @@ html.dark .hero-bigtype em { color: var(--accent); }
 }
 
 /* ── Doors: the six ways into the site, in place of the old hero ────────── */
-.doors { padding: clamp(88px, 12vw, 150px) 0 clamp(48px, 6vw, 80px); }
+/* Top padding has to clear the fixed nav (63–71px) at every width, and on a
+   phone the portrait is pulled up out of its tile as well — hence the extra
+   9vw, which is what that overhang comes to. */
+.doors { padding: clamp(112px, 12vw, 150px) 0 clamp(48px, 6vw, 80px); }
+@media (max-width: 767px) {
+  .doors { padding-top: calc(clamp(112px, 12vw, 150px) + 9vw); }
+}
+
+/* Between the phone layout and the two-column one, the portrait sits under the
+   text in a single column — at full container width it became a 700px slab
+   that pushed everything else off the screen. Cap it and centre it. */
+@media (min-width: 768px) and (max-width: 899px) {
+  .doors-figure .hero-center { max-width: 420px; margin: 0 auto; }
+}
 .doors-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .doors-title {
   font-family: var(--heading);
@@ -2557,6 +2573,9 @@ html.dark .hero-bigtype em { color: var(--accent); }
    label stays on top. `display: contents` lets the words block's children take
    their own places in this column instead of moving as one lump. */
 @media (max-width: 767px) {
+  /* The column gap already separates these, so the headline drops its own
+     margins — otherwise the two stack into a 52px hole. */
+  .doors-title { margin: 0; }
   .doors-top { display: flex; flex-direction: column; }
   .doors-words { display: contents; }
   .doors-figure { order: 1; }
@@ -2634,7 +2653,6 @@ html.dark .hero-bigtype em { color: var(--accent); }
    of the doors CSS above already covers both widths. */
 @media (max-width: 900px) { .doors-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) {
-  .doors { padding-top: clamp(64px, 18vw, 96px); }
   .doors-grid { grid-template-columns: 1fr; }
 }
 
