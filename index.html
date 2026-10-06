@@ -2320,14 +2320,11 @@ html.dark .hero-bigtype em { color: var(--accent); }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* The front face sits half the card's height forward, so under the 1200px
-     perspective it draws 8/7 of its box and spills 1/14 of each side into the
-     gap. Widen the gap by both spills (1/7 of the card) to leave real space. */
-  column-gap: calc(16px + min(340px, 84vw) / 7);
-  row-gap: calc(var(--gap-grid) + 300px / 7);
+  gap: var(--gap-grid);
   margin-top: clamp(28px, 4vw, 48px);
 }
-.cube-scene { perspective: 1200px; width: min(340px, 84vw); --cube-h: 300px; }
+/* Three cards and two gaps fill the 1152px column, edge to edge with the label. */
+.cube-scene { perspective: 1200px; width: min(368px, 84vw); --cube-h: 300px; }
 .cube-scene.is-openable { cursor: pointer; }
 .cube {
   position: relative;
@@ -2335,6 +2332,10 @@ html.dark .hero-bigtype em { color: var(--accent); }
   /* Face depth is half the height, so the two meet flush — kept in a variable
      so the card can grow with its copy without breaking the geometry. */
   height: var(--cube-h);
+  /* Set back by half its depth, so the face turned to the viewer lies in the
+     page plane and draws at the size of its box rather than spilling over the
+     gap and the page margin. */
+  transform: translateZ(calc(var(--cube-h) / -2));
   transform-style: preserve-3d;
   will-change: transform;
   transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
@@ -2342,7 +2343,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
 /* One turn to the detail face while the pointer is on the card, and back to
    the title the moment it leaves. */
 .cube-scene:hover .cube,
-.cube-scene:focus-within .cube { transform: rotateX(-90deg); }
+.cube-scene:focus-within .cube { transform: translateZ(calc(var(--cube-h) / -2)) rotateX(-90deg); }
 
 /* One accent per card: a wash on the face that turns into view, and the title
    on the front face in the same hue. --cube-ink is that hue taken down to at
@@ -2436,11 +2437,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
 
 /* Under reduced motion the second face appears with no travel in between. */
 /* On a 320px phone the longest summary needs another 40px of card. */
-@media (max-width: 350px) {
-  .cube-scene { --cube-h: 360px; }
-  /* A taller card stands further forward: 180px under 1200px draws 20/17. */
-  .cube-grid { row-gap: calc(var(--gap-grid) + 360px * 3 / 17); }
-}
+@media (max-width: 350px) { .cube-scene { --cube-h: 360px; } }
 
 @media (prefers-reduced-motion: reduce) { .cube { transition: none; } }
 
