@@ -2320,7 +2320,11 @@ html.dark .hero-bigtype em { color: var(--accent); }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--gap-grid);
+  /* The front face sits half the card's height forward, so under the 1200px
+     perspective it draws 8/7 of its box and spills 1/14 of each side into the
+     gap. Widen the gap by both spills (1/7 of the card) to leave real space. */
+  column-gap: calc(16px + min(340px, 84vw) / 7);
+  row-gap: calc(var(--gap-grid) + 300px / 7);
   margin-top: clamp(28px, 4vw, 48px);
 }
 .cube-scene { perspective: 1200px; width: min(340px, 84vw); --cube-h: 300px; }
@@ -2432,7 +2436,11 @@ html.dark .hero-bigtype em { color: var(--accent); }
 
 /* Under reduced motion the second face appears with no travel in between. */
 /* On a 320px phone the longest summary needs another 40px of card. */
-@media (max-width: 350px) { .cube-scene { --cube-h: 360px; } }
+@media (max-width: 350px) {
+  .cube-scene { --cube-h: 360px; }
+  /* A taller card stands further forward: 180px under 1200px draws 20/17. */
+  .cube-grid { row-gap: calc(var(--gap-grid) + 360px * 3 / 17); }
+}
 
 @media (prefers-reduced-motion: reduce) { .cube { transition: none; } }
 
