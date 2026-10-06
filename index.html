@@ -2435,6 +2435,8 @@ html.dark .hero-bigtype em { color: var(--accent); }
   width: min(760px, 100%);
   max-height: min(86vh, 920px);
   overflow-y: auto;
+  /* Each case opens at its picture, not wherever the last one was left. */
+  overflow-anchor: none;
   padding: clamp(24px, 3.5vw, 40px);
   border: 1px solid var(--line);
   border-radius: var(--radius-panel);
@@ -2444,27 +2446,46 @@ html.dark .hero-bigtype em { color: var(--accent); }
      starting transform matching the card's place on screen, then clears it. */
   transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* The card's picture leads the write-up, on the same tinted tile as the card,
+   so the panel reads as that card opened up. */
+.case-cover {
+  margin: 0 0 clamp(20px, 3vw, 28px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: linear-gradient(160deg, rgba(var(--cube-accent, 26, 115, 232), 0.14), rgba(var(--cube-accent, 26, 115, 232), 0.05)), #f4f5f7;
+}
+.case-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.case-cover[hidden] { display: none; }
+/* Sits on the picture's corner, so it carries its own paper. */
 .case-close {
   position: absolute;
-  right: clamp(20px, 3.5vw, 36px);
-  top: clamp(24px, 3.5vw, 40px);
+  z-index: 1;
+  right: calc(clamp(24px, 3.5vw, 40px) + 12px);
+  top: calc(clamp(24px, 3.5vw, 40px) + 12px);
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  border: 0;
-  border-radius: var(--radius-chip);
-  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--paper-raised);
+  box-shadow: 0 6px 16px -8px rgba(20, 40, 80, 0.45);
   color: var(--ink);
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
 }
-.case-close:hover { background: rgba(60, 64, 67, 0.08); }
+.case-close:hover { background: var(--paper); border-color: var(--line-strong); }
 .case-close svg { width: 20px; height: 20px; }
 .case-title {
   margin: 0 0 clamp(20px, 3vw, 28px);
-  padding-right: 46px;
   font-family: var(--heading);
   font-size: clamp(24px, 3.4vw, 34px);
   line-height: 1.15;
@@ -2893,6 +2914,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
         <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
       </svg>
     </button>
+    <figure class="case-cover" hidden><img src="" alt="" width="1200" height="900" decoding="async"></figure>
     <div class="case-slot"></div>
   </div>
 </div>
@@ -2982,6 +3004,7 @@ navLinks.querySelectorAll('a').forEach(link => {
   if (!modal) return;
   const panel = modal.querySelector('.case-panel');
   const slot = modal.querySelector('.case-slot');
+  const cover = modal.querySelector('.case-cover img');
   const closeBtn = modal.querySelector('.case-close');
   const still = window.matchMedia('(prefers-reduced-motion: reduce)');
   let source = null, home = null, lastFocused = null;
@@ -2997,6 +3020,13 @@ navLinks.querySelectorAll('a').forEach(link => {
 
     source.hidden = false;
     slot.appendChild(source);
+    // The card's picture and hue lead the panel.
+    const pic = scene.querySelector('.work-media img');
+    if (pic) cover.setAttribute('src', pic.getAttribute('src'));
+    cover.parentNode.hidden = !pic;
+    panel.style.setProperty('--cube-accent', getComputedStyle(scene).getPropertyValue('--cube-accent'));
+    panel.scrollTop = 0;
+    requestAnimationFrame(() => { panel.scrollTop = 0; });
     const title = source.querySelector('.case-title');
     if (title && title.id) modal.setAttribute('aria-labelledby', title.id);
 
