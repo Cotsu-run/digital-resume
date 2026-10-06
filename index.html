@@ -2313,133 +2313,100 @@ html.dark .hero-bigtype em { color: var(--accent); }
 #works { padding: clamp(56px, 8vw, 96px) 0; }
 .works-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-/* 3D cube cards, ported from the studio site and retuned for paper. The front
-   face carries the label; on hover the card rolls back to the face behind it.
-   Face depth is half the cube's height, so the two meet flush at the edge. */
-.cube-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+/* Work cards: a picture of the product inset in the card, then the title and
+   the disciplines as chips. The whole card is the link to its case study. */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: var(--gap-grid);
   margin-top: clamp(28px, 4vw, 48px);
 }
-/* Three cards and two gaps fill the 1152px column, edge to edge with the label. */
-.cube-scene { perspective: 1200px; width: min(368px, 84vw); --cube-h: 300px; }
-.cube-scene.is-openable { cursor: pointer; }
-.cube {
-  position: relative;
-  width: 100%;
-  /* Face depth is half the height, so the two meet flush — kept in a variable
-     so the card can grow with its copy without breaking the geometry. */
-  height: var(--cube-h);
-  /* Set back by half its depth, so the face turned to the viewer lies in the
-     page plane and draws at the size of its box rather than spilling over the
-     gap and the page margin. */
-  transform: translateZ(calc(var(--cube-h) / -2));
-  transform-style: preserve-3d;
-  will-change: transform;
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-/* One turn to the detail face while the pointer is on the card, and back to
-   the title the moment it leaves. */
-.cube-scene:hover .cube,
-.cube-scene:focus-within .cube { transform: translateZ(calc(var(--cube-h) / -2)) rotateX(-90deg); }
 
-/* One accent per card: a wash on the face that turns into view, and the title
-   on the front face in the same hue. --cube-ink is that hue taken down to at
-   least 4.5:1 on paper — the tint colours are too light to read as text.
-   Carried on a class rather than nth-child, so a card keeps its colour
-   wherever it is moved in the grid. */
-.cube-scene,
+/* One accent per card, carried on a class rather than nth-child so a card
+   keeps its colour wherever it moves. --cube-ink is that hue taken down to at
+   least 4.5:1 on paper; the case modal reads it too. */
+.work-card,
 .case-source { --cube-accent: 26, 115, 232; --cube-ink: #1a73e8; }
 .tone-rose  { --cube-accent: 255, 92, 138; --cube-ink: #d1145a; }
 .tone-amber { --cube-accent: 246, 167, 35; --cube-ink: #a86400; }
 
-.cube-face {
-  position: absolute;
-  inset: 0;
+.work-link {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(20px, 2vw, 26px);
+  height: 100%;
+  padding: 10px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-panel);
   background: var(--paper-raised);
-  box-shadow: 0 18px 36px -26px rgba(26, 60, 120, 0.45);
-  overflow: hidden;
-  /* On paper, a face turned away shows through the one in front of it — the
-     dark original hid that. Drop each face the moment it turns its back. */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  box-shadow: 0 18px 36px -30px rgba(26, 60, 120, 0.45);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
-/* Tag, then title and summary from the top — otherwise a short summary
-   pushes the title down and the three cards stop lining up. The affordance is
-   pinned to the bottom edge. */
-.cube-face.front {
-  transform: translateZ(calc(var(--cube-h) / 2));
-  justify-content: flex-start;
-  gap: 14px;
+.work-link:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--cube-accent), 0.35);
+  box-shadow: 0 26px 44px -30px rgba(26, 60, 120, 0.55);
 }
-.cube-cta { margin-top: auto; }
-.cube-face.top {
-  transform: rotateX(90deg) translateZ(calc(var(--cube-h) / 2));
-  border-color: rgba(var(--cube-accent), 0.45);
-  background: linear-gradient(135deg, rgba(var(--cube-accent), 0.16), rgba(var(--cube-accent), 0.04));
-}
+.work-link:focus-visible { outline: 2px solid var(--cube-ink); outline-offset: 3px; }
 
-.cube-tag {
-  font-family: var(--mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
+/* The shots are product renders on white. A light tile in the card's hue, with
+   the picture multiplied onto it, drops the white box in both themes. */
+.work-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: linear-gradient(160deg, rgba(var(--cube-accent), 0.14), rgba(var(--cube-accent), 0.05)), #f4f5f7;
 }
-.cube-face h3 {
+.work-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.work-link:hover .work-media img { transform: scale(1.04); }
+
+.work-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 12px 12px;
+}
+.work-body h3 {
   margin: 0;
   font-family: var(--heading);
-  font-size: var(--fs-card);
-  line-height: 1.15;
+  font-size: clamp(1.25rem, 1.7vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.3;
   letter-spacing: -0.01em;
-  color: var(--cube-ink);
-}
-.cube-face p { margin: 0; font-size: var(--fs-body); line-height: 1.55; color: var(--ink-mid); }
-/* Title and summary travel together, so the front reads as a card rather than
-   two lines with a hole between them. */
-.cube-head { display: flex; flex-direction: column; gap: 10px; }
-/* The card says what it opens before anyone hovers it — on a touch screen the
-   turn never happens at all. */
-.cube-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--mono);
-  font-size: var(--fs-label);
-  letter-spacing: 0.04em;
-  color: var(--cube-ink);
-}
-.cube-cta svg { width: 14px; height: 14px; stroke: currentColor; transition: transform 0.3s ease; }
-.cube-scene:hover .cube-cta svg { transform: translateX(3px); }
-.cube-outcome { font-weight: 600; color: var(--ink); }
-.cube-face a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: var(--fs-label);
   color: var(--ink);
-  text-decoration: none;
   transition: color 0.3s ease;
 }
-.cube-face a svg { width: 15px; height: 15px; stroke: currentColor; transition: transform 0.3s ease; }
-.cube-scene:hover .cube-face a,
-.cube-scene:focus-within .cube-face a { color: var(--cube-ink); }
-.cube-scene:hover .cube-face a svg { transform: translate(3px, -3px); }
+.work-link:hover h3 { color: var(--cube-ink); }
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.work-tags li {
+  padding: 5px 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: 100px;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  color: var(--ink-mid);
+}
 
-/* Under reduced motion the second face appears with no travel in between. */
-/* On a 320px phone the longest summary needs another 40px of card. */
-@media (max-width: 350px) { .cube-scene { --cube-h: 360px; } }
-
-@media (prefers-reduced-motion: reduce) { .cube { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .work-link, .work-media img { transition: none; }
+  .work-link:hover { transform: none; }
+  .work-link:hover .work-media img { transform: none; }
+}
 
 /* ── Case study: a card opens out into the full write-up ────────────────── */
 .case-modal {
@@ -2790,22 +2757,17 @@ html.dark .hero-bigtype em { color: var(--accent); }
 <section id="works">
   <div class="works-inner reveal">
     <p class="section-label" data-i18n="works.label" data-i18n-default="Selected Works">Selected Works</p>
-    <div class="cube-grid">
-      <div class="cube-scene">
-        <div class="cube">
-          <div class="cube-face front">
-            <span class="cube-tag" data-i18n="works.ocr.tag" data-i18n-default="Machine Learning">Machine Learning</span>
-            <div class="cube-head">
-              <h3 data-i18n="works.ocr.title" data-i18n-default="OCR &amp; QA Platform">OCR &amp; QA Platform</h3>
-              <p data-i18n="works.ocr.desc" data-i18n-default="An automated solution for comparing packaging artwork, detecting differences across text, visual, and color elements, and supporting faster, more reliable artwork quality assurance.">An automated solution for comparing packaging artwork, detecting differences across text, visual, and color elements, and supporting faster, more reliable artwork quality assurance.</p>
-            </div>
-            <span class="cube-cta" aria-hidden="true"><span data-i18n="works.cta" data-i18n-default="Case study">Case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+    <div class="work-grid">
+      <div class="work-card">
+        <a class="work-link" href="#case-ocr" data-case>
+          <div class="work-media"><img src="Images/works/ocr.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
+          <div class="work-body">
+            <h3 data-i18n="works.ocr.title" data-i18n-default="OCR &amp; QA Platform">OCR &amp; QA Platform</h3>
+            <ul class="work-tags">
+              <li data-i18n="works.tag.ml" data-i18n-default="Machine Learning">Machine Learning</li>
+            </ul>
           </div>
-          <div class="cube-face top">
-            <p class="cube-outcome" data-i18n="works.ocr.outcome" data-i18n-default="A repeatable check — and a record that ships with the file.">A repeatable check — and a record that ships with the file.</p>
-            <a href="#case-ocr" data-case><span data-i18n="works.view" data-i18n-default="Read the case study">Read the case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-          </div>
-        </div>
+        </a>
 
         <div class="case-source" id="case-ocr" hidden>
           <h2 class="case-title" id="case-ocr-title" data-i18n="case.ocr.title" data-i18n-default="Detect errors in artwork before production">Detect errors in artwork before production</h2>
@@ -2829,21 +2791,17 @@ html.dark .hero-bigtype em { color: var(--accent); }
           </div>
         </div>
       </div>
-      <div class="cube-scene tone-amber">
-        <div class="cube">
-          <div class="cube-face front">
-            <span class="cube-tag" data-i18n="works.fin.tag" data-i18n-default="Finance &middot; Mobile">Finance &middot; Mobile</span>
-            <div class="cube-head">
-              <h3 data-i18n="works.fin.title" data-i18n-default="Mobile Banking">Mobile Banking</h3>
-              <p data-i18n="works.fin.desc" data-i18n-default="A mobile banking app — secure authentication, real-time transfers, and account management. Designed for everyday transactions with a clear, low-friction flow.">A mobile banking app — secure authentication, real-time transfers, and account management. Designed for everyday transactions with a clear, low-friction flow.</p>
-            </div>
-            <span class="cube-cta" aria-hidden="true"><span data-i18n="works.cta" data-i18n-default="Case study">Case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      <div class="work-card tone-amber">
+        <a class="work-link" href="#case-bank" data-case>
+          <div class="work-media"><img src="Images/works/banking.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
+          <div class="work-body">
+            <h3 data-i18n="works.fin.title" data-i18n-default="Mobile Banking">Mobile Banking</h3>
+            <ul class="work-tags">
+              <li data-i18n="works.tag.finance" data-i18n-default="Finance">Finance</li>
+              <li data-i18n="works.tag.mobile" data-i18n-default="Mobile">Mobile</li>
+            </ul>
           </div>
-          <div class="cube-face top">
-            <p class="cube-outcome" data-i18n="works.fin.outcome" data-i18n-default="Minutes and a small amount, instead of an appointment and a minimum balance.">Minutes and a small amount, instead of an appointment and a minimum balance.</p>
-            <a href="#case-bank" data-case><span data-i18n="works.view" data-i18n-default="Read the case study">Read the case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-          </div>
-        </div>
+        </a>
 
         <div class="case-source tone-amber" id="case-bank" hidden>
           <h2 class="case-title" id="case-bank-title" data-i18n="case.bank.title" data-i18n-default="A convenient banking application allows all investors with the smallest possible amount.">A convenient banking application allows all investors with the smallest possible amount.</h2>
@@ -2867,21 +2825,17 @@ html.dark .hero-bigtype em { color: var(--accent); }
           </div>
         </div>
       </div>
-      <div class="cube-scene tone-rose">
-        <div class="cube">
-          <div class="cube-face front">
-            <span class="cube-tag" data-i18n="works.shop.tag" data-i18n-default="Web · Mobile">Web · Mobile</span>
-            <div class="cube-head">
-              <h3 data-i18n="works.shop.title" data-i18n-default="E-commerce">E-commerce</h3>
-              <p data-i18n="works.shop.desc" data-i18n-default="A comprehensive e-commerce platform with seamless checkout and inventory management.">A comprehensive e-commerce platform with seamless checkout and inventory management.</p>
-            </div>
-            <span class="cube-cta" aria-hidden="true"><span data-i18n="works.cta" data-i18n-default="Case study">Case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+      <div class="work-card tone-rose">
+        <a class="work-link" href="#case-shop" data-case>
+          <div class="work-media"><img src="Images/works/shop.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
+          <div class="work-body">
+            <h3 data-i18n="works.shop.title" data-i18n-default="E-commerce">E-commerce</h3>
+            <ul class="work-tags">
+              <li data-i18n="works.tag.web" data-i18n-default="Web">Web</li>
+              <li data-i18n="works.tag.mobile" data-i18n-default="Mobile">Mobile</li>
+            </ul>
           </div>
-          <div class="cube-face top">
-            <p class="cube-outcome" data-i18n="works.shop.outcome" data-i18n-default="What is promised is what arrives — on time, and still fresh.">What is promised is what arrives — on time, and still fresh.</p>
-            <a href="#case-shop" data-case><span data-i18n="works.view" data-i18n-default="Read the case study">Read the case study</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-          </div>
-        </div>
+        </a>
 
         <div class="case-source tone-rose" id="case-shop" hidden>
           <h2 class="case-title" id="case-shop-title" data-i18n="case.shop.title" data-i18n-default="Mobile applications provide a seamless shopping experience, reducing wasted time and ensuring product freshness">Mobile applications provide a seamless shopping experience, reducing wasted time and ensuring product freshness</h2>
@@ -3034,7 +2988,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 
   const open = (trigger) => {
     if (modal.classList.contains('is-open')) return;
-    const scene = trigger.closest('.cube-scene');
+    const scene = trigger.closest('.work-card');
     const found = scene && scene.querySelector('.case-source');
     if (!found) return;
     source = found;
@@ -3081,20 +3035,8 @@ navLinks.querySelectorAll('a').forEach(link => {
     if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
   };
 
-  // The link is the control — but a face turned to 90deg inside a preserve-3d
-  // cube is not hit-testable in Chrome, so a mouse click never reaches it. The
-  // card itself takes the click; the link still works from the keyboard.
-  document.querySelectorAll('.cube-face a[data-case]').forEach(a => {
+  document.querySelectorAll('.work-card a[data-case]').forEach(a => {
     a.addEventListener('click', (e) => { e.preventDefault(); open(a); });
-    const scene = a.closest('.cube-scene');
-    if (!scene) return;
-    scene.classList.add('is-openable');
-    scene.addEventListener('click', (e) => {
-      if (e.target.closest('a[data-case]')) return;   // the link's own handler has it
-      if (!window.getSelection().isCollapsed) return; // let a text selection be
-      e.preventDefault();
-      open(a);
-    });
   });
   closeBtn.addEventListener('click', close);
   modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
@@ -3185,20 +3127,13 @@ const i18n = {
     'case.shop.changed.head': 'สิ่งที่เปลี่ยนไป',
     'case.shop.changed.body': 'การสั่งซื้อใช้เวลาไม่กี่นาทีแทนการโทรสั่ง และสิ่งที่รับปากไว้คือสิ่งที่ไปถึงจริง ตรงเวลาและยังสดใหม่',
     'works.label': 'ผลงานที่คัดสรร',
-    'works.view': 'อ่านเคสสตัดี้',
-    'works.cta': 'เคสสตัดี้',
-    'works.ocr.outcome': 'การตรวจที่ทำซ้ำได้ พร้อมบันทึกที่ออกไปกับไฟล์',
-    'works.fin.outcome': 'ใช้เวลาไม่กี่นาทีและเงินเพียงเล็กน้อย แทนการนัดหมายและเงินขั้นต่ำ',
-    'works.shop.outcome': 'สิ่งที่รับปากไว้คือสิ่งที่ไปถึงจริง ตรงเวลาและยังสดใหม่',
-    'works.ocr.tag': 'แมชชีนเลิร์นนิง',
+    'works.tag.ml': 'แมชชีนเลิร์นนิง',
+    'works.tag.finance': 'การเงิน',
+    'works.tag.mobile': 'มือถือ',
+    'works.tag.web': 'เว็บ',
     'works.ocr.title': 'แพลตฟอร์ม OCR &amp; QA',
-    'works.ocr.desc': 'โซลูชันอัตโนมัติสำหรับเปรียบเทียบอาร์ตเวิร์กบรรจุภัณฑ์ ตรวจจับความแตกต่างทั้งข้อความ ภาพ และสี เพื่อการตรวจสอบคุณภาพอาร์ตเวิร์กที่รวดเร็วและแม่นยำยิ่งขึ้น',
-    'works.fin.tag': 'การเงิน &middot; มือถือ',
     'works.fin.title': 'โมบายแบงก์กิ้ง',
-    'works.fin.desc': 'แอปธนาคารบนมือถือ — ยืนยันตัวตนที่ปลอดภัย โอนเงินแบบเรียลไทม์ และจัดการบัญชี ออกแบบมาสำหรับธุรกรรมประจำวันด้วยขั้นตอนที่ชัดเจนและลื่นไหล',
-    'works.shop.tag': 'เว็บ · มือถือ',
     'works.shop.title': 'อีคอมเมิร์ซ',
-    'works.shop.desc': 'แพลตฟอร์มอีคอมเมิร์ซครบวงจร พร้อมการชำระเงินที่ลื่นไหลและระบบจัดการสต็อกสินค้า',
     'doors.label': 'ความสามารถ',
     'doors.strategy.title': 'กลยุทธ์ผลิตภัณฑ์',
     'doors.strategy.desc': 'วิสัยทัศน์ การวางตำแหน่ง และเหตุผลว่าจะสร้างอะไร และจะไม่สร้างอะไร',
