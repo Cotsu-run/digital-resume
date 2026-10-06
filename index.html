@@ -2368,6 +2368,21 @@ html.dark .hero-bigtype em { color: var(--accent); }
 }
 .work-link:hover .work-media img { transform: scale(1.04); }
 
+/* A tinted surface over the picture, carrying the product's name. */
+.work-media.has-veil { position: relative; }
+.work-veil {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(80, 89, 201, 0.78);   /* #5059C9 */
+  color: #ffffff;
+  font-family: var(--heading);
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
 .work-body {
   display: flex;
   flex-direction: column;
@@ -2781,7 +2796,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
     <div class="work-grid">
       <div class="work-card">
         <a class="work-link" href="ocr-qa.html">
-          <div class="work-media"><img src="Images/works/ocr.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
+          <div class="work-media has-veil"><img src="Images/works/ocr.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"><span class="work-veil" aria-hidden="true">Ruler</span></div>
           <div class="work-body">
             <h3 data-i18n="works.ocr.title" data-i18n-default="OCR &amp; QA Platform">OCR &amp; QA Platform</h3>
             <ul class="work-tags">
