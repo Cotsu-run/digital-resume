@@ -2780,7 +2780,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
     <p class="section-label" data-i18n="works.label" data-i18n-default="Selected Works">Selected Works</p>
     <div class="work-grid">
       <div class="work-card">
-        <a class="work-link" href="#case-ocr" data-case>
+        <a class="work-link" href="ocr-qa.html">
           <div class="work-media"><img src="Images/works/ocr.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
           <div class="work-body">
             <h3 data-i18n="works.ocr.title" data-i18n-default="OCR &amp; QA Platform">OCR &amp; QA Platform</h3>
@@ -2789,28 +2789,6 @@ html.dark .hero-bigtype em { color: var(--accent); }
             </ul>
           </div>
         </a>
-
-        <div class="case-source" id="case-ocr" hidden>
-          <h2 class="case-title" id="case-ocr-title" data-i18n="case.ocr.title" data-i18n-default="Detect errors in artwork before production">Detect errors in artwork before production</h2>
-          <div class="case-body">
-            <section>
-              <h4 data-i18n="case.ocr.context.head" data-i18n-default="Context">Context</h4>
-              <p data-i18n="case.ocr.context.body" data-i18n-default="A packaging team signing off artwork revisions by eye — every new proof read line by line against the approved file, under a print deadline.">A packaging team signing off artwork revisions by eye — every new proof read line by line against the approved file, under a print deadline.</p>
-            </section>
-            <section>
-              <h4 data-i18n="case.ocr.need.head" data-i18n-default="What was needed">What was needed</h4>
-              <p data-i18n="case.ocr.need.body" data-i18n-default="Every revision had to be checked against the approved file, and by hand that is slow. What slips through is rarely the obvious thing — it is the small change that carries the most risk once the job is printed.">Every revision had to be checked against the approved file, and by hand that is slow. What slips through is rarely the obvious thing — it is the small change that carries the most risk once the job is printed.</p>
-            </section>
-            <section>
-              <h4 data-i18n="case.ocr.work.head" data-i18n-default="Work I did">Work I did</h4>
-              <p data-i18n="case.ocr.work.body" data-i18n-default="I shaped the product and built it: framing the problem, setting what the system has to catch, and designing how a reviewer works through what it finds. I then implemented it as a Next.js web app that keeps the artwork and its checks in one workspace, in Thai and English.">I shaped the product and built it: framing the problem, setting what the system has to catch, and designing how a reviewer works through what it finds. I then implemented it as a Next.js web app that keeps the artwork and its checks in one workspace, in Thai and English.</p>
-            </section>
-            <section>
-              <h4 data-i18n="case.ocr.changed.head" data-i18n-default="What Changed">What Changed</h4>
-              <p data-i18n="case.ocr.changed.body" data-i18n-default="The reviewer will use a summary list instead of a visual inspection, and each finding will point to a specific point on the artwork, with changes recorded in the file.">The reviewer will use a summary list instead of a visual inspection, and each finding will point to a specific point on the artwork, with changes recorded in the file.</p>
-            </section>
-          </div>
-        </div>
       </div>
       <div class="work-card tone-amber">
         <a class="work-link" href="#case-bank" data-case>
@@ -3129,15 +3107,6 @@ const i18n = {
 
     // Doors (hero grid)
     'nav.works': 'ผลงาน',
-    'case.ocr.title': 'ระบบตรวจจับข้อผิดพลาดของอาร์ตเวิร์กก่อนเข้าสู่การผลิต',
-    'case.ocr.context.head': 'บริบท',
-    'case.ocr.context.body': 'ทีมบรรจุภัณฑ์ตรวจอาร์ตเวิร์กแต่ละรอบด้วยสายตา — เทียบปรู๊ฟใหม่กับไฟล์ที่อนุมัติแล้วทีละบรรทัด ภายใต้กำหนดส่งโรงพิมพ์',
-    'case.ocr.need.head': 'โจทย์',
-    'case.ocr.need.body': 'ทุกเวอร์ชันที่แก้ต้องถูกตรวจเทียบกับไฟล์ที่อนุมัติแล้ว และการตรวจด้วยมือนั้นช้า สิ่งที่หลุดรอดมักไม่ใช่เรื่องที่เห็นชัด แต่เป็นการเปลี่ยนแปลงเล็ก ๆ ที่มีความเสี่ยงสูงที่สุดเมื่อพิมพ์ออกมาแล้ว',
-    'case.ocr.work.head': 'สิ่งที่ฉันทำ',
-    'case.ocr.work.body': 'ฉันออกแบบผลิตภัณฑ์และลงมือสร้างเอง ตั้งแต่การตั้งโจทย์ การกำหนดสิ่งที่ระบบต้องตรวจจับ ไปจนถึงการออกแบบวิธีที่ผู้ตรวจใช้งานผลลัพธ์ แล้วพัฒนาออกมาเป็นเว็บแอป Next.js ที่รวมอาร์ตเวิร์กและการตรวจสอบไว้ในพื้นที่ทำงานเดียว ทั้งภาษาไทยและอังกฤษ',
-    'case.ocr.changed.head': 'สิ่งที่เปลี่ยนไป',
-    'case.ocr.changed.body': 'ผู้ตรวจจะใช้รายการสรุปแทนการตรวจด้วยสายตา และแต่ละจุดที่พบจะชี้ไปยังตำแหน่งเฉพาะบนอาร์ตเวิร์ก พร้อมบันทึกการเปลี่ยนแปลงไว้ในไฟล์',
     'case.bank.title': 'แอปธนาคารที่ใช้งานสะดวก เปิดให้นักลงทุนทุกคนเริ่มต้นได้ด้วยเงินจำนวนน้อยที่สุด',
     'case.bank.context.head': 'บริบท',
     'case.bank.context.body': 'ธนาคารที่เปิดผลิตภัณฑ์การลงทุนให้ลูกค้าที่เคยเอื้อมไม่ถึง — คนที่เก็บเงินได้ทีละน้อยในแต่ละเดือน ไม่ใช่เงินก้อน',
