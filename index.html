@@ -2370,12 +2370,15 @@ html.dark .hero-bigtype em { color: var(--accent); }
 
 /* A tinted surface over the picture, carrying the product's name. */
 .work-media.has-veil { position: relative; }
+/* The other cards take their own hue, at the ink depth so white reads on it. */
+.tone-amber .work-veil { --veil: rgba(168, 100, 0, 0.78); }   /* #a86400 */
+.tone-rose  .work-veil { --veil: rgba(209, 20, 90, 0.78); }   /* #d1145a */
 .work-veil {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(80, 89, 201, 0.78);   /* #5059C9 */
+  background: var(--veil, rgba(80, 89, 201, 0.78));   /* #5059C9 */
   color: #ffffff;
   font-family: var(--heading);
   font-size: clamp(2.25rem, 4vw, 3.25rem);
@@ -2465,7 +2468,8 @@ html.dark .hero-bigtype em { color: var(--accent); }
    so the panel reads as that card opened up. */
 .case-cover {
   margin: 0 0 clamp(20px, 3vw, 28px);
-  aspect-ratio: 16 / 9;
+  /* The card pictures are 4:3; the tile takes their shape so they fill it. */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--radius-card);
   background: linear-gradient(160deg, rgba(var(--cube-accent, 26, 115, 232), 0.14), rgba(var(--cube-accent, 26, 115, 232), 0.05)), #f4f5f7;
@@ -2807,9 +2811,9 @@ html.dark .hero-bigtype em { color: var(--accent); }
       </div>
       <div class="work-card tone-amber">
         <a class="work-link" href="#case-bank" data-case>
-          <div class="work-media"><img src="Images/works/banking.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
+          <div class="work-media has-veil"><img src="Images/works/banking.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"><span class="work-veil" aria-hidden="true">Finansia</span></div>
           <div class="work-body">
-            <h3 data-i18n="works.fin.title" data-i18n-default="Mobile Banking">Mobile Banking</h3>
+            <h3 data-i18n="works.fin.title" data-i18n-default="Securities Trading">Securities Trading</h3>
             <ul class="work-tags">
               <li data-i18n="works.tag.finance" data-i18n-default="Finance">Finance</li>
               <li data-i18n="works.tag.mobile" data-i18n-default="Mobile">Mobile</li>
@@ -2841,7 +2845,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
       </div>
       <div class="work-card tone-rose">
         <a class="work-link" href="#case-shop" data-case>
-          <div class="work-media"><img src="Images/works/shop.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"></div>
+          <div class="work-media has-veil"><img src="Images/works/shop.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"><span class="work-veil" aria-hidden="true">Tops</span></div>
           <div class="work-body">
             <h3 data-i18n="works.shop.title" data-i18n-default="E-commerce">E-commerce</h3>
             <ul class="work-tags">
@@ -3146,7 +3150,7 @@ const i18n = {
     'works.tag.mobile': 'มือถือ',
     'works.tag.web': 'เว็บ',
     'works.ocr.title': 'แพลตฟอร์ม OCR &amp; QA',
-    'works.fin.title': 'โมบายแบงก์กิ้ง',
+    'works.fin.title': 'ระบบซื้อขายหลักทรัพย์',
     'works.shop.title': 'อีคอมเมิร์ซ',
     'doors.label': 'ความสามารถ',
     'doors.strategy.title': 'กลยุทธ์ผลิตภัณฑ์',
