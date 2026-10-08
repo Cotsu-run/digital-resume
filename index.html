@@ -2369,7 +2369,7 @@ html.dark .hero-bigtype em { color: var(--accent); }
 .work-link:hover .work-media img { transform: scale(1.04); }
 
 /* A tinted surface over the picture, carrying the product's name. */
-.work-media.has-veil { position: relative; }
+.work-media.has-veil { position: relative; container-type: inline-size; }
 /* The other cards take their own hue, at the ink depth so white reads on it. */
 .tone-amber .work-veil { --veil: rgba(168, 100, 0, 0.78); }   /* #a86400 */
 .tone-rose  .work-veil { --veil: rgba(209, 20, 90, 0.78); }   /* #d1145a */
@@ -2381,9 +2381,12 @@ html.dark .hero-bigtype em { color: var(--accent); }
   background: var(--veil, rgba(80, 89, 201, 0.78));   /* #5059C9 */
   color: #ffffff;
   font-family: var(--heading);
-  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  /* Sized to the card, so the longest name still sits on one line. */
+  font-size: min(3.25rem, 11cqw);
   font-weight: 600;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .work-body {
@@ -2811,34 +2814,35 @@ html.dark .hero-bigtype em { color: var(--accent); }
       </div>
       <div class="work-card tone-amber">
         <a class="work-link" href="#case-bank" data-case>
-          <div class="work-media has-veil"><img src="Images/works/banking.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"><span class="work-veil" aria-hidden="true">Finansia</span></div>
+          <div class="work-media has-veil"><img src="Images/works/banking.webp" alt="" width="1200" height="900" loading="lazy" decoding="async"><span class="work-veil" aria-hidden="true">Finansia HERO</span></div>
           <div class="work-body">
-            <h3 data-i18n="works.fin.title" data-i18n-default="Securities Trading">Securities Trading</h3>
+            <h3 data-i18n="works.fin.title" data-i18n-default="Trading Platform">Trading Platform</h3>
             <ul class="work-tags">
               <li data-i18n="works.tag.finance" data-i18n-default="Finance">Finance</li>
               <li data-i18n="works.tag.mobile" data-i18n-default="Mobile">Mobile</li>
+              <li data-i18n="works.tag.desktop" data-i18n-default="Desktop">Desktop</li>
             </ul>
           </div>
         </a>
 
         <div class="case-source tone-amber" id="case-bank" hidden>
-          <h2 class="case-title" id="case-bank-title" data-i18n="case.bank.title" data-i18n-default="A convenient banking application allows all investors with the smallest possible amount.">A convenient banking application allows all investors with the smallest possible amount.</h2>
+          <h2 class="case-title" id="case-bank-title" data-i18n="case.bank.title" data-i18n-default="The app investors need—bringing all markets together in one place.">The app investors need—bringing all markets together in one place.</h2>
           <div class="case-body">
             <section>
               <h4 data-i18n="case.bank.context.head" data-i18n-default="Context">Context</h4>
-              <p data-i18n="case.bank.context.body" data-i18n-default="A bank opening investment products to customers who had been priced out of them — people who can set aside a little each month, not a lump sum.">A bank opening investment products to customers who had been priced out of them — people who can set aside a little each month, not a lump sum.</p>
+              <p data-i18n="case.bank.context.body" data-i18n-default="Finansia Syrus, a Thai securities broker, set out to turn what its customers kept telling it into the app they trade with: Finansia HERO on PC and HeroM on the phone.">Finansia Syrus, a Thai securities broker, set out to turn what its customers kept telling it into the app they trade with: Finansia HERO on PC and HeroM on the phone.</p>
             </section>
             <section>
               <h4 data-i18n="case.bank.need.head" data-i18n-default="What was needed">What was needed</h4>
-              <p data-i18n="case.bank.need.body" data-i18n-default="Investing had to start at an amount anyone could spare, and the app had to make clear what someone was buying without handing them a prospectus — all of it holding up to the rules a regulated product carries.">Investing had to start at an amount anyone could spare, and the app had to make clear what someone was buying without handing them a prospectus — all of it holding up to the rules a regulated product carries.</p>
+              <p data-i18n="case.bank.need.body" data-i18n-default="One app had to carry everything an investor trades — Thai stocks, derivatives, more than 29 world markets and funds from 16 managers — behind a single sign-in, and still be simple enough for someone placing a first order.">One app had to carry everything an investor trades — Thai stocks, derivatives, more than 29 world markets and funds from 16 managers — behind a single sign-in, and still be simple enough for someone placing a first order.</p>
             </section>
             <section>
               <h4 data-i18n="case.bank.work.head" data-i18n-default="Work I did">Work I did</h4>
-              <p data-i18n="case.bank.work.body" data-i18n-default="I set the product direction and designed the experience end to end, then worked it through with engineering — every state, every error, and the wording, which has to be exact when money is involved.">I set the product direction and designed the experience end to end, then worked it through with engineering — every state, every error, and the wording, which has to be exact when money is involved.</p>
+              <p data-i18n="case.bank.work.body" data-i18n-default="I collaborated on product problem-solving and strategic direction to enhance the end-to-end user experience across both mobile and desktop platforms. I then worked closely with the engineering team to refine the details of every step—including system states, error handling, and copy—ensuring the utmost precision and clarity, especially when financial matters were involved.">I collaborated on product problem-solving and strategic direction to enhance the end-to-end user experience across both mobile and desktop platforms. I then worked closely with the engineering team to refine the details of every step—including system states, error handling, and copy—ensuring the utmost precision and clarity, especially when financial matters were involved.</p>
             </section>
             <section>
               <h4 data-i18n="case.bank.changed.head" data-i18n-default="What Changed">What Changed</h4>
-              <p data-i18n="case.bank.changed.body" data-i18n-default="Opening a position takes minutes and a small amount instead of an appointment and a minimum balance. Customers who had never held an investment product started with what they could afford, and kept going from the app they already used.">Opening a position takes minutes and a small amount instead of an appointment and a minimum balance. Customers who had never held an investment product started with what they could afford, and kept going from the app they already used.</p>
+              <p data-i18n="case.bank.changed.body" data-i18n-default="Investors trade every market from one app, on the phone or the PC, with one sign-in. It is free to use and has no minimum to start, so a first-time investor and a full-time trader work in the same place.">Investors trade every market from one app, on the phone or the PC, with one sign-in. It is free to use and has no minimum to start, so a first-time investor and a full-time trader work in the same place.</p>
             </section>
           </div>
         </div>
@@ -3126,15 +3130,15 @@ const i18n = {
 
     // Doors (hero grid)
     'nav.works': 'ผลงาน',
-    'case.bank.title': 'แอปธนาคารที่ใช้งานสะดวก เปิดให้นักลงทุนทุกคนเริ่มต้นได้ด้วยเงินจำนวนน้อยที่สุด',
+    'case.bank.title': 'แอปที่นักลงทุนต้องการ รวมทุกตลาดไว้ในที่เดียว',
     'case.bank.context.head': 'บริบท',
-    'case.bank.context.body': 'ธนาคารที่เปิดผลิตภัณฑ์การลงทุนให้ลูกค้าที่เคยเอื้อมไม่ถึง — คนที่เก็บเงินได้ทีละน้อยในแต่ละเดือน ไม่ใช่เงินก้อน',
+    'case.bank.context.body': 'ฟินันเซีย ไซรัส บริษัทหลักทรัพย์ไทย ตั้งใจเปลี่ยนทุกเสียงสะท้อนของลูกค้าให้เป็นแอปที่ใช้เทรดจริง คือ Finansia HERO บน PC และ HeroM บนมือถือ',
     'case.bank.need.head': 'โจทย์',
-    'case.bank.need.body': 'การลงทุนต้องเริ่มต้นได้ด้วยเงินจำนวนที่ทุกคนพอมี และแอปต้องทำให้เข้าใจชัดเจนว่ากำลังซื้ออะไรโดยไม่ต้องยื่นหนังสือชี้ชวนให้อ่าน ทั้งหมดนี้ต้องเป็นไปตามกฎเกณฑ์ของผลิตภัณฑ์ที่อยู่ภายใต้การกำกับดูแล',
+    'case.bank.need.body': 'แอปเดียวต้องรองรับทุกสินทรัพย์ที่นักลงทุนซื้อขาย ทั้งหุ้นไทย ตราสารอนุพันธ์ ตลาดหุ้นทั่วโลกกว่า 29 ตลาด และกองทุนจาก 16 บลจ. ด้วยการล็อกอินครั้งเดียว และยังต้องง่ายพอสำหรับคนที่เพิ่งส่งคำสั่งซื้อครั้งแรก',
     'case.bank.work.head': 'สิ่งที่ฉันทำ',
-    'case.bank.work.body': 'ฉันกำหนดทิศทางผลิตภัณฑ์และออกแบบประสบการณ์ใช้งานทั้งหมด แล้วทำงานร่วมกับทีมพัฒนาในทุกรายละเอียด ทั้งทุกสถานะ ทุกข้อผิดพลาด และถ้อยคำที่ต้องแม่นยำเมื่อเกี่ยวกับเงิน',
+    'case.bank.work.body': 'ฉันร่วมแก้โจทย์ผลิตภัณฑ์และกำหนดทิศทางเชิงกลยุทธ์ เพื่อยกระดับประสบการณ์ใช้งานตั้งแต่ต้นจนจบ ทั้งบนมือถือและเดสก์ท็อป จากนั้นทำงานใกล้ชิดกับทีมพัฒนาเพื่อขัดเกลารายละเอียดของทุกขั้นตอน ทั้งสถานะของระบบ การจัดการข้อผิดพลาด และถ้อยคำ ให้แม่นยำและชัดเจนที่สุด โดยเฉพาะเมื่อเกี่ยวข้องกับเรื่องการเงิน',
     'case.bank.changed.head': 'สิ่งที่เปลี่ยนไป',
-    'case.bank.changed.body': 'การเริ่มลงทุนใช้เวลาไม่กี่นาทีและเงินเพียงเล็กน้อย แทนที่จะต้องนัดหมายและมีเงินขั้นต่ำ ลูกค้าที่ไม่เคยถือผลิตภัณฑ์การลงทุนมาก่อนเริ่มต้นได้ในจำนวนที่ตัวเองไหว และไปต่อได้จากแอปเดิมที่ใช้อยู่แล้ว',
+    'case.bank.changed.body': 'นักลงทุนเทรดได้ทุกตลาดจากแอปเดียว ทั้งบนมือถือและ PC ด้วยการล็อกอินครั้งเดียว ใช้งานฟรีและไม่มีขั้นต่ำ มือใหม่และเทรดเดอร์เต็มเวลาจึงทำงานอยู่ในที่เดียวกัน',
     'case.shop.title': 'แอปบนมือถือที่มอบประสบการณ์ช้อปปิ้งที่ลื่นไหล ลดเวลาที่เสียไป และรักษาความสดใหม่ของสินค้า',
     'case.shop.context.head': 'บริบท',
     'case.shop.context.body': 'ลูกค้าสั่งซื้อจากมือถือและเลือกเวลาจัดส่งเองได้ — ทั้งอาหารและของใช้ประจำวัน ที่ความสดใหม่คือส่วนหนึ่งของสิ่งที่จ่ายเงินซื้อ',
@@ -3149,8 +3153,9 @@ const i18n = {
     'works.tag.finance': 'การเงิน',
     'works.tag.mobile': 'มือถือ',
     'works.tag.web': 'เว็บ',
+    'works.tag.desktop': 'เดสก์ท็อป',
     'works.ocr.title': 'แพลตฟอร์ม OCR &amp; QA',
-    'works.fin.title': 'ระบบซื้อขายหลักทรัพย์',
+    'works.fin.title': 'แพลตฟอร์มเทรดหุ้น',
     'works.shop.title': 'อีคอมเมิร์ซ',
     'doors.label': 'ความสามารถ',
     'doors.strategy.title': 'กลยุทธ์ผลิตภัณฑ์',
