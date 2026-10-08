@@ -506,7 +506,8 @@ html.dark .panel {
 }
 .foot a.next:hover { transform: translateY(-2px); }
 .foot a.next svg { width: 16px; height: 16px; }
-.foot small { font-family: var(--mono); font-size: var(--fs-label); color: var(--ink-soft); }
+/* Same line as the home page footer: body face, not mono. */
+.foot small { font-family: var(--sans); font-size: 0.78rem; color: var(--ink-soft); }
 
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
@@ -778,7 +779,7 @@ html.dark .highlight svg { color: #ff7aa8; }
 
 <footer class="foot">
   <div class="wrap">
-    <small>© 2026 Rasri Issarasiri</small>
+    <small>© 2026 Rasri Issarasiri.</small>
     <a class="next" href="index.html#works">
       <span data-i18n="foot.next">See all works</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
