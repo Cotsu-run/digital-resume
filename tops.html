@@ -150,6 +150,7 @@ a { color: inherit; }
   color: #f1f3f6;
   background: #5059c9;
   isolation: isolate;
+  container-type: inline-size;
 }
 /* Millimetre ticks along the top and left edges, every tenth one long. */
 .hero-board::before,
@@ -182,8 +183,10 @@ a { color: inherit; }
   justify-content: space-between;
   gap: 40px;
   min-height: inherit;
-  max-width: 520px;
-  padding: clamp(40px, 5vw, 64px) clamp(28px, 4.5vw, 60px) clamp(32px, 4vw, 52px);
+  /* The window starts 41% of the way across the board; the copy stops
+     short of it, with room for the window's shadow. */
+  width: 41cqw;
+  padding: clamp(40px, 5vw, 64px) 56px clamp(32px, 4vw, 52px) clamp(28px, 4.5vw, 60px);
 }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { width: 44px; height: 44px; }
@@ -191,7 +194,8 @@ a { color: inherit; }
 .brand-kind { display: block; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(241, 243, 246, 0.6); }
 .hero h1 {
   font-family: var(--heading);
-  font-size: clamp(2.4rem, 5.4vw, 4.25rem);
+  /* Sized to the copy column, so the longest line clears the window at any width. */
+  font-size: clamp(2rem, calc((41cqw - 116px) / 6.6), 3.4rem);
   font-weight: 500;
   line-height: 1.04;
   letter-spacing: -0.035em;
@@ -532,7 +536,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 /* Below that the copy needs the full width: the window drops under it. */
 @media (max-width: 1024px) {
   .hero-board { min-height: 0; }
-  .hero-copy { max-width: none; min-height: 0; }
+  .hero-copy { width: auto; min-height: 0; padding-right: clamp(28px, 4.5vw, 60px); }
+  .hero h1 { font-size: clamp(2rem, 6cqw, 3.4rem); }
   .hero-shot { position: relative; right: auto; bottom: auto; width: auto; margin: 0 -6% -10% clamp(20px, 5vw, 40px); }
 }
 @media (max-width: 900px) {
@@ -549,7 +554,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 html.dark { --accent: #ff7aa8; --accent-soft: rgba(209, 20, 90, 0.18); }
 .hero-board { background: linear-gradient(160deg, #de2a6a 0%, #d1145a 45%, #ad0f4a 100%); }
 .hero-board::before, .hero-board::after { display: none; }
-.hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+.hero h1 { font-size: clamp(2rem, calc((41cqw - 116px) / 6.6), 3.4rem); }
+@media (max-width: 1024px) { .hero h1 { font-size: clamp(2rem, 6cqw, 3.4rem); } }
 .hero h1 em { color: #ffe0ea; }
 .story-shot { background: radial-gradient(90% 80% at 80% 0%, rgba(var(--hue), 0.16), transparent 65%), var(--paper-raised); }
 .panel { background: radial-gradient(80% 70% at 50% 0%, rgba(var(--hue), 0.20), transparent 70%), linear-gradient(180deg, #fbe3ec, #f8f1f4); }
