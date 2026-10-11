@@ -121,6 +121,9 @@ a { color: inherit; }
   color: var(--ink-soft);
   text-decoration: none;
   transition: color 0.2s ease;
+  /* A full-size target, even when only the arrow shows. */
+  min-width: 44px;
+  min-height: 44px;
 }
 .bar-back:hover { color: var(--ink); }
 .bar-back svg { width: 16px; height: 16px; transition: transform 0.25s ease; }
@@ -133,7 +136,9 @@ a { color: inherit; }
   font: inherit;
   color: var(--ink-soft);
   cursor: pointer;
-  padding: 4px 2px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px 6px;
 }
 .lang button.active { color: var(--ink); font-weight: 600; }
 .lang span { color: var(--line-strong); }
