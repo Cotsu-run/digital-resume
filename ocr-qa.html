@@ -621,7 +621,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
           <div class="stat"><b>8</b><span data-i18n="glance.rules">rules measured</span></div>
           <div class="stat"><b>0.042</b><span data-i18n="glance.scale">mm per pixel</span></div>
         </div>
-        <figure><img src="Images/works/ocr/summary.webp" alt="Ruler's results panel: the job status, counts of text runs and lines, the scale, and the first measured items." width="864" height="888" loading="lazy"></figure>
+        <figure><img src="Images/works/ocr/summary.webp" alt="Ruler's results panel: the job status, counts of text runs and lines, the scale, and the first measured items." width="720" height="888" loading="lazy"></figure>
       </aside>
     </div>
   </section>
@@ -637,11 +637,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
         </section>
         <section>
           <h3 data-i18n="story.work.head">Work I did</h3>
-          <p data-i18n="story.work.body">I shaped the product and built it: framing the problem, setting what the system has to catch, and designing how a reviewer works through what it finds. I then implemented it as a Next.js web app that keeps the artwork and its checks in one workspace, in Thai and English.</p>
+          <p data-i18n="story.work.body">I shaped the product and built it: framing the problem, setting what the system has to catch, and designing how a reviewer works through what it finds. I then built it as a web app — a FastAPI service with PaddleOCR for the words and OpenCV for the rules, and an Alpine.js workspace that shows the artwork at true size beside everything found on it, in Thai and English.</p>
         </section>
       </div>
       <div class="story-shot reveal">
-        <img src="Images/works/ocr/upload.webp" alt="Ruler's start screen: drop an artwork (JPG, PNG or PDF up to 50 MB), with an optional physical width for images that have no reliable DPI." width="1140" height="780" loading="lazy">
+        <img src="Images/works/ocr/upload.webp" alt="Ruler's start screen: a millimetre workspace with rulers, a grid and Card-to-A0 page outlines, and a card to drop an artwork (JPG, PNG or PDF up to 50 MB) with an optional physical width." width="1680" height="1398" loading="lazy">
       </div>
     </div>
   </section>
@@ -684,7 +684,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
         <div class="feature reveal">
           <span class="feature-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7V5h16v2"/><path d="M12 5v14"/><path d="M9 19h6"/></svg></span>
           <h3 data-i18n="f1.head">Font size, measured</h3>
-          <p data-i18n="f1.body">Each text run is sized from its glyphs — Thai by body height, Latin by cap height — and given in millimetres and points.</p>
+          <p data-i18n="f1.body">A PDF's own text layer is read first, for exact characters and sizes; OCR fills in outlined text. Everything else is sized from its glyphs — Thai by body height, Latin by cap height — in millimetres and points.</p>
         </div>
         <div class="feature reveal">
           <span class="feature-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 8h18"/><path d="M3 13h18" stroke-width="3"/><path d="M3 18h18" stroke-width="1"/></svg></span>
@@ -696,14 +696,29 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
           <h3 data-i18n="f3.head">A record that ships</h3>
           <p data-i18n="f3.body">The list, the overlay and every export come from one set of findings — JSON, CSV, or a PDF report with the marked-up artwork.</p>
         </div>
+        <div class="feature reveal">
+          <span class="feature-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V3h4v18z"/><path d="M7 7h2M7 11h3M7 15h2"/><rect x="12" y="8" width="9" height="12" rx="1"/></svg></span>
+          <h3 data-i18n="f4.head">A workspace in millimetres</h3>
+          <p data-i18n="f4.body">Rulers, a grid and Card-to-A0 outlines frame the artwork at its true size, so a label can be judged against the page it will print on.</p>
+        </div>
+        <div class="feature reveal">
+          <span class="feature-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></svg></span>
+          <h3 data-i18n="f5.head">Read twice, kept only when sure</h3>
+          <p data-i18n="f5.body">Large OCR lines are read again at several sizes, and a new reading replaces the first only when the rereads agree — so one shaky reading never reaches the list.</p>
+        </div>
+        <div class="feature reveal">
+          <span class="feature-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 10h6M9 14h6M9 18h3"/></svg></span>
+          <h3 data-i18n="f6.head">Terms it knows</h3>
+          <p data-i18n="f6.body">A list of company names, brands and Thai FDA wording repairs near-miss readings, and every correction is flagged with the text it replaced.</p>
+        </div>
       </div>
       <div class="closeups">
         <figure class="closeup reveal">
-          <div class="closeup-img"><img src="Images/works/ocr/nutrition-table.webp" alt="Close-up of the label's nutrition table, with each text run and each rule boxed and numbered, and the energy line selected." width="1600" height="1340" loading="lazy"></div>
+          <div class="closeup-img"><img src="Images/works/ocr/nutrition-table.webp" alt="Close-up of the label's nutrition table, with each text run and each rule boxed and numbered, and the energy line selected." width="1400" height="1172" loading="lazy"></div>
           <figcaption data-i18n="c1"><b>Down to the nutrition table.</b> Each line of text and each rule gets its own box and number, so a finding can be checked on the artwork itself.</figcaption>
         </figure>
         <figure class="closeup reveal">
-          <div class="closeup-img"><img src="Images/works/ocr/lines.webp" alt="The Lines tab of the results list: each horizontal rule with its position and thickness in millimetres." width="864" height="1608" loading="lazy"></div>
+          <div class="closeup-img"><img src="Images/works/ocr/lines.webp" alt="The Lines tab of the results list: each horizontal rule with its position and thickness in millimetres." width="720" height="1340" loading="lazy"></div>
           <figcaption data-i18n="c2"><b>Lines, on their own.</b> Filter to the rules and read each weight and position in millimetres.</figcaption>
         </figure>
       </div>
@@ -776,7 +791,7 @@ const th = {
   'story.need.head': 'โจทย์',
   'story.need.body': 'ทุกเวอร์ชันที่แก้ต้องถูกตรวจเทียบกับไฟล์ที่อนุมัติแล้ว และการตรวจด้วยมือนั้นช้า สิ่งที่หลุดรอดมักไม่ใช่เรื่องที่เห็นชัด แต่เป็นการเปลี่ยนแปลงเล็ก ๆ ที่มีความเสี่ยงสูงที่สุดเมื่อพิมพ์ออกมาแล้ว',
   'story.work.head': 'สิ่งที่ฉันทำ',
-  'story.work.body': 'ฉันออกแบบผลิตภัณฑ์และลงมือสร้างเอง ตั้งแต่การตั้งโจทย์ การกำหนดสิ่งที่ระบบต้องตรวจจับ ไปจนถึงการออกแบบวิธีที่ผู้ตรวจใช้งานผลลัพธ์ แล้วพัฒนาออกมาเป็นเว็บแอป Next.js ที่รวมอาร์ตเวิร์กและการตรวจสอบไว้ในพื้นที่ทำงานเดียว ทั้งภาษาไทยและอังกฤษ',
+  'story.work.body': 'ฉันออกแบบผลิตภัณฑ์และลงมือสร้างเอง ตั้งแต่การตั้งโจทย์ การกำหนดสิ่งที่ระบบต้องตรวจจับ ไปจนถึงการออกแบบวิธีที่ผู้ตรวจใช้งานผลลัพธ์ แล้วพัฒนาออกมาเป็นเว็บแอป — บริการ FastAPI ที่ใช้ PaddleOCR อ่านข้อความและ OpenCV วัดเส้น กับพื้นที่ทำงาน Alpine.js ที่แสดงอาร์ตเวิร์กในขนาดจริงเคียงข้างทุกอย่างที่พบ ทั้งภาษาไทยและอังกฤษ',
   'hl.head': 'ไฮไลต์',
   'hl.1': 'ใช้รายการสรุปแทนการตรวจด้วยสายตา',
   'hl.2': 'ทุกจุดที่พบชี้ไปยังตำแหน่งบนอาร์ตเวิร์ก',
@@ -784,11 +799,17 @@ const th = {
   'ws.head': 'พื้นที่ทำงาน',
   'ws.body': 'อาร์ตเวิร์กอยู่ทางซ้าย ทุกอย่างที่พบอยู่ทางขวา เลือกแถวแล้วภาพจะเลื่อนไปยังจุดนั้น เลือกกรอบแล้วรายการจะตามไป',
   'f1.head': 'วัดขนาดตัวอักษร',
-  'f1.body': 'ข้อความแต่ละชุดถูกวัดขนาดจากตัวอักษรจริง — ภาษาไทยจากความสูงตัวพยัญชนะ ภาษาอังกฤษจากความสูงตัวพิมพ์ใหญ่ — แสดงเป็นมิลลิเมตรและพอยต์',
+  'f1.body': 'อ่านเลเยอร์ข้อความของ PDF ก่อน จึงได้ตัวอักษรและขนาดที่ตรงทุกตัว ส่วนข้อความที่แปลงเป็นเส้นแล้วให้ OCR อ่านแทน ที่เหลือวัดขนาดจากตัวอักษรจริง — ภาษาไทยจากความสูงตัวพยัญชนะ ภาษาอังกฤษจากความสูงตัวพิมพ์ใหญ่ — แสดงเป็นมิลลิเมตรและพอยต์',
   'f2.head': 'วัดความหนาของเส้น',
   'f2.body': 'ค้นหาเส้นแนวนอนทุกเส้นและวัดความหนาละเอียดกว่าหนึ่งพิกเซล จึงแยกเส้นบาง 0.18 มม. ออกจากเส้น 0.35 มม. ได้',
   'f3.head': 'บันทึกที่ส่งต่อได้',
   'f3.body': 'รายการ ภาพซ้อนทับ และไฟล์ส่งออกทุกแบบมาจากชุดผลลัพธ์เดียวกัน — JSON, CSV หรือรายงาน PDF พร้อมอาร์ตเวิร์กที่ทำเครื่องหมายไว้',
+  'f4.head': 'พื้นที่ทำงานหน่วยมิลลิเมตร',
+  'f4.body': 'ไม้บรรทัด ตาราง และกรอบขนาดตั้งแต่นามบัตรถึง A0 วางอาร์ตเวิร์กในขนาดจริง จึงเห็นได้ทันทีว่าฉลากจะออกมาใหญ่แค่ไหนบนหน้ากระดาษ',
+  'f5.head': 'อ่านซ้ำ แล้วเลือกเฉพาะที่มั่นใจ',
+  'f5.body': 'บรรทัดใหญ่ที่อ่านด้วย OCR จะถูกอ่านซ้ำหลายขนาด และจะแทนที่ผลเดิมก็ต่อเมื่อการอ่านซ้ำให้ผลตรงกัน — ผลที่อ่านได้ไม่แน่นอนจึงไม่หลุดเข้าไปในรายการ',
+  'f6.head': 'คลังคำที่รู้จัก',
+  'f6.body': 'รายชื่อบริษัท แบรนด์ และถ้อยคำบนฉลากตามมาตรฐาน อย. ใช้แก้คำที่อ่านเพี้ยนไปเล็กน้อย และทุกจุดที่แก้จะแสดงข้อความเดิมกำกับไว้',
   'c1': '<b>ลงลึกถึงตารางโภชนาการ</b> ข้อความแต่ละบรรทัดและเส้นแต่ละเส้นมีกรอบและหมายเลขของตัวเอง ตรวจสอบผลได้บนอาร์ตเวิร์กโดยตรง',
   'c2': '<b>ดูเฉพาะเส้น</b> กรองเฉพาะเส้นแล้วอ่านความหนาและตำแหน่งของแต่ละเส้นเป็นมิลลิเมตร',
   'm.label': 'วัดจริง ไม่ใช่กะด้วยตา',
