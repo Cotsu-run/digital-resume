@@ -432,6 +432,8 @@ html.dark .panel {
 .feature-mark svg { width: 20px; height: 20px; }
 .feature h3 { font-size: 1.0625rem; font-weight: 600; margin-bottom: 6px; }
 .feature p { font-size: var(--fs-body); line-height: 1.6; color: var(--ink-mid); }
+/* Five cards on a three-column grid: the last one takes the rest of its row. */
+.features .feature:last-child { grid-column: span 2; }
 
 .closeups {
   display: grid;
@@ -563,6 +565,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 @media (max-width: 900px) {
   .about-grid, .story-grid, .measured, .closeups { grid-template-columns: 1fr; }
   .highlights, .features { grid-template-columns: 1fr; }
+  .features .feature:last-child { grid-column: auto; }
 }
 @media (max-width: 520px) {
   .bar-back span { display: none; }
