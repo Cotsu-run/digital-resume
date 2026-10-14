@@ -196,6 +196,21 @@ a { color: inherit; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { width: 44px; height: 44px; }
 .brand-name { font-size: 1.375rem; font-weight: 600; letter-spacing: -0.01em; }
+/* The release, in the ruler's yellow: a measured mark, not a badge. */
+.brand-ver {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 1px 8px;
+  border: 1px solid rgba(255, 204, 0, 0.55);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  vertical-align: 0.3em;
+  color: var(--ruler-yellow);
+}
 .brand-kind { display: block; font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(241, 243, 246, 0.6); }
 .hero h1 {
   font-family: var(--heading);
@@ -575,7 +590,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       <div class="hero-board">
         <div class="hero-copy">
           <div class="brand">
-            <div><span class="brand-name">Ruler</span><span class="brand-kind" data-i18n="hero.kind">OCR &amp; QA Platform</span></div>
+            <div><span class="brand-name">Ruler</span><span class="brand-ver">v1.0</span><span class="brand-kind" data-i18n="hero.kind">OCR &amp; QA Platform</span></div>
           </div>
           <div>
             <h1 data-i18n="hero.title">Detect errors in artwork <em>before</em> production</h1>
