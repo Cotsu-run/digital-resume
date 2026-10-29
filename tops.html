@@ -587,7 +587,8 @@ html.dark .highlight svg { color: #ff7aa8; }
 .steps li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; background: var(--paper-sunk); }
 .steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.875rem; font-weight: 500; }
 .steps b { display: block; font-weight: 600; font-size: 0.9375rem; }
-.steps .kpi { margin-right: 8px; padding: 1px 6px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.6875rem; font-style: normal; letter-spacing: 0.06em; }
+.steps .kpi { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.steps .kpi svg { flex: none; width: 15px; height: 15px; color: var(--accent); }
 .steps span { font-size: 0.8125rem; color: var(--ink-soft); }
 
 /* The dark band's right side for these pages. */
@@ -670,10 +671,10 @@ html.dark .highlight svg { color: #ff7aa8; }
           <p data-i18n="glance.body">What the business set out to move, and the number that shows it.</p>
         </div>
         <ol class="steps">
-          <li><div><b data-i18n="g.1">Grow online orders</b><span><i class="kpi">KPI</i><span data-i18n="g.1d">Checkout conversion rate</span></span></div></li>
-          <li><div><b data-i18n="g.2">Make ordering quick</b><span><i class="kpi">KPI</i><span data-i18n="g.2d">Median time from basket to payment</span></span></div></li>
-          <li><div><b data-i18n="g.3">Deliver what was promised</b><span><i class="kpi">KPI</i><span data-i18n="g.3d">Orders delivered complete and in slot</span></span></div></li>
-          <li><div><b data-i18n="g.4">Bring customers back</b><span><i class="kpi">KPI</i><span data-i18n="g.4d">Repeat-order rate within 30 days</span></span></div></li>
+          <li><div><b data-i18n="g.1">Grow online orders</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.5 11h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg><span data-i18n="g.1d">Checkout conversion rate</span></span></div></li>
+          <li><div><b data-i18n="g.2">Make ordering quick</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span data-i18n="g.2d">Median time from basket to payment</span></span></div></li>
+          <li><div><b data-i18n="g.3">Deliver what was promised</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span data-i18n="g.3d">Orders delivered complete and in slot</span></span></div></li>
+          <li><div><b data-i18n="g.4">Bring customers back</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></svg><span data-i18n="g.4d">Repeat-order rate within 30 days</span></span></div></li>
         </ol>
       </aside>
     </div>

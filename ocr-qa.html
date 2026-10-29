@@ -341,7 +341,8 @@ a { color: inherit; }
 .steps li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; background: var(--paper-sunk); }
 .steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.875rem; font-weight: 500; }
 .steps b { display: block; font-weight: 600; font-size: 0.9375rem; }
-.steps .kpi { margin-right: 8px; padding: 1px 6px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.6875rem; font-style: normal; letter-spacing: 0.06em; }
+.steps .kpi { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.steps .kpi svg { flex: none; width: 15px; height: 15px; color: var(--accent); }
 .steps span { font-size: 0.8125rem; color: var(--ink-soft); }
 .glance figure {
   margin: 8px;
@@ -640,10 +641,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
           <p data-i18n="glance.body">What the business set out to move, and the number that shows it.</p>
         </div>
         <ol class="steps">
-          <li><div><b data-i18n="g.1">Cut proof-check time</b><span><i class="kpi">KPI</i><span data-i18n="g.1d">Minutes to check one proof</span></span></div></li>
-          <li><div><b data-i18n="g.2">Stop errors reaching print</b><span><i class="kpi">KPI</i><span data-i18n="g.2d">Artwork errors found after print</span></span></div></li>
-          <li><div><b data-i18n="g.3">Fewer reprints</b><span><i class="kpi">KPI</i><span data-i18n="g.3d">Reprint and scrap cost per quarter</span></span></div></li>
-          <li><div><b data-i18n="g.4">Faster sign-off</b><span><i class="kpi">KPI</i><span data-i18n="g.4d">Revision rounds before approval</span></span></div></li>
+          <li><div><b data-i18n="g.1">Cut proof-check time</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span data-i18n="g.1d">Minutes to check one proof</span></span></div></li>
+          <li><div><b data-i18n="g.2">Stop errors reaching print</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 3 20h18z"/><path d="M12 10v4M12 17h.01"/></svg><span data-i18n="g.2d">Artwork errors found after print</span></span></div></li>
+          <li><div><b data-i18n="g.3">Fewer reprints</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M14.5 9h-3.5a1.5 1.5 0 0 0 0 3h2a1.5 1.5 0 0 1 0 3H9.5M12 7.5v1.5M12 15v1.5"/></svg><span data-i18n="g.3d">Reprint and scrap cost per quarter</span></span></div></li>
+          <li><div><b data-i18n="g.4">Faster sign-off</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15"/><path d="M4 20v-5h5"/></svg><span data-i18n="g.4d">Revision rounds before approval</span></span></div></li>
         </ol>
         <figure><img src="Images/works/ocr/summary.webp" alt="Ruler's results panel: the job status, counts of text runs and lines, the scale, and the first measured items." width="720" height="888" loading="lazy"></figure>
       </aside>

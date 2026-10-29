@@ -587,7 +587,8 @@ html.dark .highlight svg { color: #f6b44a; }
 .steps li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; background: var(--paper-sunk); }
 .steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.875rem; font-weight: 500; }
 .steps b { display: block; font-weight: 600; font-size: 0.9375rem; }
-.steps .kpi { margin-right: 8px; padding: 1px 6px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.6875rem; font-style: normal; letter-spacing: 0.06em; }
+.steps .kpi { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.steps .kpi svg { flex: none; width: 15px; height: 15px; color: var(--accent); }
 .steps span { font-size: 0.8125rem; color: var(--ink-soft); }
 
 /* The dark band's right side for these pages. */
@@ -670,10 +671,10 @@ html.dark .highlight svg { color: #f6b44a; }
           <p data-i18n="glance.body">What the business set out to move, and the number that shows it.</p>
         </div>
         <ol class="steps">
-          <li><div><b data-i18n="g.1">Grow active traders</b><span><i class="kpi">KPI</i><span data-i18n="g.1d">Monthly active trading accounts</span></span></div></li>
-          <li><div><b data-i18n="g.2">Get new investors to a first trade</b><span><i class="kpi">KPI</i><span data-i18n="g.2d">New accounts placing a first order within 7 days</span></span></div></li>
-          <li><div><b data-i18n="g.3">Widen use across markets</b><span><i class="kpi">KPI</i><span data-i18n="g.3d">Accounts trading in more than one market</span></span></div></li>
-          <li><div><b data-i18n="g.4">Reduce support load</b><span><i class="kpi">KPI</i><span data-i18n="g.4d">Support cases per 1,000 orders</span></span></div></li>
+          <li><div><b data-i18n="g.1">Grow active traders</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg><span data-i18n="g.1d">Monthly active trading accounts</span></span></div></li>
+          <li><div><b data-i18n="g.2">Get new investors to a first trade</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="g.2d">New accounts placing a first order within 7 days</span></span></div></li>
+          <li><div><b data-i18n="g.3">Widen use across markets</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5a13 13 0 0 1 0 17M12 3.5a13 13 0 0 0 0 17"/></svg><span data-i18n="g.3d">Accounts trading in more than one market</span></span></div></li>
+          <li><div><b data-i18n="g.4">Reduce support load</b><span class="kpi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span data-i18n="g.4d">Support cases per 1,000 orders</span></span></div></li>
         </ol>
       </aside>
     </div>
