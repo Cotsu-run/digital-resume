@@ -337,6 +337,12 @@ a { color: inherit; }
   color: var(--ink);
 }
 .stat span { font-size: 0.8125rem; color: var(--ink-soft); }
+.steps { list-style: none; display: grid; gap: 10px; padding: 12px 8px 8px; counter-reset: s; }
+.steps li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; background: var(--paper-sunk); }
+.steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.875rem; font-weight: 500; }
+.steps b { display: block; font-weight: 600; font-size: 0.9375rem; }
+.steps .kpi { margin-right: 8px; padding: 1px 6px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.6875rem; font-style: normal; letter-spacing: 0.06em; }
+.steps span { font-size: 0.8125rem; color: var(--ink-soft); }
 .glance figure {
   margin: 8px;
   overflow: hidden;
@@ -630,15 +636,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       </div>
       <aside class="glance reveal" aria-labelledby="glance-title">
         <div class="glance-head">
-          <p class="label" id="glance-title" data-i18n="glance.label">Measurable outcomes</p>
-          <p data-i18n="glance.body">A 210 × 110 mm drink label, designed for this test so every size on it is known, rendered at 600 DPI and read in one pass.</p>
+          <p class="label" id="glance-title" data-i18n="glance.label">Business goals &amp; measurable outcomes</p>
+          <p data-i18n="glance.body">What the business set out to move, and the number that shows it.</p>
         </div>
-        <div class="glance-stats">
-          <div class="stat"><b>25</b><span data-i18n="glance.items">items found</span></div>
-          <div class="stat"><b>17</b><span data-i18n="glance.text">text runs sized</span></div>
-          <div class="stat"><b>8</b><span data-i18n="glance.rules">rules measured</span></div>
-          <div class="stat"><b>0.042</b><span data-i18n="glance.scale">mm per pixel</span></div>
-        </div>
+        <ol class="steps">
+          <li><div><b data-i18n="g.1">Cut proof-check time</b><span><i class="kpi">KPI</i><span data-i18n="g.1d">Minutes to check one proof</span></span></div></li>
+          <li><div><b data-i18n="g.2">Stop errors reaching print</b><span><i class="kpi">KPI</i><span data-i18n="g.2d">Artwork errors found after print</span></span></div></li>
+          <li><div><b data-i18n="g.3">Fewer reprints</b><span><i class="kpi">KPI</i><span data-i18n="g.3d">Reprint and scrap cost per quarter</span></span></div></li>
+          <li><div><b data-i18n="g.4">Faster sign-off</b><span><i class="kpi">KPI</i><span data-i18n="g.4d">Revision rounds before approval</span></span></div></li>
+        </ol>
         <figure><img src="Images/works/ocr/summary.webp" alt="Ruler's results panel: the job status, counts of text runs and lines, the scale, and the first measured items." width="720" height="888" loading="lazy"></figure>
       </aside>
     </div>
@@ -794,12 +800,16 @@ const th = {
   'facts.platform.v': 'เว็บแอป',
   'facts.lang': 'ภาษา',
   'facts.lang.v': 'ไทยและอังกฤษ',
-  'glance.label': 'ผลลัพธ์ที่วัดผลได้',
-  'glance.body': 'ฉลากเครื่องดื่มขนาด 210 × 110 มม. ที่ออกแบบขึ้นสำหรับการทดสอบนี้ จึงรู้ทุกขนาดบนนั้นแน่นอน เรนเดอร์ที่ 600 DPI และอ่านจบในรอบเดียว',
-  'glance.items': 'รายการที่พบ',
-  'glance.text': 'ข้อความที่วัดขนาด',
-  'glance.rules': 'เส้นที่วัดความหนา',
-  'glance.scale': 'มม. ต่อพิกเซล',
+  'glance.label': 'เป้าหมายทางธุรกิจและผลลัพธ์ที่วัดผลได้',
+  'glance.body': 'สิ่งที่ธุรกิจตั้งใจขยับ และตัวเลขที่บอกว่าได้ผลจริง',
+  'g.1': 'ลดเวลาตรวจปรู๊ฟ',
+  'g.1d': 'จำนวนนาทีที่ใช้ตรวจปรู๊ฟหนึ่งชิ้น',
+  'g.2': 'ไม่ให้ข้อผิดพลาดหลุดไปถึงโรงพิมพ์',
+  'g.2d': 'ข้อผิดพลาดของอาร์ตเวิร์กที่พบหลังพิมพ์',
+  'g.3': 'ลดงานพิมพ์ซ้ำ',
+  'g.3d': 'ค่าพิมพ์ซ้ำและของเสียต่อไตรมาส',
+  'g.4': 'อนุมัติงานได้เร็วขึ้น',
+  'g.4d': 'จำนวนรอบแก้ไขก่อนอนุมัติ',
   'story.head': 'โจทย์และสิ่งที่สร้าง',
   'story.need.head': 'โจทย์',
   'story.need.body': 'ทุกเวอร์ชันที่แก้ต้องถูกตรวจเทียบกับไฟล์ที่อนุมัติแล้ว และการตรวจด้วยมือนั้นช้า สิ่งที่หลุดรอดมักไม่ใช่เรื่องที่เห็นชัด แต่เป็นการเปลี่ยนแปลงเล็ก ๆ ที่มีความเสี่ยงสูงที่สุดเมื่อพิมพ์ออกมาแล้ว',

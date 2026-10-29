@@ -587,6 +587,7 @@ html.dark .highlight svg { color: #f6b44a; }
 .steps li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; background: var(--paper-sunk); }
 .steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.875rem; font-weight: 500; }
 .steps b { display: block; font-weight: 600; font-size: 0.9375rem; }
+.steps .kpi { margin-right: 8px; padding: 1px 6px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.6875rem; font-style: normal; letter-spacing: 0.06em; }
 .steps span { font-size: 0.8125rem; color: var(--ink-soft); }
 
 /* The dark band's right side for these pages. */
@@ -665,15 +666,15 @@ html.dark .highlight svg { color: #f6b44a; }
       </div>
       <aside class="glance bare reveal" aria-labelledby="glance-title">
         <div class="glance-head">
-          <p class="label" id="glance-title" data-i18n="glance.label">Measurable outcomes</p>
-          <p data-i18n="glance.body">What one Finansia account opens, from the broker's own figures.</p>
+          <p class="label" id="glance-title" data-i18n="glance.label">Business goals &amp; measurable outcomes</p>
+          <p data-i18n="glance.body">What the business set out to move, and the number that shows it.</p>
         </div>
-        <div class="glance-stats">
-          <div class="stat"><b>29+</b><span data-i18n="glance.markets">world stock markets</span></div>
-          <div class="stat"><b>16</b><span data-i18n="glance.funds">fund managers</span></div>
-          <div class="stat"><b>300+</b><span data-i18n="glance.advisors">investment advisors</span></div>
-          <div class="stat"><b>฿0</b><span data-i18n="glance.min">minimum to start</span></div>
-        </div>
+        <ol class="steps">
+          <li><div><b data-i18n="g.1">Grow active traders</b><span><i class="kpi">KPI</i><span data-i18n="g.1d">Monthly active trading accounts</span></span></div></li>
+          <li><div><b data-i18n="g.2">Get new investors to a first trade</b><span><i class="kpi">KPI</i><span data-i18n="g.2d">New accounts placing a first order within 7 days</span></span></div></li>
+          <li><div><b data-i18n="g.3">Widen use across markets</b><span><i class="kpi">KPI</i><span data-i18n="g.3d">Accounts trading in more than one market</span></span></div></li>
+          <li><div><b data-i18n="g.4">Reduce support load</b><span><i class="kpi">KPI</i><span data-i18n="g.4d">Support cases per 1,000 orders</span></span></div></li>
+        </ol>
       </aside>
     </div>
   </section>
@@ -820,12 +821,16 @@ const th = {
   'facts.industry.v': 'หลักทรัพย์',
   'facts.platform.v': 'มือถือและเดสก์ท็อป',
   'facts.client.v': 'ฟินันเซีย ไซรัส',
-  'glance.label': 'ผลลัพธ์ที่วัดผลได้',
-  'glance.body': 'สิ่งที่บัญชีฟินันเซียหนึ่งบัญชีเปิดให้ ตามข้อมูลของบริษัท',
-  'glance.markets': 'ตลาดหุ้นทั่วโลก',
-  'glance.funds': 'บลจ.',
-  'glance.advisors': 'ที่ปรึกษาการลงทุน',
-  'glance.min': 'ขั้นต่ำในการเริ่มต้น',
+  'glance.label': 'เป้าหมายทางธุรกิจและผลลัพธ์ที่วัดผลได้',
+  'glance.body': 'สิ่งที่ธุรกิจตั้งใจขยับ และตัวเลขที่บอกว่าได้ผลจริง',
+  'g.1': 'เพิ่มนักลงทุนที่เทรดจริง',
+  'g.1d': 'จำนวนบัญชีที่เทรดจริงต่อเดือน',
+  'g.2': 'พามือใหม่ไปถึงการเทรดครั้งแรก',
+  'g.2d': 'บัญชีใหม่ที่ส่งคำสั่งแรกภายใน 7 วัน',
+  'g.3': 'ใช้งานข้ามตลาดมากขึ้น',
+  'g.3d': 'สัดส่วนบัญชีที่เทรดมากกว่าหนึ่งตลาด',
+  'g.4': 'ลดภาระงานบริการลูกค้า',
+  'g.4d': 'จำนวนเคสติดต่อฝ่ายบริการต่อ 1,000 คำสั่งซื้อขาย',
   'story.need.body': 'แอปเดียวต้องรองรับทุกสินทรัพย์ที่นักลงทุนซื้อขาย ทั้งหุ้นไทย ตราสารอนุพันธ์ ตลาดหุ้นทั่วโลกกว่า 29 ตลาด และกองทุนจาก 16 บลจ. ด้วยการล็อกอินครั้งเดียว และยังต้องง่ายพอสำหรับคนที่เพิ่งส่งคำสั่งซื้อครั้งแรก',
   'story.work.body': 'ฉันร่วมแก้โจทย์ผลิตภัณฑ์และกำหนดทิศทางเชิงกลยุทธ์ เพื่อยกระดับประสบการณ์ใช้งานตั้งแต่ต้นจนจบ ทั้งบนมือถือและเดสก์ท็อป จากนั้นทำงานใกล้ชิดกับทีมพัฒนาเพื่อขัดเกลารายละเอียดของทุกขั้นตอน ทั้งสถานะของระบบ การจัดการข้อผิดพลาด และถ้อยคำ ให้แม่นยำและชัดเจนที่สุด โดยเฉพาะเมื่อเกี่ยวข้องกับเรื่องการเงิน',
   'hl.1': 'ทุกตลาดในแอปเดียว',

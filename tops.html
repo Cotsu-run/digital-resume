@@ -587,6 +587,7 @@ html.dark .highlight svg { color: #ff7aa8; }
 .steps li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; background: var(--paper-sunk); }
 .steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.875rem; font-weight: 500; }
 .steps b { display: block; font-weight: 600; font-size: 0.9375rem; }
+.steps .kpi { margin-right: 8px; padding: 1px 6px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-size: 0.6875rem; font-style: normal; letter-spacing: 0.06em; }
 .steps span { font-size: 0.8125rem; color: var(--ink-soft); }
 
 /* The dark band's right side for these pages. */
@@ -665,14 +666,14 @@ html.dark .highlight svg { color: #ff7aa8; }
       </div>
       <aside class="glance bare reveal" aria-labelledby="glance-title">
         <div class="glance-head">
-          <p class="label" id="glance-title" data-i18n="glance.label">Measurable outcomes</p>
-          <p data-i18n="glance.body">Cut down to the steps an order actually needs.</p>
+          <p class="label" id="glance-title" data-i18n="glance.label">Business goals &amp; measurable outcomes</p>
+          <p data-i18n="glance.body">What the business set out to move, and the number that shows it.</p>
         </div>
         <ol class="steps">
-          <li><div><b data-i18n="st.1">Browse</b><span data-i18n="st.1d">Aisles and the week's deals</span></div></li>
-          <li><div><b data-i18n="st.2">Basket</b><span data-i18n="st.2d">Only what is in stock</span></div></li>
-          <li><div><b data-i18n="st.3">Delivery time</b><span data-i18n="st.3d">A slot the store can keep</span></div></li>
-          <li><div><b data-i18n="st.4">Pay</b><span data-i18n="st.4d">The order is placed</span></div></li>
+          <li><div><b data-i18n="g.1">Grow online orders</b><span><i class="kpi">KPI</i><span data-i18n="g.1d">Checkout conversion rate</span></span></div></li>
+          <li><div><b data-i18n="g.2">Make ordering quick</b><span><i class="kpi">KPI</i><span data-i18n="g.2d">Median time from basket to payment</span></span></div></li>
+          <li><div><b data-i18n="g.3">Deliver what was promised</b><span><i class="kpi">KPI</i><span data-i18n="g.3d">Orders delivered complete and in slot</span></span></div></li>
+          <li><div><b data-i18n="g.4">Bring customers back</b><span><i class="kpi">KPI</i><span data-i18n="g.4d">Repeat-order rate within 30 days</span></span></div></li>
         </ol>
       </aside>
     </div>
@@ -819,16 +820,16 @@ const th = {
   'facts.industry.v': 'ค้าปลีกสินค้าอุปโภคบริโภค',
   'facts.platform.v': 'แอปมือถือและเว็บ',
   'facts.client.v': 'ท็อปส์',
-  'glance.label': 'ผลลัพธ์ที่วัดผลได้',
-  'glance.body': 'ลดให้เหลือเพียงขั้นตอนที่คำสั่งซื้อจำเป็นจริง ๆ',
-  'st.1': 'เลือกดู',
-  'st.1d': 'หมวดสินค้าและโปรโมชันประจำสัปดาห์',
-  'st.2': 'ตะกร้า',
-  'st.2d': 'เฉพาะสินค้าที่มีในสต็อก',
-  'st.3': 'เวลาจัดส่ง',
-  'st.3d': 'ช่วงเวลาที่ร้านส่งได้จริง',
-  'st.4': 'ชำระเงิน',
-  'st.4d': 'คำสั่งซื้อเสร็จสมบูรณ์',
+  'glance.label': 'เป้าหมายทางธุรกิจและผลลัพธ์ที่วัดผลได้',
+  'glance.body': 'สิ่งที่ธุรกิจตั้งใจขยับ และตัวเลขที่บอกว่าได้ผลจริง',
+  'g.1': 'เพิ่มคำสั่งซื้อออนไลน์',
+  'g.1d': 'อัตราการชำระเงินสำเร็จ',
+  'g.2': 'สั่งซื้อได้รวดเร็ว',
+  'g.2d': 'เวลามัธยฐานจากตะกร้าถึงการชำระเงิน',
+  'g.3': 'ส่งได้ตามที่รับปาก',
+  'g.3d': 'สัดส่วนคำสั่งซื้อที่ส่งครบและตรงเวลา',
+  'g.4': 'ให้ลูกค้ากลับมาสั่งซ้ำ',
+  'g.4d': 'อัตราการสั่งซ้ำภายใน 30 วัน',
   'story.need.body': 'การสั่งซื้อต้องเร็วพอที่จะทำแทรกระหว่างเรื่องอื่นได้ และทุกอย่างที่อยู่เบื้องหลัง ทั้งของที่มีในสต็อกและสิ่งที่ร้านส่งได้จริง ต้องเชื่อถือได้มากพอที่จะรับปากกับลูกค้า',
   'story.work.body': 'ฉันดูแลฝั่งผลิตภัณฑ์ทั้งหมด ตั้งแต่การวางรูปแบบประสบการณ์ใช้งานไปจนถึงสิ่งที่ปล่อยใช้งานจริง ทั้งการลดเส้นทางสู่คำสั่งซื้อที่จ่ายแล้วให้เหลือเท่าที่จำเป็น จัดลำดับงานร่วมกับทีมพัฒนา และทดสอบกับลูกค้าจริงก่อนปล่อยใช้งาน',
   'hl.1': 'สั่งซื้อได้ในไม่กี่นาที',
