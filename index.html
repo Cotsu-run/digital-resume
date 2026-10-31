@@ -2801,9 +2801,37 @@ html.js .plan .pg-lane i, html.js .plan .pg-kpi i { transform: scaleX(0); transi
 html.js .plan .pg-dot { scale: 0; transition: scale 420ms cubic-bezier(.3,1.6,.5,1); }
 html.js .plan.visible .pg-lane i, html.js .plan.visible .pg-kpi i { transform: scaleX(1); }
 html.js .plan.visible .pg-dot { scale: 1; }
-.plan .pg-lane:nth-child(3) i, .plan .pg-kpi:nth-child(2) i, .plan .pg-dot:nth-of-type(2) { transition-delay: 120ms; }
-.plan .pg-lane:nth-child(4) i, .plan .pg-kpi:nth-child(3) i, .plan .pg-dot:nth-of-type(3) { transition-delay: 240ms; }
-.plan .pg-lane:nth-child(5) i { transition-delay: 360ms; }
+.plan .pg-lane:nth-child(4) i, .plan .pg-kpi:nth-child(2) i, .plan .pg-dot:nth-of-type(2) { transition-delay: 120ms; }
+.plan .pg-lane:nth-child(5) i, .plan .pg-kpi:nth-child(3) i, .plan .pg-dot:nth-of-type(3) { transition-delay: 240ms; }
+.plan .pg-lane:nth-child(6) i { transition-delay: 360ms; }
+/* Ambient motion once the panel is in view: a "today" marker sweeps the
+   roadmap, KPI bars breathe toward their targets, and the top risk drifts
+   down the matrix as it is mitigated. */
+.pg-roadmap { position: relative; overflow: hidden; }
+.pg-today { position: absolute; top: 10px; bottom: 10px; left: 14px; width: 2px; border-radius: 1px; background: var(--ink); opacity: 0; }
+.pg-today::before { content: ""; position: absolute; top: -3px; left: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.pg-lane i { overflow: hidden; }
+.pg-lane i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); translate: -100% 0; }
+.pg-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--c); opacity: 0; }
+@keyframes pg-sweep { 0% { left: 14px; opacity: 0; } 8%, 88% { opacity: .55; } 100% { left: calc(100% - 16px); opacity: 0; } }
+@keyframes pg-sheen { 0%, 55% { translate: -100% 0; } 100% { translate: 100% 0; } }
+@keyframes pg-breathe { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.86); } }
+@keyframes pg-ping { 0% { opacity: .7; scale: 1; } 100% { opacity: 0; scale: 2.1; } }
+@keyframes pg-mitigate { 0%, 18% { left: 83%; top: 17%; } 50%, 68% { left: 50%; top: 83%; } 100% { left: 83%; top: 17%; } }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .plan.visible .pg-today { animation: pg-sweep 7s linear 1s infinite; }
+  html.js .plan.visible .pg-lane i::after { animation: pg-sheen 3.6s ease-in-out 1.2s infinite; }
+  html.js .plan.visible .pg-lane:nth-child(4) i::after { animation-delay: 1.6s; }
+  html.js .plan.visible .pg-lane:nth-child(5) i::after { animation-delay: 2s; }
+  html.js .plan.visible .pg-lane:nth-child(6) i::after { animation-delay: 2.4s; }
+  html.js .plan.visible .pg-kpi i { animation: pg-breathe 4.2s ease-in-out 1.2s infinite; }
+  html.js .plan.visible .pg-kpi:nth-child(2) i { animation-duration: 5s; animation-delay: 1.6s; }
+  html.js .plan.visible .pg-kpi:nth-child(3) i { animation-duration: 3.6s; animation-delay: 2s; }
+  html.js .plan.visible .pg-dot::after { animation: pg-ping 2.4s ease-out 1s infinite; }
+  html.js .plan.visible .pg-dot:nth-of-type(2)::after { animation-delay: 1.8s; }
+  html.js .plan.visible .pg-dot:nth-of-type(3)::after { animation-delay: 2.6s; }
+  html.js .plan.visible .pg-dot:nth-of-type(1) { animation: pg-mitigate 9s ease-in-out 1.5s infinite; }
+}
 @media (prefers-reduced-motion: reduce) {
   html.js .plan .pg-lane i, html.js .plan .pg-kpi i { transform: none; transition: none; }
   html.js .plan .pg-dot { scale: 1; transition: none; }
@@ -2940,6 +2968,7 @@ html.js .plan.visible .pg-dot { scale: 1; }
           <span class="plan-step">01</span>
           <h3 class="plan-name" data-i18n="plan.roadmap.title" data-i18n-default="What we build, and when">What we build, and when</h3>
           <div class="pg pg-roadmap" aria-hidden="true">
+            <span class="pg-today"></span>
             <div class="pg-cols"><span data-i18n="plan.now" data-i18n-default="Now">Now</span><span data-i18n="plan.next" data-i18n-default="Next">Next</span><span data-i18n="plan.later" data-i18n-default="Later">Later</span></div>
             <div class="pg-lane"><i style="--s:0;--w:38%;--c:var(--pg-blue)"></i></div>
             <div class="pg-lane"><i style="--s:22%;--w:42%;--c:var(--pg-teal)"></i></div>
