@@ -2744,6 +2744,84 @@ html.dark .hero-bigtype em { color: var(--accent); }
   .svc-cta span[aria-hidden] { transition: none; }
 }
 
+/* Plan graphic: roadmap, KPIs and risks as three small diagrams in one panel,
+   numbered like a sequence. Bars grow in once the panel is revealed. */
+.plan {
+  --pg-blue: #1a73e8; --pg-teal: #16b8a6; --pg-amber: #f6a723; --pg-pink: #ff5c8a;
+  --pg-sunk: color-mix(in srgb, var(--ink) 4%, var(--paper-raised));
+  margin-top: clamp(28px, 4vw, 44px);
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background:
+    radial-gradient(120% 80% at 0% 0%, var(--accent-soft), transparent 60%),
+    var(--paper-raised);
+}
+.plan-head { display: grid; gap: 6px; margin-bottom: clamp(18px, 2.4vw, 26px); }
+.plan-kicker { font-family: var(--mono); font-size: var(--fs-label); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.plan-title { font-family: var(--heading); font-size: clamp(1.25rem, 2.2vw, 1.625rem); font-weight: 650; letter-spacing: -0.015em; line-height: 1.25; color: var(--ink); max-width: 30ch; }
+.plan-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-grid); counter-reset: none; }
+.plan-card {
+  position: relative; display: flex; flex-direction: column; gap: 10px;
+  padding: 18px; border: 1px solid var(--line); border-radius: var(--radius-card);
+  background: var(--paper-raised);
+}
+/* A hairline arrow joins one card to the next. */
+.plan-card:not(:last-child)::after {
+  content: ""; position: absolute; top: 30px; right: calc(var(--gap-grid) * -1); width: var(--gap-grid); height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), var(--accent));
+}
+.plan-step { font-family: var(--mono); font-size: var(--fs-label); color: var(--accent); letter-spacing: .06em; }
+.plan-name { font-family: var(--heading); font-size: var(--fs-lead); font-weight: 600; color: var(--ink); margin-top: -4px; }
+.plan-desc { font-size: 0.875rem; line-height: 1.5; color: var(--ink-soft); }
+.pg { padding: 14px; border-radius: var(--radius-chip); background: var(--pg-sunk); font-family: var(--mono); font-size: 0.6875rem; color: var(--ink-soft); height: 156px; display: flex; flex-direction: column; justify-content: center; }
+
+/* Roadmap: a Now / Next / Later strip with staggered bars. */
+.pg-cols { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 8px; }
+.pg-cols span { padding-left: 4px; border-left: 1px dashed var(--line-strong); }
+.pg-lane { position: relative; height: 10px; margin: 9px 0; }
+.pg-lane i { position: absolute; left: var(--s); width: var(--w); height: 100%; border-radius: 99px; background: var(--c); transform-origin: left; }
+
+/* KPIs: actual against a target tick. */
+.pg-kpi { display: grid; grid-template-columns: 7.5em 1fr; align-items: center; gap: 8px; margin: 6px 0 10px; }
+.pg-kpi b { position: relative; height: 8px; border-radius: 99px; background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.pg-kpi i { position: absolute; inset: 0 auto 0 0; width: var(--v); border-radius: inherit; background: var(--c); transform-origin: left; }
+.pg-kpi em { position: absolute; left: var(--t); top: -4px; width: 2px; height: 16px; border-radius: 1px; background: var(--ink); }
+.pg-legend { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.pg-key-bar { width: 14px; height: 6px; border-radius: 99px; background: var(--pg-blue); }
+.pg-key-tick { width: 2px; height: 12px; margin-left: 8px; background: var(--ink); }
+
+/* Risks: a 3 × 3 likelihood / impact grid with three plotted risks. */
+.pg-risks { justify-content: stretch; gap: 6px; }
+.pg-matrix { position: relative; flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 3px; }
+.pg-matrix span { border-radius: 4px; background: color-mix(in srgb, var(--pg-teal) 14%, transparent); }
+.pg-matrix .warm { background: color-mix(in srgb, var(--pg-amber) 22%, transparent); }
+.pg-matrix .hot { background: color-mix(in srgb, var(--pg-pink) 22%, transparent); }
+.pg-dot {
+  position: absolute; left: var(--x); top: var(--y); translate: -50% -50%;
+  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--c); color: #fff; font-style: normal; font-size: 0.625rem; font-weight: 600;
+  box-shadow: 0 0 0 3px var(--paper-raised);
+}
+.pg-axes { display: flex; justify-content: space-between; }
+
+/* Entrance: bars grow and dots pop once the panel is in view. */
+html.js .plan .pg-lane i, html.js .plan .pg-kpi i { transform: scaleX(0); transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
+html.js .plan .pg-dot { scale: 0; transition: scale 420ms cubic-bezier(.3,1.6,.5,1); }
+html.js .plan.visible .pg-lane i, html.js .plan.visible .pg-kpi i { transform: scaleX(1); }
+html.js .plan.visible .pg-dot { scale: 1; }
+.plan .pg-lane:nth-child(3) i, .plan .pg-kpi:nth-child(2) i, .plan .pg-dot:nth-of-type(2) { transition-delay: 120ms; }
+.plan .pg-lane:nth-child(4) i, .plan .pg-kpi:nth-child(3) i, .plan .pg-dot:nth-of-type(3) { transition-delay: 240ms; }
+.plan .pg-lane:nth-child(5) i { transition-delay: 360ms; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .plan .pg-lane i, html.js .plan .pg-kpi i { transform: none; transition: none; }
+  html.js .plan .pg-dot { scale: 1; transition: none; }
+}
+@media (max-width: 900px) {
+  .plan-grid { grid-template-columns: 1fr; }
+  .plan-card:not(:last-child)::after { top: auto; bottom: calc(var(--gap-grid) * -1); right: auto; left: 30px; width: 1px; height: var(--gap-grid); background: linear-gradient(180deg, var(--line-strong), var(--accent)); }
+}
+
 /* Below 900px the cards drop to two columns, and to one on a phone. The rest
    of the doors CSS above already covers both widths. */
 @media (max-width: 900px) { .doors-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -2860,6 +2938,54 @@ html.dark .hero-bigtype em { color: var(--accent); }
       <span class="door-desc" data-i18n="services.solutions.desc" data-i18n-default="Turning business needs into the right technical solution — scoping, solution design and demos that prove the value before the build begins.">Turning business needs into the right technical solution — scoping, solution design and demos that prove the value before the build begins.</span>
       <a class="svc-cta" href="#contact"><span data-i18n="services.cta" data-i18n-default="Let's talk">Let's talk</span> <span aria-hidden="true">→</span></a>
     </div>
+    </div>
+    <!-- Plan graphic — the three artefacts every engagement starts from -->
+    <div class="plan reveal" aria-labelledby="plan-title">
+      <div class="plan-head">
+        <p class="plan-kicker" data-i18n="plan.label" data-i18n-default="How a plan becomes delivery">How a plan becomes delivery</p>
+        <h2 class="plan-title" id="plan-title" data-i18n="plan.title" data-i18n-default="Roadmap, KPIs and risks — agreed before the build">Roadmap, KPIs and risks — agreed before the build</h2>
+      </div>
+      <ol class="plan-grid">
+        <li class="plan-card plan-roadmap">
+          <span class="plan-step">01</span>
+          <h3 class="plan-name" data-i18n="plan.roadmap.title" data-i18n-default="Roadmap">Roadmap</h3>
+          <div class="pg pg-roadmap" aria-hidden="true">
+            <div class="pg-cols"><span data-i18n="plan.now" data-i18n-default="Now">Now</span><span data-i18n="plan.next" data-i18n-default="Next">Next</span><span data-i18n="plan.later" data-i18n-default="Later">Later</span></div>
+            <div class="pg-lane"><i style="--s:0;--w:38%;--c:var(--pg-blue)"></i></div>
+            <div class="pg-lane"><i style="--s:22%;--w:42%;--c:var(--pg-teal)"></i></div>
+            <div class="pg-lane"><i style="--s:48%;--w:30%;--c:var(--pg-amber)"></i></div>
+            <div class="pg-lane"><i style="--s:70%;--w:30%;--c:var(--pg-pink)"></i></div>
+          </div>
+          <p class="plan-desc" data-i18n="plan.roadmap.desc" data-i18n-default="Outcomes sequenced into Now, Next and Later, so every release has a reason to ship.">Outcomes sequenced into Now, Next and Later, so every release has a reason to ship.</p>
+        </li>
+        <li class="plan-card plan-kpis">
+          <span class="plan-step">02</span>
+          <h3 class="plan-name" data-i18n="plan.kpis.title" data-i18n-default="KPIs">KPIs</h3>
+          <div class="pg pg-kpis" aria-hidden="true">
+            <div class="pg-kpi"><span data-i18n="plan.kpi.1" data-i18n-default="Activation">Activation</span><b><i style="--v:72%;--c:var(--pg-blue)"></i><em style="--t:80%"></em></b></div>
+            <div class="pg-kpi"><span data-i18n="plan.kpi.2" data-i18n-default="Conversion">Conversion</span><b><i style="--v:54%;--c:var(--pg-teal)"></i><em style="--t:60%"></em></b></div>
+            <div class="pg-kpi"><span data-i18n="plan.kpi.3" data-i18n-default="Retention">Retention</span><b><i style="--v:86%;--c:var(--pg-amber)"></i><em style="--t:75%"></em></b></div>
+            <div class="pg-legend"><span class="pg-key-bar"></span><span data-i18n="plan.kpi.actual" data-i18n-default="Actual">Actual</span><span class="pg-key-tick"></span><span data-i18n="plan.kpi.target" data-i18n-default="Target">Target</span></div>
+          </div>
+          <p class="plan-desc" data-i18n="plan.kpis.desc" data-i18n-default="A few measures tied to business goals, each with a target and an owner.">A few measures tied to business goals, each with a target and an owner.</p>
+        </li>
+        <li class="plan-card plan-risks">
+          <span class="plan-step">03</span>
+          <h3 class="plan-name" data-i18n="plan.risks.title" data-i18n-default="Risks">Risks</h3>
+          <div class="pg pg-risks" aria-hidden="true">
+            <div class="pg-matrix">
+              <span></span><span></span><span class="hot"></span>
+              <span></span><span class="warm"></span><span class="hot"></span>
+              <span></span><span></span><span class="warm"></span>
+              <i class="pg-dot" style="--x:83%;--y:17%;--c:var(--pg-pink)">R1</i>
+              <i class="pg-dot" style="--x:50%;--y:50%;--c:var(--pg-amber)">R2</i>
+              <i class="pg-dot" style="--x:17%;--y:83%;--c:var(--pg-teal)">R3</i>
+            </div>
+            <div class="pg-axes"><span data-i18n="plan.risk.y" data-i18n-default="Likelihood ↑">Likelihood ↑</span><span data-i18n="plan.risk.x" data-i18n-default="Impact →">Impact →</span></div>
+          </div>
+          <p class="plan-desc" data-i18n="plan.risks.desc" data-i18n-default="Rated by likelihood and impact, with a mitigation and an owner for each.">Rated by likelihood and impact, with a mitigation and an owner for each.</p>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
@@ -3203,6 +3329,24 @@ const i18n = {
     'works.shop.title': 'อีคอมเมิร์ซ',
     'services.label': 'บริการ',
     'services.cta': 'คุยกันเลย',
+    'plan.label': 'จากแผนสู่การส่งมอบ',
+    'plan.title': 'โรดแมป KPI และความเสี่ยง — ตกลงร่วมกันก่อนเริ่มพัฒนา',
+    'plan.roadmap.title': 'โรดแมป',
+    'plan.now': 'ตอนนี้',
+    'plan.next': 'ถัดไป',
+    'plan.later': 'ภายหลัง',
+    'plan.roadmap.desc': 'เรียงผลลัพธ์เป็น ตอนนี้ ถัดไป และภายหลัง ทุกการปล่อยงานจึงมีเหตุผลรองรับ',
+    'plan.kpis.title': 'KPI',
+    'plan.kpi.1': 'การเริ่มใช้งาน',
+    'plan.kpi.2': 'อัตราการซื้อ',
+    'plan.kpi.3': 'การกลับมาใช้ซ้ำ',
+    'plan.kpi.actual': 'ค่าจริง',
+    'plan.kpi.target': 'เป้าหมาย',
+    'plan.kpis.desc': 'ตัวชี้วัดไม่กี่ตัวที่ผูกกับเป้าหมายธุรกิจ แต่ละตัวมีเป้าหมายและผู้รับผิดชอบ',
+    'plan.risks.title': 'ความเสี่ยง',
+    'plan.risk.y': 'โอกาสเกิด ↑',
+    'plan.risk.x': 'ผลกระทบ →',
+    'plan.risks.desc': 'ประเมินจากโอกาสเกิดและผลกระทบ พร้อมแนวทางรับมือและผู้รับผิดชอบในแต่ละข้อ',
     'services.strategy.title': 'วิสัยทัศน์และกลยุทธ์ผลิตภัณฑ์',
     'services.strategy.desc': 'กำหนดทิศทางของผลิตภัณฑ์และเส้นทางไปสู่เป้าหมาย — เหตุผลทางธุรกิจ โรดแมปที่จัดลำดับความสำคัญแล้ว และตัวชี้วัดที่บอกว่าได้ผลจริง',
     'services.solutions.title': 'ที่ปรึกษาด้านโซลูชัน',
