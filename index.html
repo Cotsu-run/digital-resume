@@ -2762,11 +2762,6 @@ html.dark .hero-bigtype em { color: var(--accent); }
   padding: 18px; border: 1px solid var(--line); border-radius: var(--radius-card);
   background: var(--paper-raised);
 }
-/* A hairline arrow joins one card to the next. */
-.plan-card:not(:last-child)::after {
-  content: ""; position: absolute; top: 30px; right: calc(var(--gap-grid) * -1); width: var(--gap-grid); height: 1px;
-  background: linear-gradient(90deg, var(--line-strong), var(--accent));
-}
 .plan-step { font-family: var(--mono); font-size: var(--fs-label); color: var(--accent); letter-spacing: .06em; }
 .plan-name { font-family: var(--heading); font-size: var(--fs-lead); font-weight: 600; color: var(--ink); margin-top: -4px; }
 .plan-desc { font-size: 0.875rem; line-height: 1.5; color: var(--ink-soft); }
@@ -2815,7 +2810,6 @@ html.js .plan.visible .pg-dot { scale: 1; }
 }
 @media (max-width: 900px) {
   .plan-grid { grid-template-columns: 1fr; }
-  .plan-card:not(:last-child)::after { top: auto; bottom: calc(var(--gap-grid) * -1); right: auto; left: 30px; width: 1px; height: var(--gap-grid); background: linear-gradient(180deg, var(--line-strong), var(--accent)); }
 }
 
 /* Below 900px the cards drop to two columns, and to one on a phone. The rest
